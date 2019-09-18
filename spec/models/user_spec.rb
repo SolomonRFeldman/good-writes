@@ -12,4 +12,8 @@ RSpec.describe User, :type => :model do
     expect(user).to be_valid
   end
 
+  it "encryptes password" do
+    expect(user.password_digest).to_not eq("123")
+  end
+
 end

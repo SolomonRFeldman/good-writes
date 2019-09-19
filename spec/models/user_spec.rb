@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  let(:test_user) { 
+  let(:valid_user) { 
     User.create(
       :username => "Test",
       :email => "Test@123.com",
@@ -18,11 +18,11 @@ RSpec.describe User, :type => :model do
   }
 
   it "is valid with username, email, and password" do 
-    expect(test_user).to be_valid
+    expect(valid_user).to be_valid
   end
 
   it "encryptes password" do
-    expect(test_user.password_digest).to_not eq("123")
+    expect(valid_user.password_digest).to_not eq("123")
   end
 
   it "is invalid with a blank username" do
@@ -38,12 +38,12 @@ RSpec.describe User, :type => :model do
   end
 
   it "is invalid with a non-unique email" do
-    test_user
+    valid_user
     expect(User.new(hush_hash.merge(email: "Test@123.com"))).to_not be_valid
   end
 
   it "is invalid with a different case non-unique email" do
-    test_user
+    valid_user
     expect(User.new(hush_hash.merge(email: "test@123.com"))).to_not be_valid
   end
 

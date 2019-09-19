@@ -17,6 +17,10 @@ RSpec.describe UserGroup, :type => :model do
     )
   }
 
+  it "is valid with valid user and group" do
+    expect(UserGroup.new(user_id: valid_user.id, group_id: valid_group.id)).to be_valid
+  end
+
   it "belongs to a user and a group" do
     user_group = UserGroup.new
     user_group.user = valid_user

@@ -17,6 +17,22 @@ RSpec.describe User, :type => :model do
     }
   }
 
+  let(:group_1) {
+    Group.create(
+      name: "Sunshine Friends",
+      form: "Poetry",
+      private: false
+    )
+  }
+
+  let(:group_2) {
+    Group.create(
+      name: "Stories with Trees",
+      form: "Non-Fiction",
+      private: false
+    )
+  }
+
   it "is valid with username, email, and password" do 
     expect(valid_user).to be_valid
   end
@@ -45,6 +61,12 @@ RSpec.describe User, :type => :model do
   it "is invalid with a different case non-unique email" do
     valid_user
     expect(User.new(hush_hash.merge(email: "test@123.com"))).to_not be_valid
+  end
+
+  it "has many groups" do
+    valid_user.groups << group_1
+    valid_user.groups << group_2
+    expect(valid_user.groups).to eq([group_1, group_2])
   end
 
 end

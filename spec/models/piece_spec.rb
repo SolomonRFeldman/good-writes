@@ -18,6 +18,14 @@ RSpec.describe Piece, :type => :model do
     }
   }
 
+  let(:valid_user) { 
+    User.create(
+      :username => "Test",
+      :email => "Test@123.com",
+      :password => "123"
+    )
+  }
+
   it "is valid with a title, content, and a form" do
     expect(valid_piece).to be_valid
   end
@@ -32,6 +40,11 @@ RSpec.describe Piece, :type => :model do
 
   it "is not valid with blank form" do
     expect(Piece.new(valid_params.merge(form: ""))).to_not be_valid
+  end
+
+  it "can have a user" do
+    valid_piece.user = valid_user
+    expect(valid_piece.user).to eq(valid_user)
   end
 
 end

@@ -33,6 +33,22 @@ RSpec.describe User, :type => :model do
     )
   }
 
+  let(:piece_1) {
+    Piece.create(
+      title: "Sunshine Land",
+      content: "There once was a sunny land.",
+      form: "Fiction"
+    )
+  }
+
+  let(:piece_2) {
+    Piece.create(
+      title: "My Little Poem",
+      content: "Yeah",
+      form: "Poetry"
+    )
+  }
+
   it "is valid with username, email, and password" do 
     expect(valid_user).to be_valid
   end
@@ -67,6 +83,12 @@ RSpec.describe User, :type => :model do
     valid_user.groups << group_1
     valid_user.groups << group_2
     expect(valid_user.groups).to eq([group_1, group_2])
+  end
+
+  it "has many pieces" do
+    valid_user.pieces << piece_1
+    valid_user.pieces << piece_2
+    expect(valid_user.pieces).to eq([piece_1, piece_2])
   end
 
 end

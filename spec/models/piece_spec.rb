@@ -1,14 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Piece, :type => :model do
-
-  let(:valid_piece) {
-    Piece.create(
-      title: "Sunshine Land",
-      content: "There once was a sunny land.",
-      form: "Fiction"
-    )
-  }
+  include_context "create_all"
 
   let(:valid_params) {
     {
@@ -16,14 +9,6 @@ RSpec.describe Piece, :type => :model do
       content: "Yeah",
       form: "Poetry"
     }
-  }
-
-  let(:valid_user) { 
-    User.create(
-      :username => "Test",
-      :email => "Test@123.com",
-      :password => "123"
-    )
   }
 
   it "is valid with a title, content, and a form" do

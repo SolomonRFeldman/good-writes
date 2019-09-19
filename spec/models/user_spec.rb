@@ -1,14 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  let(:valid_user) { 
-    User.create(
-      :username => "Test",
-      :email => "Test@123.com",
-      :password => "123"
-    )
-  }
-  
+  include_context "create_all"
+
   let(:hush_hash) { 
     {
       :username => "Hello",

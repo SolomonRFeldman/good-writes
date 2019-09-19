@@ -1,13 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Group, :type => :model do
-  let(:valid_group) {
-    Group.create(
-      name: "Sunshine Friends",
-      form: "Poetry",
-      private: false
-    )
-  }
+  include_context "create_all"
 
   let(:user_1) { 
     User.create(
@@ -34,8 +28,5 @@ RSpec.describe Group, :type => :model do
     valid_group.users << user_2
     expect(valid_group.users).to eq([user_1, user_2])
   end
-
-
-  
 
 end

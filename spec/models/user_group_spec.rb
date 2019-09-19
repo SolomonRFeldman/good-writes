@@ -1,21 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UserGroup, :type => :model do
-  let(:valid_group) {
-    Group.create(
-      name: "Sunshine Friends",
-      form: "Poetry",
-      private: false
-    )
-  }
-
-  let(:valid_user) { 
-    User.create(
-      :username => "Test",
-      :email => "Test@123.com",
-      :password => "123"
-    )
-  }
+  include_context "create_all"
 
   it "is valid with valid user and group" do
     expect(UserGroup.new(user_id: valid_user.id, group_id: valid_group.id)).to be_valid

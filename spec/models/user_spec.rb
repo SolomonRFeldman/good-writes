@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  let(:user) { 
+  let(:test_user) { 
     User.create(
       :username => "Test",
       :email => "Test@123.com",
@@ -9,32 +9,42 @@ RSpec.describe User, :type => :model do
     )
   }
   
+  let(:hush_hash) { 
+    {
+      :username => "Hello",
+      :email => "Hello@Hush.com",
+      :password => "hush"
+    }
+  }
+
   it "is valid with username, email, and password" do 
-    expect(user).to be_valid
+    expect(test_user).to be_valid
   end
 
   it "encryptes password" do
-    expect(user.password_digest).to_not eq("123")
+    expect(test_user.password_digest).to_not eq("123")
   end
 
   it "is invalid with a blank username" do
-    expect(User.new(username: "", email: "Hello@Hush.com", password: "hush")).to_not be_valid
+    expect(User.new(hush_hash.merge(username: ""))).to_not be_valid
   end
 
   it "is invalid with a blank password" do
-    expect(User.new(username: "Hello", email: "Hello@Hush.com", password: "")).to_not be_valid
+    expect(User.new(hush_hash.merge(password: ""))).to_not be_valid
   end
 
   it "is invalid with a blank email" do
-    expect(User.new(username: "Hello", email: "", password: "hush")).to_not be_valid
+    expect(User.new(hush_hash.merge(email: ""))).to_not be_valid
   end
 
   it "is invalid with a non-unique email" do
-    expect(User.new(username: "Hello", email: "Test@123.com", password: "hush")).to_not be_valid
+    test_user
+    expect(User.new(hush_hash.merge(email: "Test@123.com"))).to_not be_valid
   end
 
   it "is invalid with a different case non-unique email" do
-    expect(User.new(username: "Hello", email: "test@123.com", password: "hush")).to_not be_valid
+    test_user
+    expect(User.new(hush_hash.merge(email: "test@123.com"))).to_not be_valid
   end
 
 end

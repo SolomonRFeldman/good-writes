@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_180534) do
+ActiveRecord::Schema.define(version: 2019_09_19_184555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 2019_09_19_180534) do
   end
 
   create_table "user_groups", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "group_id"
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
     t.citext "alias"
-    t.boolean "moderator_status"
+    t.boolean "moderator_status", default: false
   end
 
   create_table "users", force: :cascade do |t|

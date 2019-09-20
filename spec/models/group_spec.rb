@@ -29,4 +29,10 @@ RSpec.describe Group, :type => :model do
     expect(valid_group.users).to eq([user_1, user_2])
   end
 
+  it "has many comments" do
+    valid_comment
+    other_comment = Comment.create(user_id: valid_user.id, piece_id: valid_piece.id, group_id: valid_group.id, content: "It's alright I suppose.")
+    expect(valid_group.comments).to eq([valid_comment, other_comment])
+  end
+
 end

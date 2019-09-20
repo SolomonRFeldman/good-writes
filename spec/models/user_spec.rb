@@ -84,5 +84,11 @@ RSpec.describe User, :type => :model do
     valid_user.pieces << piece_2
     expect(valid_user.pieces).to eq([piece_1, piece_2])
   end
+  
+  it "has many comments" do
+    valid_comment
+    other_comment = Comment.create(user_id: valid_user.id, piece_id: valid_piece.id, group_id: valid_group.id, content: "It's alright I suppose.")
+    expect(valid_user.comments).to eq([valid_comment, other_comment])
+  end
 
 end

@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 describe 'User Features', :type => :feature do
+  include_context "create_all"
 
-  it "can sign up and redirects to user's page" do
+  it "can sign up and redirects to root path" do
     visit '/users/new'
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "123")
     click_button('Sign Up')
-    expect(current_path).to eq("/users/#{User.all.last.id}")
+    expect(current_path).to eq("/")
   end
 
   it "adds a session hash on sign up" do
@@ -77,5 +78,9 @@ describe 'User Features', :type => :feature do
     expect(current_path).to eq('/users/new')
   end
   
+  it "can show a users show page" do
+    visit "/users/#{valid_user.id}"
+    expect(page).to have_content("Test")
+  end
   
 end

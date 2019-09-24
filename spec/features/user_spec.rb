@@ -83,4 +83,49 @@ describe 'User Features', :type => :feature do
     expect(page).to have_content("Test")
   end
   
+  it "can log in and redirects to root path" do
+    valid_user
+    visit '/login'
+    fill_in("user[email]", with: "Test@123.com")
+    fill_in("user[password]", with: "123")
+    click_button('Log In')
+    expect(current_path).to eq("/")
+  end
+
+  it "adds a session hash on login" do
+    valid_user
+    visit '/login'
+    fill_in("user[email]", with: "Test@123.com")
+    fill_in("user[password]", with: "123")
+    click_button('Log In')
+    expect(page.get_rack_session_key('user_id')).to_not be_nil
+  end
+
+  it "displays username after logging in" do
+    valid_user
+    visit '/login'
+    fill_in("user[email]", with: "Test@123.com")
+    fill_in("user[password]", with: "123")
+    click_button('Log In')
+    expect(page).to have_content("Test")
+  end
+
+  it "redirected back to login with incorrect email" do
+    valid_user
+    visit '/login'
+    fill_in("user[email]", with: "Test@124.com")
+    fill_in("user[password]", with: "123")
+    click_button('Log In')
+    expect(current_path).to eq("/login")
+  end
+
+  it "redirected back to login with incorrect password" do
+    valid_user
+    visit '/login'
+    fill_in("user[email]", with: "Test@123.com")
+    fill_in("user[password]", with: "124")
+    click_button('Log In')
+    expect(current_path).to eq("/login")
+  end
+
 end

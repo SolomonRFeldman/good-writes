@@ -47,3 +47,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bcrypt', '~> 3.1', '>= 3.1.13'
+gem 'capybara', '~> 3.29'

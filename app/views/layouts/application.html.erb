@@ -10,6 +10,11 @@
   </head>
 
   <body>
+    <header>
+      <% if @current_user %>
+        Welcome, <%= @current_user.username %>
+      <% end %>
+    </header>
     <%= yield %>
   </body>
 </html>

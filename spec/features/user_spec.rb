@@ -4,7 +4,7 @@ describe 'User Features', :type => :feature do
   include_context "create_all"
 
   it "can sign up and redirects to root path" do
-    visit '/users/new'
+    visit '/signup'
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
@@ -14,7 +14,7 @@ describe 'User Features', :type => :feature do
   end
 
   it "adds a session hash on sign up" do
-    visit '/users/new'
+    visit '/signup'
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
@@ -24,7 +24,7 @@ describe 'User Features', :type => :feature do
   end
 
   it "displays username after signing up" do
-    visit '/users/new'
+    visit '/signup'
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
@@ -34,48 +34,48 @@ describe 'User Features', :type => :feature do
   end
 
   it "redirects back to users/new if username is blank" do
-    visit '/users/new'
+    visit '/signup'
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "123")
     click_button('Sign Up')
-    expect(current_path).to eq('/users/new')
+    expect(current_path).to eq('/signup')
   end
 
   it "redirects if email is blank" do
-    visit '/users/new'
+    visit '/signup'
     fill_in("user[username]", with: "Test")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "123")
     click_button('Sign Up')
-    expect(current_path).to eq('/users/new')
+    expect(current_path).to eq('/signup')
   end
 
   it "redirects if password fields are blank" do
-    visit '/users/new'
+    visit '/signup'
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
     click_button('Sign Up')
-    expect(current_path).to eq('/users/new')
+    expect(current_path).to eq('/signup')
   end
   
   it "redirects if password_confirmation is blank" do
-    visit '/users/new'
+    visit '/signup'
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     click_button('Sign Up')
-    expect(current_path).to eq('/users/new')
+    expect(current_path).to eq('/signup')
   end
 
   it "redirects if password_confirmation does not match password" do
-    visit '/users/new'
+    visit '/signup'
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "321")
     click_button('Sign Up')
-    expect(current_path).to eq('/users/new')
+    expect(current_path).to eq('/signup')
   end
   
   it "can show a users show page" do

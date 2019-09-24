@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   root 'application#index'
 
-  resources :users
+  resources :users, only: [:index, :show]
+  get '/signup' => 'users#new'
+  post '/signup' => 'users#create'
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'

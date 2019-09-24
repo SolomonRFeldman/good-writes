@@ -48,3 +48,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bcrypt', '~> 3.1', '>= 3.1.13'
 gem 'capybara', '~> 3.29'
+gem 'rack_session_access', '~> 0.2.0'

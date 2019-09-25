@@ -9,7 +9,7 @@ describe 'User Features', :type => :feature do
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "123")
-    click_button('Sign Up')
+    click_button('Sign Up', name: 'body_signup')
     expect(current_path).to eq("/")
   end
 
@@ -19,7 +19,7 @@ describe 'User Features', :type => :feature do
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "123")
-    click_button('Sign Up')
+    click_button('Sign Up', name: 'body_signup')
     expect(page.get_rack_session_key('user_id')).to_not be_nil
   end
 
@@ -29,7 +29,7 @@ describe 'User Features', :type => :feature do
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "123")
-    click_button('Sign Up')
+    click_button('Sign Up', name: 'body_signup')
     expect(page).to have_content("Test")
   end
 
@@ -38,7 +38,7 @@ describe 'User Features', :type => :feature do
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "123")
-    click_button('Sign Up')
+    click_button('Sign Up', name: 'body_signup')
     expect(current_path).to eq('/signup')
   end
 
@@ -47,7 +47,7 @@ describe 'User Features', :type => :feature do
     fill_in("user[username]", with: "Test")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "123")
-    click_button('Sign Up')
+    click_button('Sign Up', name: 'body_signup')
     expect(current_path).to eq('/signup')
   end
 
@@ -55,7 +55,7 @@ describe 'User Features', :type => :feature do
     visit '/signup'
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
-    click_button('Sign Up')
+    click_button('Sign Up', name: 'body_signup')
     expect(current_path).to eq('/signup')
   end
   
@@ -64,7 +64,7 @@ describe 'User Features', :type => :feature do
     fill_in("user[username]", with: "Test")
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
-    click_button('Sign Up')
+    click_button('Sign Up', name: 'body_signup')
     expect(current_path).to eq('/signup')
   end
 
@@ -74,7 +74,7 @@ describe 'User Features', :type => :feature do
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     fill_in("user[password_confirmation]", with: "321")
-    click_button('Sign Up')
+    click_button('Sign Up', name: 'body_signup')
     expect(current_path).to eq('/signup')
   end
   
@@ -88,7 +88,7 @@ describe 'User Features', :type => :feature do
     visit '/login'
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
-    click_button('Log In')
+    click_button('Log In', name: 'body_login')
     expect(current_path).to eq("/")
   end
 
@@ -97,7 +97,7 @@ describe 'User Features', :type => :feature do
     visit '/login'
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
-    click_button('Log In')
+    click_button('Log In', name: 'body_login')
     expect(page.get_rack_session_key('user_id')).to eq(valid_user.id)
   end
 
@@ -106,7 +106,7 @@ describe 'User Features', :type => :feature do
     visit '/login'
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
-    click_button('Log In')
+    click_button('Log In', name: 'body_login')
     expect(page).to have_content("Test")
   end
 
@@ -115,7 +115,7 @@ describe 'User Features', :type => :feature do
     visit '/login'
     fill_in("user[email]", with: "Test@124.com")
     fill_in("user[password]", with: "123")
-    click_button('Log In')
+    click_button('Log In', name: 'body_login')
     expect(current_path).to eq("/login")
   end
 
@@ -124,20 +124,32 @@ describe 'User Features', :type => :feature do
     visit '/login'
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "124")
-    click_button('Log In')
+    click_button('Log In', name: 'body_login')
     expect(current_path).to eq("/login")
   end
 
-  it "can log out" do
+  it "can use the log out button to" do
     valid_user
     visit '/login'
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
-    click_button('Log In')
+    click_button('Log In', name: 'body_login')
     expect(page.get_rack_session_key('user_id')).to eq(valid_user.id)
     visit '/'
     click_button('Log Out')
     expect{page.get_rack_session_key('user_id')}.to raise_error(KeyError)
+  end
+
+  it "can use the log in button to get to the log in path" do
+    visit '/'
+    click_button('Log In', name: 'layout_login')
+    expect(current_path).to eq('/login')
+  end
+
+  it "can use the sign up button to get to the sign up path" do
+    visit '/'
+    click_button('Sign Up', name: 'layout_signup')
+    expect(current_path).to eq('/signup')
   end
 
 end

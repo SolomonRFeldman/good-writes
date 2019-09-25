@@ -152,4 +152,24 @@ describe 'User Features', :type => :feature do
     expect(current_path).to eq('/signup')
   end
 
+  it "redirects to root from login path when logged in" do
+    valid_user
+    visit '/login'
+    fill_in("user[email]", with: "Test@123.com")
+    fill_in("user[password]", with: "123")
+    click_button('Log In', name: 'body_login')
+    visit '/login'
+    expect(current_path).to eq('/')
+  end
+
+  it "redirects to root from signin path when logged in" do
+    valid_user
+    visit '/login'
+    fill_in("user[email]", with: "Test@123.com")
+    fill_in("user[password]", with: "123")
+    click_button('Log In', name: 'body_login')
+    visit '/signup'
+    expect(current_path).to eq('/')
+  end
+
 end

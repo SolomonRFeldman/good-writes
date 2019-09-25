@@ -98,7 +98,7 @@ describe 'User Features', :type => :feature do
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "123")
     click_button('Log In')
-    expect(page.get_rack_session_key('user_id')).to_not be_nil
+    expect(page.get_rack_session_key('user_id')).to eq(valid_user.id)
   end
 
   it "displays username after logging in" do
@@ -119,13 +119,25 @@ describe 'User Features', :type => :feature do
     expect(current_path).to eq("/login")
   end
 
-  it "redirected back to login with incorrect password" do
+  it "redirects back to login with incorrect password" do
     valid_user
     visit '/login'
     fill_in("user[email]", with: "Test@123.com")
     fill_in("user[password]", with: "124")
     click_button('Log In')
     expect(current_path).to eq("/login")
+  end
+
+  it "can log out" do
+    valid_user
+    visit '/login'
+    fill_in("user[email]", with: "Test@123.com")
+    fill_in("user[password]", with: "123")
+    click_button('Log In')
+    expect(page.get_rack_session_key('user_id')).to eq(valid_user.id)
+    visit '/'
+    click_button('Log Out')
+    expect{page.get_rack_session_key('user_id')}.to raise_error(KeyError)
   end
 
 end

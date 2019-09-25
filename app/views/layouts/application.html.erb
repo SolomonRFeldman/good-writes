@@ -16,6 +16,9 @@
         <%= form_with url: '/login', method: 'delete' do %>
           <%= submit_tag 'Log Out' %>
         <% end %>
+      <% else %>
+        <%= button_to 'Log In', login_path, name: 'layout_login', method: :get %>
+        <%= button_to 'Sign Up', signup_path, name: 'layout_signup', method: :get %>
       <% end %>
     </header>
     <%= yield %>

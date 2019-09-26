@@ -6,8 +6,10 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.create(group_params)
-    redirect_to group_path(@group)
+    if @current_user
+      @group = Group.create(group_params)
+      redirect_to group_path(@group)
+    end
   end
 
   def show

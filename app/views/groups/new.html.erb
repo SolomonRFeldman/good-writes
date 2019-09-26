@@ -1,0 +1,5 @@
+<%= form_with model: @group do |f| %>
+  <%= f.text_field :name %>
+  <%= f.select :form, options_for_select([['Poetry'], ['Fiction'], ['Non-Fiction']]) %>
+  <%= f.submit "Create Group" %>
+<% end %>

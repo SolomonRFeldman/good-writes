@@ -18,6 +18,7 @@ class GroupsController < ApplicationController
   end
 
   def show
+    @group = Group.find_by(id: params[:id])
   end
 
   private

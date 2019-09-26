@@ -171,5 +171,14 @@ describe 'User Features', :type => :feature do
     visit '/signup'
     expect(current_path).to eq('/')
   end
+  
+  it "displayes joined groups on the user's show page" do
+    valid_user
+    page.set_rack_session(user_id: valid_user.id)
+    valid_group
+    UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+    visit user_path(valid_user)
+    expect(page).to have_content("Sunshine Friends")
+  end
 
 end

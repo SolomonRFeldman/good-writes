@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
   def create
     if @current_user
       @group = Group.create(group_params)
+      UserGroup.create(user_id: @current_user.id, group_id: @group.id)
       redirect_to group_path(@group)
     end
   end

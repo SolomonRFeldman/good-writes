@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
 
   def new
+    redirect_to root_path unless @current_user
     @group = Group.new
   end
 

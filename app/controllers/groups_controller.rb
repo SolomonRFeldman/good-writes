@@ -12,6 +12,10 @@ class GroupsController < ApplicationController
       redirect_to group_path(@group)
     end
   end
+  
+  def index
+    @groups = Group.all
+  end
 
   def show
   end

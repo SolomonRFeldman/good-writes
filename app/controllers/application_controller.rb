@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :fetch_current_user
 
   def index
-
+    @groups = Group.all
   end
   
   private

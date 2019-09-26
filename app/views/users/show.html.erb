@@ -1,1 +1,6 @@
 <%= @user.username %>
+<ul>
+  <% @user.groups.each do |group| %>
+    <li><%= group.name%></li>
+  <% end %>
+</ul>

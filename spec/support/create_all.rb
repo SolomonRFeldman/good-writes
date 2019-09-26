@@ -19,8 +19,7 @@ RSpec.shared_context "create_all" do
   let(:valid_group) {
     Group.create(
       name: "Sunshine Friends",
-      form: "Poetry",
-      private: false
+      form: "Poetry"
     )
   }
 

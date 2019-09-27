@@ -8,4 +8,8 @@ class UserGroup < ApplicationRecord
     end
   end
 
+  after_destroy do
+    self.group.destroy if self.group.user_groups.empty?
+  end
+
 end

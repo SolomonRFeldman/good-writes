@@ -31,15 +31,14 @@ RSpec.describe UserGroup, :type => :model do
     expect(user_group.alias).to eq(valid_user.username)
   end
 
-  it "defaults moderator_status to false" do
+  it "deletes its group it is the last user_group to be destroyed" do
     user_group = UserGroup.new
+    group = valid_group
     user_group.user = valid_user
-    user_group.group = valid_group
+    user_group.group = group
     user_group.save
-    expect(user_group.moderator_status).to eq(false)
+    user_group.destroy
+    expect(group).to be_destroyed
   end
-
-
-  
 
 end

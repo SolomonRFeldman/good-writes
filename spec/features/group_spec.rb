@@ -92,4 +92,15 @@ describe 'Group Features', :type => :feature do
     expect(valid_user.groups).to be_empty
   end
 
+  it "can have a user change their alias" do
+    valid_user
+    page.set_rack_session(user_id: valid_user.id)
+    valid_group
+    user_group = UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+    visit edit_user_group_path(user_group)
+    fill_in("user_group[alias]", with: "Victor")
+    click_button('Change Alias')
+    expect(page).to have_content("Victor")
+  end
+
 end

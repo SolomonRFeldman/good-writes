@@ -1,6 +1,14 @@
 <%= @user.username %>
 <ul>
   <% @user.groups.each do |group| %>
-    <li><%= group.name%></li>
+    <li><%= group.name %></li>
   <% end %>
 </ul>
+
+<ul>
+  <% @user.pieces.each do |piece| %>
+    <li><%= piece.title %></li>
+  <% end %>
+</ul>
+
+<%= button_to 'Add Piece', "/users/#{@user.id}/pieces/new", method: :get %>

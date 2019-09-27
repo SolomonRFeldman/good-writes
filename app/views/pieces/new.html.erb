@@ -1,0 +1,6 @@
+<%= form_with model: [@current_user, @piece] do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_area :content %>
+  <%= f.select :form, options_for_select([['Poetry'], ['Fiction'], ['Non-Fiction']]) %>
+  <%= f.submit "Add Piece" %>
+<% end %>

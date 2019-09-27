@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/login' => 'sessions#delete'
 
-  resources :groups
+  resources :groups do
+    resources :user_groups, only: [:create, :destroy, :edit, :update]
+  end
 
-  resources :user_groups, only: [:create, :destroy, :edit, :update]
+  
 
 end

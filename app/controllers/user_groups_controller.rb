@@ -2,6 +2,7 @@ class UserGroupsController < ApplicationController
 
   def edit
     @user_group = UserGroup.find_by(id: params[:id])
+    @group = @user_group.group
     redirect_to root_path unless @user_group.user_id == @current_user.id
   end
 

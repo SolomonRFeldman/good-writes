@@ -1,5 +1,15 @@
 class UserGroupsController < ApplicationController
 
+  def new
+    @user_group = UserGroup.new
+    @group = Group.find_by(params[:id])
+    redirect_to root_path unless @group
+  end
+
+  def create
+    @user_group = UserGroup.create(user_id: @current_user.id, group_id: params[:group_id], alias: params[:user_group][:alias])
+  end
+  
   def edit
     @user_group = UserGroup.find_by(id: params[:id])
     @group = @user_group.group

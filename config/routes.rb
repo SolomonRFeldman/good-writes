@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   delete '/login' => 'sessions#delete'
 
   resources :groups do
-    resources :user_groups, only: [:create, :destroy, :edit, :update]
+    resources :user_groups, only: [:create, :new, :destroy, :edit, :update]
   end
 
   

@@ -1,5 +1,6 @@
 <ul>
   <% @groups.each do |group| %>
     <li><%= group.name %></li>
+    <%= button_to 'Join', "/groups/#{group.id}/user_groups/new", method: :get %>
   <% end %>
 </ul>

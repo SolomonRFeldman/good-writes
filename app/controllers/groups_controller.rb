@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
   def create
     if @current_user
       @group = Group.create(group_params)
-      UserGroup.create(user_id: @current_user.id, group_id: @group.id)
+      UserGroup.create(user_id: @current_user.id, group_id: @group.id, alias: user_group_params[:alias])
       redirect_to group_path(@group)
     end
   end
@@ -25,6 +25,10 @@ class GroupsController < ApplicationController
  
   def group_params
     params.require(:group).permit(:name, :form)
+  end
+
+  def user_group_params
+    params[:user_group].permit(:alias)
   end
 
 end

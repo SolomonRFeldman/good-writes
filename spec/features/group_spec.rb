@@ -72,4 +72,14 @@ describe 'Group Features', :type => :feature do
     expect(page).to have_content("Victor")
   end
 
+  it "defaults the alias to the user's username when none is provided" do
+    valid_user
+    page.set_rack_session(user_id: valid_user.id)
+    visit '/groups/new'
+    fill_in("group[name]", with: "Sunshine Friends")
+    select("Poetry", from: "group[form]")
+    click_button('Create Group')
+    expect(page.body[/<\/header>[\S\s]+/]).to include("Test")
+  end
+
 end

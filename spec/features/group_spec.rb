@@ -61,4 +61,15 @@ describe 'Group Features', :type => :feature do
     expect(page).to have_content("Victor")
   end
 
+  it "creates a group with the user's chosen alias displayed in group show" do
+    valid_user
+    page.set_rack_session(user_id: valid_user.id)
+    visit '/groups/new'
+    fill_in("group[name]", with: "Sunshine Friends")
+    select("Poetry", from: "group[form]")
+    fill_in("user_group[alias]", with: "Victor")
+    click_button('Create Group')
+    expect(page).to have_content("Victor")
+  end
+
 end

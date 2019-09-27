@@ -114,4 +114,18 @@ describe 'Group Features', :type => :feature do
     expect(current_path).to eq('/')
   end
 
+  it "allows a user to join a group and redirect to group page" do
+    valid_user
+    page.set_rack_session(user_id: valid_user.id)
+    valid_group
+    user_group = UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+    secondary_user
+    page.set_rack_session(user_id: secondary_user.id)
+    visit root_path
+    click_button('Join')
+    fill_in("user_group[alias]", with: "Victor")
+    click_button('Join')
+    expect(UserGroup.find_by(user_id: secondary_user, group_id: valid_group.id, alias: 'Victor')).to_not be_nil
+  end
+
 end

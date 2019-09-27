@@ -8,6 +8,14 @@ RSpec.shared_context "create_all" do
     )
   }
 
+  let(:secondary_user) {
+    User.create(
+      :username => "Hello",
+      :email => "Hello@Hush.com",
+      :password => "hush"
+    )
+  }
+
   let(:valid_piece) {
     Piece.create(
       title: "Sunshine Land",

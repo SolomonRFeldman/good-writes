@@ -103,4 +103,15 @@ describe 'Group Features', :type => :feature do
     expect(page).to have_content("Victor")
   end
 
+  it "allows only the creater of the user_group to change their alias" do
+    valid_user
+    page.set_rack_session(user_id: valid_user.id)
+    valid_group
+    user_group = UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+    secondary_user
+    page.set_rack_session(user_id: secondary_user.id)
+    visit edit_user_group_path(user_group)
+    expect(current_path).to eq('/')
+  end
+
 end

@@ -8,6 +8,7 @@
 <ul>
   <% @user.pieces.each do |piece| %>
     <li><%= piece.title %></li>
+    <%= button_to 'Edit', "/users/#{@user.id}/pieces/#{piece.id}/edit", method: :get %>
   <% end %>
 </ul>
 

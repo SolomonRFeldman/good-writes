@@ -1,9 +1,9 @@
 FactoryBot.define do
 
   factory :valid_comment, class: Comment do
-    piece_id { valid_piece.id }
-    user_id { valid_user.id }
-    group_id { valid_group.id }
+    association :user, factory: :valid_user
+    association :group, factory: :valid_group
+    association :piece, factory: :valid_piece
     content { "Pretty good" }
   end
 

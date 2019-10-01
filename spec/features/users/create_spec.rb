@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'User Features', :type => :feature do
-  include_context "create_all"
   
   describe 'GET /signup' do
     before { visit '/signup' }
@@ -96,9 +95,8 @@ describe 'User Features', :type => :feature do
   end
 
   context "when a user goes to the signup path while logged in" do
-
+    let(:valid_user) { create(:valid_user) }
     before do
-      valid_user
       page.set_rack_session(user_id: valid_user.id)
       visit '/signup'
     end

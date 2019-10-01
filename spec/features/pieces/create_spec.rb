@@ -1,14 +1,13 @@
 require 'rails_helper'
 
 describe 'Piece Features', :type => :feature do
-  include_context "create_all"
+  let(:valid_user) { create(:valid_user) }
 
   describe 'new_user_piece path' do
 
     context "when a user creates a piece" do
       before do
-        valid_user
-        page.set_rack_session(user_id: valid_user.id)
+        login_user(valid_user)
         visit user_path(valid_user)
         click_button('Add Piece')
         fill_in("piece[title]", with: "My Little Poem")

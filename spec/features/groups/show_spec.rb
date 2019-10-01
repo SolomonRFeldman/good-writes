@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe 'Group Features', :type => :feature do
-  include_context "create_all"
+  let(:valid_user) { create(:valid_user) }
+  let(:valid_group) { create(:valid_group) }
+  let(:secondary_user) { create(:valid_user, :username => "Hello", :email => "Hello@Hush.com", :password => "hush") }
 
   describe 'GET /' do
     before do
-      valid_user
-      page.set_rack_session(user_id: valid_user.id)
+      login_user(valid_user)
       valid_group
       visit '/'
     end
@@ -33,8 +34,7 @@ describe 'Group Features', :type => :feature do
  
   describe "when a user navigates to a group's show page they've joined" do
     before do
-      valid_user
-      page.set_rack_session(user_id: valid_user.id)
+      login_user(valid_user)
       valid_group
       UserGroup.create(user_id: valid_user.id, group_id: valid_group.id, alias: 'Victor')
       visit group_path(valid_group)
@@ -51,8 +51,7 @@ describe 'Group Features', :type => :feature do
 
   context 'when a user changes their alias' do
     before do
-      valid_user
-      page.set_rack_session(user_id: valid_user.id)
+      login_user(valid_user)
       valid_group
       user_group = UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
       visit edit_group_user_group_path(valid_group, user_group)
@@ -67,12 +66,10 @@ describe 'Group Features', :type => :feature do
   
   context "when a user tries to change someone else's alias" do
     before do
-      valid_user
-      page.set_rack_session(user_id: valid_user.id)
+      login_user(valid_user)
       valid_group
       user_group = UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
-      secondary_user
-      page.set_rack_session(user_id: secondary_user.id)
+      login_user(secondary_user)
       visit edit_group_user_group_path(valid_group, user_group)
     end
     it 'redirects to root path' do
@@ -82,8 +79,7 @@ describe 'Group Features', :type => :feature do
 
   context "when a user leaves it's group" do
     before do
-      valid_user
-      page.set_rack_session(user_id: valid_user.id)
+      login_user(valid_user)
       valid_group
       UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
       visit group_path(valid_group)

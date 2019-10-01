@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe 'Piece Features', :type => :feature do
-  include_context "create_all"
+  let(:valid_user) { create(:valid_user) }
+  let(:valid_piece) { create(:valid_piece) }
 
   before do
-    valid_user
-    page.set_rack_session(user_id: valid_user.id)
+    login_user(valid_user)
     valid_piece.update(user_id: valid_user.id)
   end
   

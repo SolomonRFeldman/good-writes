@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 describe 'Group Features', :type => :feature do
-  include_context "create_all"
+  let(:valid_user) { create(:valid_user) }
   
   describe 'GET /groups/new' do
     before do
-      valid_user
-      page.set_rack_session(user_id: valid_user.id)
+      login_user(valid_user)
       visit('/groups/new')
     end
 

@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe 'User Features', :type => :feature do
-  include_context "create_all"
+  let(:valid_user) { create(:valid_user) }
+  let(:valid_group) { create(:valid_group) }
 
   context 'when a user signs up' do
     before do
@@ -20,8 +21,7 @@ describe 'User Features', :type => :feature do
   
   context 'when a user navigates to their user show page' do
     before do
-      valid_user
-      page.set_rack_session(user_id: valid_user.id)
+      login_user(valid_user)
       visit user_path(valid_user)
     end
 
@@ -97,8 +97,7 @@ describe 'User Features', :type => :feature do
   describe 'layout buttons' do
     context 'when the user presses the log out button'
       before do
-        valid_user
-        page.set_rack_session(user_id: valid_user.id)
+        login_user(valid_user)
         visit '/'
         click_button('Log Out')
       end
@@ -123,8 +122,7 @@ describe 'User Features', :type => :feature do
   
   context 'when a user goes to the login path while logged in' do
     before do
-      valid_user
-      page.set_rack_session(user_id: valid_user.id)
+      login_user(valid_user)
       visit '/login'
     end
 

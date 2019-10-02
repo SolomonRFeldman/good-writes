@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_182105) do
+ActiveRecord::Schema.define(version: 2019_10_02_182718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_182105) do
     t.boolean "private"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "point_in_cycle", default: 0
   end
 
   create_table "pieces", force: :cascade do |t|

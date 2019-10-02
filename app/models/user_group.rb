@@ -1,6 +1,7 @@
 class UserGroup < ApplicationRecord
   belongs_to :user
   belongs_to :group
+  belongs_to :piece, optional: true
 
   before_save do
     if self.alias == nil or self.alias == ""

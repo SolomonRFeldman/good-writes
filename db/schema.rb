@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_224541) do
+ActiveRecord::Schema.define(version: 2019_10_02_140409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_09_19_224541) do
     t.boolean "moderator_status", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "piece_id"
   end
 
   create_table "users", force: :cascade do |t|

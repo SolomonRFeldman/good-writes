@@ -68,6 +68,16 @@ RSpec.describe Group, :type => :model do
         expect(valid_group.point_in_cycle).to eq(0)
       end
     end
+
+    context "when there is no prepared piece" do
+      before do
+        user_group_2.update(piece_id: nil)
+      end
+
+      it "returns nil" do
+        expect(valid_group.featured_piece).to be_nil
+      end
+    end
       
   end
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe UserGroup, :type => :model do
   let(:valid_user) { create(:valid_user) }
   let(:valid_group) { create(:valid_group) }
-  let(:user_group) { UserGroup.new }
+  let(:user_group) { UserGroup.create(user_id: valid_user.id, group_id: valid_group.id) }
 
   it "is valid with valid user and group" do
     expect(UserGroup.new(user_id: valid_user.id, group_id: valid_group.id)).to be_valid
@@ -11,8 +11,7 @@ RSpec.describe UserGroup, :type => :model do
 
   context "when it is assigned to a user and a group" do
     before do
-      user_group.user = valid_user
-      user_group.group = valid_group
+      user_group
     end
     it "belongs to a user and a group" do
       expect(user_group.user).to eq(valid_user)
@@ -30,9 +29,7 @@ RSpec.describe UserGroup, :type => :model do
 
   context "when it saves with no alias provided" do
     before do
-      user_group.user = valid_user
-      user_group.group = valid_group
-      user_group.save
+      user_group
     end
     it "defaults the alias to the user's username" do
       expect(user_group.alias).to eq(valid_user.username)
@@ -41,13 +38,11 @@ RSpec.describe UserGroup, :type => :model do
 
   context "when it gets destroyed as the last user_group in a group" do
     before do
-      user_group.user = valid_user
-      user_group.group = valid_group
-      user_group.save
+      user_group
       user_group.destroy
     end
     it "destroys the group" do
-      expect(valid_group).to be_destroyed
+      expect(Group.find_by(id: valid_group.id)).to be_nil
     end
   end
 

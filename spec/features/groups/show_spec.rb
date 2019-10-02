@@ -32,11 +32,12 @@ describe 'Group Features', :type => :feature do
 
   end
  
-  describe "when a user navigates to a group's show page they've joined" do
+  context "when a user navigates to a group's show page they've joined" do
+    let(:valid_piece) { create(:valid_piece, user_id: valid_user.id) }
     before do
       login_user(valid_user)
       valid_group
-      UserGroup.create(user_id: valid_user.id, group_id: valid_group.id, alias: 'Victor')
+      UserGroup.create(user_id: valid_user.id, group_id: valid_group.id, alias: 'Victor', piece_id: valid_piece.id)
       visit group_path(valid_group)
     end
 
@@ -46,6 +47,11 @@ describe 'Group Features', :type => :feature do
 
     it "displayes user by their alias" do
       expect(page).to have_content("Victor")
+    end
+
+    it "displayes the title and content of the featured piece" do
+      expect(page).to have_content(valid_piece.title)
+      expect(page).to have_content(valid_piece.content)
     end
   end
 

@@ -13,6 +13,7 @@ RSpec.describe Group, :type => :model do
   let(:valid_group) { create(:valid_group) }
   let(:comment_1) { create(:valid_comment, group_id: valid_group.id, user_id: user_1.id) }
   let(:comment_2) { create(:valid_comment, group_id: valid_group.id, user_id: user_2.id) }
+  let(:valid_piece) { create(:valid_piece, user_id: user_1.id) }
 
   it "is valid with name, form, and private set" do
     expect(valid_group).to be_valid
@@ -37,5 +38,17 @@ RSpec.describe Group, :type => :model do
       expect(valid_group.comments).to eq([comment_1, comment_2])
     end
   end
+
+  context "when a piece is featured" do
+    before do
+      valid_group.piece = valid_piece
+    end
+
+    it "has a featured piece" do
+      expect(valid_group.piece).to eq(valid_piece)
+    end
+  end
+
+
 
 end

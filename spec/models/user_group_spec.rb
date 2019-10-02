@@ -4,6 +4,7 @@ RSpec.describe UserGroup, :type => :model do
   let(:valid_user) { create(:valid_user) }
   let(:valid_group) { create(:valid_group) }
   let(:user_group) { UserGroup.create(user_id: valid_user.id, group_id: valid_group.id) }
+  let(:valid_piece) { create(:valid_piece, user_id: valid_user.id) }
 
   it "is valid with valid user and group" do
     expect(UserGroup.new(user_id: valid_user.id, group_id: valid_group.id)).to be_valid
@@ -43,6 +44,16 @@ RSpec.describe UserGroup, :type => :model do
     end
     it "destroys the group" do
       expect(Group.find_by(id: valid_group.id)).to be_nil
+    end
+  end
+
+  context "when a piece is prepared" do
+    before do
+      user_group.piece = valid_piece
+    end
+
+    it "has a prepared piece" do
+      expect(user_group.piece).to eq(valid_piece)
     end
   end
 

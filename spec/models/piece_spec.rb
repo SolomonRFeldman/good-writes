@@ -30,9 +30,11 @@ RSpec.describe Piece, :type => :model do
   end
   
   context "when it has many comments assigned to it" do
+    let(:comment1) { create(:valid_comment, piece_id: valid_piece.id, user_id:  valid_user.id) }
+    let(:comment2) { create(:valid_comment, piece_id: valid_piece.id, user_id: valid_user.id) }
     before do
-      comment1 = create(:valid_comment, piece_id: valid_piece.id, user_id:  valid_user.id)
-      comment2 = create(:valid_comment, piece_id: valid_piece.id, user_id: valid_user.id)
+      comment1
+      comment2
     end
     it "has many comments associated" do
       expect(valid_piece.comments).to eq([comment1, comment2])

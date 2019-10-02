@@ -43,4 +43,18 @@ RSpec.describe Group, :type => :model do
     end
   end
 
+  context "when a group calls on featured piece using it's point in cylce to point to a user_group by creation order" do
+    let(:valid_piece) { create(:valid_piece, user_id: user_2.id) }
+    let(:user_group_1) { UserGroup.create(user_id: user_1.id, group_id: valid_group.id) }
+    let(:user_group_2) { UserGroup.create(user_id: user_2.id, group_id: valid_group.id, piece_id: valid_piece.id) }
+    before do
+      user_group_1
+      user_group_2
+      valid_group.update(point_in_cycle: 1)
+    end
+    it "grabs the proper user_group prepared piece" do
+      expect(valid_group.featured_piece).to eq(valid_piece)
+    end
+  end
+
 end

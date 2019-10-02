@@ -19,6 +19,10 @@ RSpec.describe Group, :type => :model do
     expect(valid_group).to be_valid
   end
 
+  it "defaults point_in_cycle to 0 on creation" do
+    expect(valid_group.point_in_cycle).to eq(0)
+  end
+
   context "when a group has many users" do
     before do
       valid_group.users << user_1

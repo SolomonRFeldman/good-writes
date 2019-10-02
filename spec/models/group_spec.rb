@@ -39,16 +39,4 @@ RSpec.describe Group, :type => :model do
     end
   end
 
-  context "when a piece is featured" do
-    before do
-      valid_group.piece = valid_piece
-    end
-
-    it "has a featured piece" do
-      expect(valid_group.piece).to eq(valid_piece)
-    end
-  end
-
-
-
 end

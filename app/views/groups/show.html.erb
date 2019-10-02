@@ -7,3 +7,8 @@
 <% if @user_group %>
   <%= button_to 'Leave Group', "/groups/#{@group.id}/user_groups/#{@user_group.id}", method: :delete %>
 <% end %>
+
+<% if @featured_piece %>
+  <%= @featured_piece.title %>
+  <%= @featured_piece.content %>
+<% end %>

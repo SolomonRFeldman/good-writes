@@ -1,16 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Comment, :type => :model do
-  include_context "create_all"
-
-  let(:valid_params) {
-    {
-      piece_id: valid_piece.id,
-      user_id: valid_user.id,
-      group_id: valid_group.id,
-      content: "Dope"
-    }
-  }
+  let(:valid_comment) { create(:valid_comment) }
+  let(:valid_user) { valid_comment.user }
+  let(:valid_group) { valid_comment.group }
+  let(:valid_piece) { valid_comment.piece }
 
   it "is valid with a user, piece, group, and content" do
     expect(valid_comment).to be_valid
@@ -23,7 +17,7 @@ RSpec.describe Comment, :type => :model do
   end
   
   it "is not valid without content" do
-    expect(Comment.new(valid_params.merge(content: ""))).to_not be_valid
+    expect(build(:valid_comment, content: "")).to_not be_valid
   end
 
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  include_context "create_all"
+  let(:valid_user) { create(:valid_user) }
 
   let(:hush_hash) { 
     {
@@ -52,43 +52,61 @@ RSpec.describe User, :type => :model do
   end
 
   it "is invalid with a blank username" do
-    expect(User.new(hush_hash.merge(username: ""))).to_not be_valid
+    expect(build(:valid_user, username: "")).to_not be_valid
   end
 
   it "is invalid with a blank password" do
-    expect(User.new(hush_hash.merge(password: ""))).to_not be_valid
+    expect(build(:valid_user, password: "")).to_not be_valid
   end
 
   it "is invalid with a blank email" do
-    expect(User.new(hush_hash.merge(email: ""))).to_not be_valid
+    expect(build(:valid_user, email: "")).to_not be_valid
   end
 
-  it "is invalid with a non-unique email" do
-    valid_user
-    expect(User.new(hush_hash.merge(email: "Test@123.com"))).to_not be_valid
+  context "when another user has taken an email" do
+    before do
+      valid_user
+    end
+    it "is invalid with a non-unique email" do
+      expect(User.new(hush_hash.merge(email: "Test@123.com"))).to_not be_valid
+    end
+
+    it "is invalid with a different case non-unique email" do
+      expect(User.new(hush_hash.merge(email: "test@123.com"))).to_not be_valid
+    end
   end
 
-  it "is invalid with a different case non-unique email" do
-    valid_user
-    expect(User.new(hush_hash.merge(email: "test@123.com"))).to_not be_valid
+  context "when a user has many groups associated to it" do
+    before do
+      valid_user.groups << group_1
+      valid_user.groups << group_2
+    end
+    it "has many groups" do
+      expect(valid_user.groups).to eq([group_1, group_2])
+    end 
   end
 
-  it "has many groups" do
-    valid_user.groups << group_1
-    valid_user.groups << group_2
-    expect(valid_user.groups).to eq([group_1, group_2])
-  end
-
-  it "has many pieces" do
-    valid_user.pieces << piece_1
-    valid_user.pieces << piece_2
-    expect(valid_user.pieces).to eq([piece_1, piece_2])
+  context "when a user has many pieces associated to it" do
+    before do
+      valid_user.pieces << piece_1
+      valid_user.pieces << piece_2
+    end
+    it "has many pieces" do
+      expect(valid_user.pieces).to eq([piece_1, piece_2])
+    end
   end
   
-  it "has many comments" do
-    valid_comment
-    other_comment = Comment.create(user_id: valid_user.id, piece_id: valid_piece.id, group_id: valid_group.id, content: "It's alright I suppose.")
-    expect(valid_user.comments).to eq([valid_comment, other_comment])
+  context "when a user has many comments attributed to it" do
+    let(:valid_comment) { create(:valid_comment, user_id: valid_user.id) }
+    let(:other_comment) { Comment.create(user_id: valid_user.id, piece_id: piece_1.id, group_id: group_1.id, content: "It's alright I suppose.") }
+    before do
+      valid_comment
+      other_comment
+    end
+    it "has many comments" do
+      expect(valid_user.comments).to eq([valid_comment, other_comment])
+    end 
+
   end
 
 end

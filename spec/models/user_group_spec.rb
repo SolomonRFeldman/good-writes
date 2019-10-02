@@ -1,18 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe UserGroup, :type => :model do
-  include_context "create_all"
+  let(:valid_user) { create(:valid_user) }
+  let(:valid_group) { create(:valid_group) }
+  let(:user_group) { UserGroup.new }
 
   it "is valid with valid user and group" do
     expect(UserGroup.new(user_id: valid_user.id, group_id: valid_group.id)).to be_valid
   end
 
-  it "belongs to a user and a group" do
-    user_group = UserGroup.new
-    user_group.user = valid_user
-    user_group.group = valid_group
-    expect(user_group.user).to eq(valid_user)
-    expect(user_group.group).to eq(valid_group)
+  context "when it is assigned to a user and a group" do
+    before do
+      user_group.user = valid_user
+      user_group.group = valid_group
+    end
+    it "belongs to a user and a group" do
+      expect(user_group.user).to eq(valid_user)
+      expect(user_group.group).to eq(valid_group)
+    end
   end
 
   it "cannot be made without a user_id" do
@@ -23,22 +28,27 @@ RSpec.describe UserGroup, :type => :model do
     expect(UserGroup.new(user_id: valid_user.id)).to_not be_valid
   end
 
-  it "defaults alias to username" do
-    user_group = UserGroup.new
-    user_group.user = valid_user
-    user_group.group = valid_group
-    user_group.save
-    expect(user_group.alias).to eq(valid_user.username)
+  context "when it saves with no alias provided" do
+    before do
+      user_group.user = valid_user
+      user_group.group = valid_group
+      user_group.save
+    end
+    it "defaults the alias to the user's username" do
+      expect(user_group.alias).to eq(valid_user.username)
+    end
   end
 
-  it "deletes its group it is the last user_group to be destroyed" do
-    user_group = UserGroup.new
-    group = valid_group
-    user_group.user = valid_user
-    user_group.group = group
-    user_group.save
-    user_group.destroy
-    expect(group).to be_destroyed
+  context "when it gets destroyed as the last user_group in a group" do
+    before do
+      user_group.user = valid_user
+      user_group.group = valid_group
+      user_group.save
+      user_group.destroy
+    end
+    it "destroys the group" do
+      expect(valid_group).to be_destroyed
+    end
   end
 
 end

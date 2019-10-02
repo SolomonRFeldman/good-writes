@@ -23,6 +23,12 @@ class PiecesController < ApplicationController
     redirect_to user_path(@current_user)
   end
 
+  def destroy
+    @piece = Piece.find_by(id: params[:id])
+    @piece.destroy if @piece && (session[:user_id] == @piece.user_id)
+    redirect_to user_path(@current_user)
+  end
+
   private
  
   def piece_params

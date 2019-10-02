@@ -25,6 +25,10 @@ describe 'Group Features', :type => :feature do
         expect(UserGroup.all.last.group.id).to eq(Group.all.last.id)
       end
 
+      it "sets the created as a moderator" do
+        expect(UserGroup.all.last.moderator_status).to eq(true)
+      end
+
       context 'when no alias is provided' do
         it "defaults the alias to the user's username" do
           expect(UserGroup.all.last.alias).to eq('Test')

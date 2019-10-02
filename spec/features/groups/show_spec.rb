@@ -4,6 +4,7 @@ describe 'Group Features', :type => :feature do
   let(:valid_user) { create(:valid_user) }
   let(:valid_group) { create(:valid_group) }
   let(:secondary_user) { create(:valid_user, :username => "Hello", :email => "Hello@Hush.com", :password => "hush") }
+  let(:valid_piece) { create(:valid_piece, user_id: valid_user.id) }
 
   describe 'GET /' do
     before do
@@ -33,7 +34,6 @@ describe 'Group Features', :type => :feature do
   end
  
   context "when a user navigates to a group's show page they've joined" do
-    let(:valid_piece) { create(:valid_piece, user_id: valid_user.id) }
     before do
       login_user(valid_user)
       valid_group
@@ -94,6 +94,23 @@ describe 'Group Features', :type => :feature do
 
     it "removes the user from the group" do
       expect(valid_user.groups).to be_empty
+    end
+  end
+
+  context "when a user selects the piece they want to prepare" do
+    let(:user_group) { UserGroup.create(user_id: valid_user.id, group_id: valid_group.id) }
+    before do
+      login_user(valid_user)
+      valid_group
+      user_group
+      valid_piece
+      visit group_path(valid_group)
+      select(valid_piece.title, from: "user_group[piece_id]")
+      click_button("Select Piece")
+    end
+
+    it "prepares their piece" do
+      expect(UserGroup.last.piece).to eq(valid_piece)
     end
   end
 

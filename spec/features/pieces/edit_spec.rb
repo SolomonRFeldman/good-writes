@@ -24,12 +24,10 @@ describe 'Piece Features', :type => :feature do
   end
 
   describe 'edit_user_piece path' do
-    before do
-      visit(edit_user_piece_path(valid_user, valid_piece))
-    end
 
     context 'when a user edits a piece' do
       before do
+        visit(edit_user_piece_path(valid_user, valid_piece))
         fill_in("piece[title]", with: "My Big Poem")
         fill_in("piece[content]", with: "Nope")
         click_button('Update')
@@ -42,6 +40,33 @@ describe 'Piece Features', :type => :feature do
 
       it "redirects to the users show page" do
         expect(page.current_path).to eq(user_path(valid_user))
+      end
+    end
+
+    context 'when a different user tries to edit anothers piece' do
+      let(:user_2) { create(:valid_user, username: 'Hello', email: 'Hello@hush.com') }
+      before do
+        login_user(user_2)
+      end
+
+      describe 'through a get request to the form' do
+        before do
+          visit(edit_user_piece_path(valid_user, valid_piece))
+        end
+        it 'redirects to the root path' do
+          expect(page.current_path).to eq(root_path)
+        end
+      end
+
+      describe 'through a update request' do
+        before do
+          page.driver.submit :patch, user_piece_path(valid_user, valid_piece), piece: {title: "My Big Poem", content: "Nope"}
+        end
+
+        it 'does not edit the piece' do
+          expect(Piece.all.last.title).to eq("Sunshine Land")
+          expect(Piece.all.last.content).to eq("There once was a sunny land.")
+        end
       end
     end
 

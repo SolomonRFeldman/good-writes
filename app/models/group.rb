@@ -5,7 +5,12 @@ class Group < ApplicationRecord
   belongs_to :piece, optional: true
 
   def featured_piece
-    user_groups.order(:created_at)[self.point_in_cycle].piece
+    if user_group = user_groups.order(:created_at)[self.point_in_cycle]
+      user_group.piece
+    else
+      update(point_in_cycle: 0)
+      user_groups.order(:created_at)[self.point_in_cycle].piece
+    end
   end
 
 end

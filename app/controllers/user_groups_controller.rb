@@ -34,7 +34,7 @@ class UserGroupsController < ApplicationController
   private
 
   def user_group_params
-    params.require(:user_group).permit(:alias)
+    params.require(:user_group).permit(:alias, :piece_id)
   end
 
 end

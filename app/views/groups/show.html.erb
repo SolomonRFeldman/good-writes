@@ -4,7 +4,12 @@
     <li><%= member.alias %></li>
   <% end %>
 </ul>
+
 <% if @user_group %>
+  <%= form_with model: [@group, @user_group] do |f| %>
+    <%= f.select :piece_id, options_for_select(@current_user.pieces.collect{ |piece| [piece.title, piece.id] }, @user_group.piece_id) %>
+    <%= f.submit "Select Piece" %>
+  <% end %>
   <%= button_to 'Leave Group', "/groups/#{@group.id}/user_groups/#{@user_group.id}", method: :delete %>
 <% end %>
 

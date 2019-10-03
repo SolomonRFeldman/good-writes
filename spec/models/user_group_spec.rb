@@ -57,4 +57,14 @@ RSpec.describe UserGroup, :type => :model do
     end
   end
 
+  context "when a user has already joined a group" do
+    before do
+      UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+    end
+    
+    it "cannot make another join with the same user and group" do
+      expect(UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)).to_not be_valid
+    end
+  end
+
 end

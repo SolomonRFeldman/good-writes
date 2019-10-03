@@ -58,6 +58,17 @@ describe 'Group Features', :type => :feature do
     end
 
   end
+
+  context "when a user is not logged in on the root path" do
+    before do
+      valid_group
+      visit root_path
+    end
+
+    it "does not show the join button" do
+      expect{ click_button 'Join' }.to raise_error(Capybara::ElementNotFound)
+    end
+  end
  
   context "when a user navigates to a group's show page they've joined" do
     before do

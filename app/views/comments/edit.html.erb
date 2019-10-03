@@ -1,0 +1,4 @@
+<%= form_with model: [@comment.group, @comment] do |f| %>
+  <%= f.text_area :content %>
+  <%= f.submit 'Edit Comment' %>
+<% end %>

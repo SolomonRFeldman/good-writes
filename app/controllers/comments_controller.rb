@@ -9,4 +9,15 @@ class CommentsController < ApplicationController
     redirect_to group_path(@group)
   end
 
+  def edit
+    @comment = Comment.find_by(id: params[:id])
+    redirect_to root_path unless @comment && @comment.user_id == @current_user.id
+  end
+
+  def update
+    @comment = Comment.find_by(id: params[:id])
+    @comment.update(content: params[:comment][:content]) if @comment && @comment.user_id == @current_user.id
+    redirect_to group_path(@comment.group)
+  end
+
 end

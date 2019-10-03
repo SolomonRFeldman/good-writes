@@ -23,6 +23,9 @@
   
   <% @featured_piece.comments.where(group_id: @group.id).each do |comment| %>
     <%= comment.author_alias %> said, <%= comment.content %>
+    <% if comment.user_id == @current_user.id %>
+      <%= button_to 'Edit', edit_group_comment_path(@group, comment), method: :get %>
+    <% end %>
   <% end %>
 
   <% if @featured_piece.user_id != @current_user.id %>

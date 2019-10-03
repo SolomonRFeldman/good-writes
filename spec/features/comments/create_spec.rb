@@ -22,4 +22,17 @@ describe 'Comment Features', :type => :feature do
     end
   end
 
+  context "when a user submits a comment post request on their own peice" do
+    before do
+      user_group_1
+      user_group_2
+      login_user(user_1)
+      page.driver.submit :post, group_comments_path(valid_group), comment: { content: "Very good user one, very good." }
+    end
+
+    it "doesn't create a comment" do
+      expect(Comment.all.last).to be_nil
+    end
+  end
+
 end

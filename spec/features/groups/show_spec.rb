@@ -138,6 +138,10 @@ describe 'Group Features', :type => :feature do
     it "prepares their piece" do
       expect(UserGroup.last.piece).to eq(valid_piece)
     end
+
+    it "locks in their piece when it's their turn in the cycle" do
+      expect{ click_button('Select Piece') }.to raise_error(Capybara::ElementNotFound)
+    end
   end
 
   context "when a user navigates to a group's show page they've not joined" do

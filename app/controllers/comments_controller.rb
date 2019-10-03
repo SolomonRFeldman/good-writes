@@ -11,18 +11,18 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find_by(id: params[:id])
-    redirect_to root_path unless @comment && @comment.user_id == @current_user.id
+    redirect_to root_path unless authorized?(@comment)
   end
 
   def update
     @comment = Comment.find_by(id: params[:id])
-    @comment.update(content: params[:comment][:content]) if @comment && @comment.user_id == @current_user.id
+    @comment.update(content: params[:comment][:content]) if authorized?(@comment)
     redirect_to group_path(@comment.group)
   end
 
   def destroy
     @comment = Comment.find_by(id: params[:id])
-    @comment.destroy if @comment && @comment.user_id == @current_user.id
+    @comment.destroy if authorized?(@comment)
     redirect_to group_path(@comment.group)
   end
 

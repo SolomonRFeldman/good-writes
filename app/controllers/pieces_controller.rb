@@ -14,18 +14,18 @@ class PiecesController < ApplicationController
 
   def edit
     @piece = Piece.find_by(id: params[:id])
-    redirect_to root_path unless @piece && (session[:user_id] == @piece.user_id)
+    redirect_to root_path unless authorized?(@piece)
   end
 
   def update
     @piece = Piece.find_by(id: params[:id])
-    @piece.update(piece_params) if @piece && (session[:user_id] == @piece.user_id)
+    @piece.update(piece_params) if authorized?(@piece)
     redirect_to user_path(@current_user)
   end
 
   def destroy
     @piece = Piece.find_by(id: params[:id])
-    @piece.destroy if @piece && (session[:user_id] == @piece.user_id)
+    @piece.destroy if authorized?(@piece)
     redirect_to user_path(@current_user)
   end
 

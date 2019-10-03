@@ -152,4 +152,15 @@ describe 'Group Features', :type => :feature do
     end
   end
 
+  context "when a user navigates to a group page that doesn't exists" do
+    before do
+      login_user(valid_user)
+      visit group_path('aksljdakl')
+    end
+
+    it "redirects to the root page" do
+      expect(page.current_path).to eq(root_path)
+    end
+  end
+
 end

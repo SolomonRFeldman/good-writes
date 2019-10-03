@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find_by(id: params[:id])
-    if @current_user && @user_group = UserGroup.find_by(user_id: @current_user.id, group_id: @group.id)
+    if @current_user && @group && @user_group = UserGroup.find_by(user_id: @current_user.id, group_id: @group.id)
       @featured_piece = @group.featured_piece
     else
       redirect_to root_path

@@ -140,4 +140,16 @@ describe 'Group Features', :type => :feature do
     end
   end
 
+  context "when a user navigates to a group's show page they've not joined" do
+    before do
+      login_user(valid_user)
+      valid_group
+      visit group_path(valid_group)
+    end
+
+    it 'redirects to the root page' do
+      expect(page.current_path).to eq(root_path)
+    end
+  end
+
 end

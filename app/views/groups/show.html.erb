@@ -20,6 +20,11 @@
 <% if @featured_piece %>
   <%= @featured_piece.title %>
   <%= @featured_piece.content %>
+
+  <%= form_with model: [@group, Comment.new] do |f| %>
+    <%= f.text_area :content %>
+    <%= f.submit 'Add Comment' %>
+  <% end %>
 <% end %>
 
 <% if @user_group.moderator_status == true  %>

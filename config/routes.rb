@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :groups do
     resources :user_groups, only: [:create, :new, :destroy, :edit, :update]
+    resources :comments, only: [:create]
   end
 
   

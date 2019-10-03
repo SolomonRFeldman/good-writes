@@ -2,6 +2,7 @@ class UserGroup < ApplicationRecord
   belongs_to :user
   belongs_to :group
   belongs_to :piece, optional: true
+  validates :user_id, uniqueness: { scope: [:group_id] }
 
   before_save do
     if self.alias == nil or self.alias == ""

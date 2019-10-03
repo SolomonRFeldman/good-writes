@@ -8,6 +8,7 @@ class UserGroupsController < ApplicationController
 
   def create
     @user_group = UserGroup.create(user_id: @current_user.id, group_id: params[:group_id], alias: params[:user_group][:alias])
+    redirect_to group_path(@user_group.group_id)
   end
   
   def edit

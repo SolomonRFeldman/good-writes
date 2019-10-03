@@ -4,6 +4,7 @@ class UserGroupsController < ApplicationController
     @user_group = UserGroup.new
     @group = Group.find_by(params[:id])
     redirect_to root_path unless @group
+    redirect_to group_path(@group) if UserGroup.find_by(user_id: @current_user.id, group_id: @group.id)
   end
 
   def create

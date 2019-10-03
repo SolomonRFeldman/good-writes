@@ -35,6 +35,17 @@ describe 'Group Features', :type => :feature do
       end
     end
 
+    context 'when a user is already part of a group and they go to the join group form' do
+      before do
+        UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+        click_button('Join')
+      end
+
+      it "redirects to the group" do
+        expect(page.current_path).to eq(group_path(valid_group))
+      end
+    end
+
   end
  
   context "when a user navigates to a group's show page they've joined" do

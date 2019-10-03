@@ -35,6 +35,17 @@ describe 'Group Features', :type => :feature do
       end
     end
 
+    context 'when a user is already part of a group' do
+      before do
+        UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+        visit root_path
+      end
+
+      it 'does not show the join group button' do
+        expect{ click_button('Join') }.to raise_error(Capybara::ElementNotFound)
+      end
+    end
+
     context 'when a user is already part of a group and they go to the join group form' do
       before do
         UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)

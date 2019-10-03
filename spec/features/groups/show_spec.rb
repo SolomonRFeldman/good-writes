@@ -195,7 +195,7 @@ describe 'Group Features', :type => :feature do
       before do
         page.driver.submit :patch, group_path(valid_group), group: { point_in_cycle: valid_group.point_in_cycle + 1 }
       end
-      it "fails to change the point with a update request" do
+      it "fails to change the point" do
         expect(Group.find(valid_group.id).point_in_cycle).to eq(0)
       end
     end

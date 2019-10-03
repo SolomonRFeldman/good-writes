@@ -95,7 +95,7 @@ describe 'User Features', :type => :feature do
   end
   
   describe 'layout buttons' do
-    context 'when the user presses the log out button'
+    context 'when the user presses the log out button' do
       before do
         login_user(valid_user)
         visit '/'
@@ -105,6 +105,7 @@ describe 'User Features', :type => :feature do
       it 'deletes the session hash' do
         expect{page.get_rack_session_key('user_id')}.to raise_error(KeyError)
       end
+    end
     
     context 'when the user preses the log in button' do
       before do

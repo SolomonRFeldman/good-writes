@@ -35,4 +35,21 @@ describe 'Comment Features', :type => :feature do
     end
   end
 
+  context "when a user goes to comment on their own piece" do
+    before do
+      user_group_1
+      user_group_2
+      login_user(user_1)
+      visit group_path(valid_group)
+    end
+
+    it "can't find the comment content field" do
+      expect{ fill_in "comment[content]", with: "Very good user one, very good." }.to raise_error(Capybara::ElementNotFound)
+    end
+
+    it "can't find the add comment button" do
+      expect{ click_button('Add Comment') }.to raise_error(Capybara::ElementNotFound)
+    end
+  end
+
 end

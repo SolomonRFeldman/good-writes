@@ -21,9 +21,11 @@
   <%= @featured_piece.title %>
   <%= @featured_piece.content %>
 
-  <%= form_with model: [@group, Comment.new] do |f| %>
-    <%= f.text_area :content %>
-    <%= f.submit 'Add Comment' %>
+  <% if @featured_piece.user_id != @current_user.id %>
+    <%= form_with model: [@group, Comment.new] do |f| %>
+      <%= f.text_area :content %>
+      <%= f.submit 'Add Comment' %>
+    <% end %>
   <% end %>
 <% end %>
 

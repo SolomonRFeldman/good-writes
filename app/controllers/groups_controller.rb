@@ -15,7 +15,7 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find_by(id: params[:id])
-    if @current_user && @group && @user_group = UserGroup.find_by(user_id: @current_user.id, group_id: @group.id, moderator_status: true)
+    if @current_user && @group && UserGroup.find_by(user_id: @current_user.id, group_id: @group.id, moderator_status: true)
       @group.update(group_params)
       redirect_to group_path(@group)
     end

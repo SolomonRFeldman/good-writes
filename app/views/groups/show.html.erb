@@ -20,6 +20,10 @@
 <% if @featured_piece %>
   <%= @featured_piece.title %>
   <%= @featured_piece.content %>
+  
+  <% @featured_piece.comments.where(group_id: @group.id).each do |comment| %>
+    <%= comment.author_alias %> said, <%= comment.content %>
+  <% end %>
 
   <% if @featured_piece.user_id != @current_user.id %>
     <%= form_with model: [@group, Comment.new] do |f| %>

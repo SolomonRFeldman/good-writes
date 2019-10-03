@@ -17,3 +17,7 @@
   <%= @featured_piece.title %>
   <%= @featured_piece.content %>
 <% end %>
+
+<% if @user_group.moderator_status == true  %>
+  <%= button_to 'Next Piece', group_path(@group), method: :patch, params: { group: { point_in_cycle: @group.point_in_cycle + 1 } } %>
+<% end %>

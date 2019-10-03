@@ -12,6 +12,14 @@ class GroupsController < ApplicationController
       redirect_to group_path(@group)
     end
   end
+
+  def update
+    @group = Group.find_by(id: params[:id])
+    if @current_user && @group && @user_group = UserGroup.find_by(user_id: @current_user.id, group_id: @group.id, moderator_status: true)
+      @group.update(group_params)
+      redirect_to group_path(@group)
+    end
+  end
   
   def index
     @groups = Group.all
@@ -29,7 +37,7 @@ class GroupsController < ApplicationController
   private
  
   def group_params
-    params.require(:group).permit(:name, :form)
+    params.require(:group).permit(:name, :form, :point_in_cycle)
   end
 
   def user_group_params

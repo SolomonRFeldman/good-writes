@@ -25,6 +25,7 @@
     <%= comment.author_alias %> said, <%= comment.content %>
     <% if comment.user_id == @current_user.id %>
       <%= button_to 'Edit', edit_group_comment_path(@group, comment), method: :get %>
+      <%= button_to 'Delete', group_comment_path(@group, comment), method: :delete %>
     <% end %>
   <% end %>
 

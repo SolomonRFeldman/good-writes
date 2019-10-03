@@ -20,4 +20,10 @@ class CommentsController < ApplicationController
     redirect_to group_path(@comment.group)
   end
 
+  def destroy
+    @comment = Comment.find_by(id: params[:id])
+    @comment.destroy if @comment && @comment.user_id == @current_user.id
+    redirect_to group_path(@comment.group)
+  end
+
 end

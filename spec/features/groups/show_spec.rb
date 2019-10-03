@@ -29,6 +29,10 @@ describe 'Group Features', :type => :feature do
       it 'joins them to the group with their selected alias' do
         expect(UserGroup.find_by(user_id: valid_user.id, group_id: valid_group.id, alias: 'Victor')).to_not be_nil
       end
+
+      it "redirects them to the group page" do
+        expect(page.current_path).to eq(group_path(valid_group))
+      end
     end
 
   end

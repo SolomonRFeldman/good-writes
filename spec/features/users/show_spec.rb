@@ -157,4 +157,16 @@ describe 'User Features', :type => :feature do
     end
   end
 
+  context "when a user clicks their name in the layout" do
+    before do
+      login_user(valid_user)
+      visit root_path
+      click_link('Test')
+    end
+
+    it "redirects to the user show" do
+      expect(current_path).to eq(user_path(valid_user))
+    end
+  end
+
 end

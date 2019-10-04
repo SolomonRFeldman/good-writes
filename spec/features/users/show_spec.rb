@@ -132,6 +132,18 @@ describe 'User Features', :type => :feature do
     end
   end
 
- 
+  context "when a user tries to navigates to another user's show page" do
+    let(:invalid_user) { create(:valid_user, email: 'Bad@boy.com') }
+    before do
+      login_user(invalid_user)
+      valid_user
+      visit user_path(valid_user)
+    end
+
+    it "redirects them back to the root path" do
+      expect(page.current_path).to eq(root_path)
+    end
+  end
+
 
 end

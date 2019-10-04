@@ -155,6 +155,23 @@ describe 'Group Features', :type => :feature do
     end
   end
 
+  context "when a user tries to select a piece that does not match the group's form" do
+    let(:non_fiction_piece) { create(:valid_piece, title: 'True Stuff', form: 'Non-Fiction') }
+    let(:user_group) { UserGroup.create(user_id: valid_user.id, group_id: valid_group.id) }
+    before do
+      login_user(valid_user)
+      valid_group
+      user_group
+      valid_piece
+      non_fiction_piece
+      visit group_path(valid_group)
+    end
+
+    it "doesn't show up on the list" do
+      expect{ select(non_fiction_piece.title, from: "user_group[piece_id]") }.to raise_error(Capybara::ElementNotFound)
+    end
+  end
+
   context "when a user navigates to a group's show page they've not joined" do
     before do
       login_user(valid_user)

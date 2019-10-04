@@ -51,3 +51,7 @@ gem 'capybara', '~> 3.29'
 gem 'rack_session_access', '~> 0.2.0'
 gem 'factory_bot_rails', '~> 5.1'
 gem 'guard-rspec', '~> 4.7', '>= 4.7.3'
+
+gem 'omniauth', '~> 1.9'
+gem 'omniauth-github', '~> 1.3'
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'

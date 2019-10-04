@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/login' => 'sessions#delete'
 
+  get '/auth/github/callback', to: 'sessions#create'
+
   resources :groups do
     resources :user_groups, only: [:create, :new, :destroy, :edit, :update]
     resources :comments, only: [:create, :edit, :update, :destroy]

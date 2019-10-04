@@ -19,6 +19,7 @@
       <% else %>
         <%= button_to 'Log In', login_path, name: 'layout_login', method: :get %>
         <%= button_to 'Sign Up', signup_path, name: 'layout_signup', method: :get %>
+        <%= button_to 'Github Login', '/auth/github', method: :get %>
       <% end %>
     </header>
     <%= yield %>

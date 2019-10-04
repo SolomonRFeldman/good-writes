@@ -169,4 +169,17 @@ describe 'User Features', :type => :feature do
     end
   end
 
+  context "when a user is in their show and clicks a group they're in" do
+    before do 
+      login_user(valid_user)
+      UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+      visit user_path(valid_user)
+      click_link 'Sunshine Friends'
+    end
+
+    it "navigates to the group show" do
+      expect(page.current_path).to eq(group_path(valid_group))
+    end
+  end
+
 end

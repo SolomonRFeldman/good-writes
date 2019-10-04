@@ -1,7 +1,7 @@
 <%= @user.username %>
 <ul>
   <% @user.groups.each do |group| %>
-    <li><%= group.name %></li>
+    <li><a href=<%= group_path(group)%>><%= group.name %></a></li>
   <% end %>
 </ul>
 

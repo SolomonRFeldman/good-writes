@@ -145,5 +145,16 @@ describe 'User Features', :type => :feature do
     end
   end
 
+  context "when a user clicks the app name in the layout" do
+    before do
+      login_user(valid_user)
+      visit user_path(valid_user)
+      click_link 'Good Writes'
+    end
+
+    it "redirects to the root path" do
+      expect(current_path).to eq(root_path)
+    end
+  end
 
 end

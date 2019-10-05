@@ -1,3 +1,5 @@
 <%= @piece.title %>
 <%= @piece.form %>
 <%= @piece.content %>
+<%= button_to 'Edit', "/users/#{@current_user.id}/pieces/#{@piece.id}/edit", method: :get %>
+<%= button_to 'Delete', "/users/#{@current_user.id}/pieces/#{@piece.id}", method: :delete %>

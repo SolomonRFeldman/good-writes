@@ -29,6 +29,11 @@ class PiecesController < ApplicationController
     redirect_to user_path(@current_user)
   end
 
+  def show
+    @piece = Piece.find_by(id: params[:id])
+    redirect_to root_path unless authorized?(@piece)
+  end
+
   private
  
   def piece_params

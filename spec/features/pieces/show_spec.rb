@@ -19,4 +19,25 @@ describe 'Piece Features', :type => :feature do
     end
   end
 
+  context "when a user navigates to the piece's show" do
+    let(:user_piece) { create(:valid_piece, user_id: valid_user.id) }
+    before do
+      valid_user
+      user_piece
+      visit user_piece_path(valid_user, user_piece)
+    end
+
+    it "shows the title" do
+      expect(page).to have_content('Sunshine Land')
+    end
+
+    it "shows the content" do
+      expect(page).to have_content("There once was a sunny land.")
+    end
+
+    it "shows the form" do
+      expect(page).to have_content('Poetry')
+    end
+  end
+
 end

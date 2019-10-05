@@ -38,8 +38,8 @@ describe 'Piece Features', :type => :feature do
         expect(Piece.all.last.content).to eq("Nope")
       end
 
-      it "redirects to the users show page" do
-        expect(page.current_path).to eq(user_path(valid_user))
+      it "redirects to the piece show page" do
+        expect(page.current_path).to eq(user_piece_path(valid_user, Piece.all.last))
       end
     end
 

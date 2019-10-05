@@ -20,7 +20,7 @@ class PiecesController < ApplicationController
   def update
     @piece = Piece.find_by(id: params[:id])
     @piece.update(piece_params) if authorized?(@piece)
-    redirect_to user_path(@current_user)
+    redirect_to user_piece_path(@current_user, @piece)
   end
 
   def destroy

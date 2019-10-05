@@ -68,4 +68,15 @@ describe 'Piece Features', :type => :feature do
     end
   end
 
+  context "when a user clicks on a piece on their show page" do
+    before do
+      visit user_path(valid_user)
+      click_link 'Sunshine Land'
+    end
+
+    it "navigates them to the piece's show page" do
+      expect(page.current_path).to eq(user_piece_path(valid_user, valid_piece))
+    end
+  end
+
 end

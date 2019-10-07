@@ -7,6 +7,10 @@
         <form style="float: right;" class="form-inline d-inline-block ml-2 mr-n1 mt-3" method='get', action="/groups/<%= group.id%>/user_groups/new">
           <button style="display: inline;" type="submit" class="btn btn-primary">Join</button>
         </form>
+      <% elsif @current_user %>
+        <form style="float: right;" class="form-inline d-inline-block ml-2 mr-n1 mt-3" method='get', action="/groups/<%= group.id%>">
+          <button style="display: inline;" type="submit" class="btn btn-primary">View</button>
+        </form>
       <% end %>
     </div>
   </div>

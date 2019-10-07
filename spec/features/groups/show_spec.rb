@@ -35,6 +35,18 @@ describe 'Group Features', :type => :feature do
       end
     end
 
+    context 'when a user clicks the view button when they are part of a group' do
+      before do
+        UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)
+        visit root_path
+        click_button('View')
+      end
+
+      it "brings the user to the group show" do
+        expect(page.current_path).to eq(group_path(valid_group))
+      end
+    end
+
     context 'when a user is already part of a group' do
       before do
         UserGroup.create(user_id: valid_user.id, group_id: valid_group.id)

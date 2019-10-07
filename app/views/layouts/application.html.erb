@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GoodWrites</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <title>GoodWrites</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,17 +11,33 @@
 
   <body>
     <header>
-      <a href=<%= root_path%>>Good Writes<a>
-      <% if @current_user %>
-        <a href=<%= user_path(@current_user)%>> Welcome, <%= @current_user.username %></a>
-        <%= form_with url: '/login', method: 'delete' do %>
-          <%= submit_tag 'Log Out' %>
+      <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href=<%= root_path%>>Good Writes</a>
+
+        <% if @current_user %>
+
+          <ul class="navbar-nav ml-auto mr-sm-2">
+              <li class="nav-item active">
+                <a class="nav-link" href=<%= user_path(@current_user)%>> Welcome, <%= @current_user.username %></a>
+              </li>
+          </ul>
+          <%= form_with class: 'form-inline', url: '/login', method: 'delete' do %>
+            <%= submit_tag 'Log Out', class: 'btn btn-sm btn-secondary my-2 my-sm-0' %>
+          <% end %>
+
+        <% else %>
+          <form class="form-inline ml-auto mr-sm-2" method="get" action="/login">
+            <button type="submit", class='btn btn-sm btn-primary my-2 my-sm-0 layout_login'>Log In</button>
+          </form>
+          <form class="form-inline mr-sm-2" method="get" action="/signup">
+            <button type="submit", class='btn btn-sm btn-secondary my-2 my-sm-0 layout_signup'>Sign Up</button>
+          </form>
+          <form class="form-inline" method="get" action="/auth/github">
+            <button type="submit", class='btn btn-sm btn-secondary my-2 my-sm-0'>Github Login</button>
+          </form>
         <% end %>
-      <% else %>
-        <%= button_to 'Log In', login_path, name: 'layout_login', method: :get %>
-        <%= button_to 'Sign Up', signup_path, name: 'layout_signup', method: :get %>
-        <%= button_to 'Github Login', '/auth/github', method: :get %>
-      <% end %>
+
+      </nav>
     </header>
     <%= yield %>
   </body>

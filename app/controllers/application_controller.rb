@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   def index
     @groups = Group.all
+    @joined_groups = UserGroup.where(user_id: @current_user.id) if @current_user
   end
   
   private

@@ -27,7 +27,8 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find_by(id: params[:id])
-    if @current_user && @group && @user_group = UserGroup.find_by(user_id: @current_user.id, group_id: @group.id)
+    @user_groups = @group.user_groups if @group
+    if @current_user && @group && @user_group = current_users_join
       @featured_piece = @group.featured_piece
     else
       redirect_to root_path
@@ -42,6 +43,10 @@ class GroupsController < ApplicationController
 
   def user_group_params
     params[:user_group].permit(:alias)
+  end
+
+  def current_users_join
+    @user_groups.select { |user_group| user_group.user_id == @current_user.id }.first
   end
 
 end

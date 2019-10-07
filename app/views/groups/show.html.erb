@@ -1,6 +1,6 @@
 <%= @group.name %>
 <ul>
-  <% @group.user_groups.each do |member| %>
+  <% @user_groups.each do |member| %>
     <li><%= member.alias %></li>
   <% end %>
 </ul>

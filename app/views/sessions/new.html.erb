@@ -1,5 +1,16 @@
-<%= form_with url: '/login', model: @user do |f| %>
-  <%= f.email_field :email %>
-  <%= f.password_field :password %>
-  <%= f.submit "Log In", name: 'body_login' %>
+<%= form_with class: "form-row ml-3 mt-4", url: '/login', model: @user do |f| %>
+
+  <%= label_tag :email, 'Email', class: "col-form-label"%>
+  <div class="col col-auto">
+    <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+  </div>
+
+  <%= label_tag :password, 'Password', class: "col-form-label"%>
+  <div class="col col-auto">
+    <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+  </div>
+
+  <div class="col col-auto">
+    <%= f.submit "Log In", name: 'body_login', class: "btn btn-primary" %>
+  </div>
 <% end %>

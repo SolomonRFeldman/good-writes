@@ -110,7 +110,7 @@ describe 'User Features', :type => :feature do
     context 'when the user preses the log in button' do
       before do
         visit '/'
-        click_button('Log In', name: 'layout_login')
+        click_button('Log In', class: 'layout_login')
       end
 
       it 'directs them to the login page' do

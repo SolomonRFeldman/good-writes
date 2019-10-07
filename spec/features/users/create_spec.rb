@@ -110,7 +110,7 @@ describe 'User Features', :type => :feature do
   context 'when a user is on any page and clicks the sign up button' do
     before do
       visit '/'
-      click_button('Sign Up', name: 'layout_signup')
+      click_button('Sign Up', class: 'layout_signup')
     end
 
     it "redirects to the sign up path" do

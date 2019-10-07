@@ -1,16 +1,41 @@
-<%= @user.username %>
-<ul>
-  <% @user.groups.each do |group| %>
-    <li><a href=<%= group_path(group)%>><%= group.name %></a></li>
-  <% end %>
-</ul>
+<nav style="float: left; padding-bottom: 100%;" class="navbar navbar-dark bg-secondary mb-4 d-inline-block">
+  <ul class="navbar-nav flex-column">
+    <a class="navbar-brand text-light">Your Groups</a>
+    <% @user.groups.each do |group| %>
+      <li class="nav-item active">
+        <a class='nav-link', href=<%= group_path(group)%>><%= group.name %> (<%= group.form %>)</a>
+      </li>
+    <% end %>
+  </ul>
+</nav>
 
-<ul>
-  <% @user.pieces.each do |piece| %>
-    <li><a href=<%= user_piece_path(@user, piece)%>><%= piece.title %></a></li>
-    <%= button_to 'Edit', "/users/#{@user.id}/pieces/#{piece.id}/edit", method: :get %>
-    <%= button_to 'Delete', "/users/#{@user.id}/pieces/#{piece.id}", method: :delete %>
-  <% end %>
-</ul>
+<h1 class="display-3 text-center">Your Pieces
 
-<%= button_to 'Add Piece', "/users/#{@user.id}/pieces/new", method: :get %>
+  <form class="form mt-n4 mb-n3" method="get" action="/users/<%= @user.id %>/pieces/new">
+        <button type="submit" class="btn btn-primary">Add Piece</button>
+  </form>
+
+</h1>
+
+<% @user.pieces.each do |piece| %>
+  <div style="width: 800px;" class="card mx-auto my-4">
+    <div class="card-header">
+      <h1 class='display-4 d-inline-block'> <a href=<%= user_piece_path(@user, piece)%>><%= piece.title %></a></h1>
+      <h3 class='d-inline-block ml-4'>(<%= piece.form %>)</h3>
+
+      <div style="float: right;">
+        <%= form_with class: 'form-inline d-inline-block ml-2 mr-n2', url: "/users/#{@user.id}/pieces/#{piece.id}", method: :delete do %>
+          <button style="display: inline;" type="submit" class="btn btn-secondary">Delete</button>
+        <% end %>
+      </div>
+
+      <form style="float: right;" class="form-inline d-inline-block" method="get" action="/users/<%= @user.id %>/pieces/<%= piece.id %>/edit">
+          <button style="display: inline;" type="submit" class="btn btn-primary">Edit</button>
+      </form>
+    </div>
+
+    <div class="card-body">
+      <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" class='mb-0'><%= piece.content %></p>
+    </div>
+  </div>
+<% end %>

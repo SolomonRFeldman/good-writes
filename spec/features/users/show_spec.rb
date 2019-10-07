@@ -25,10 +25,6 @@ describe 'User Features', :type => :feature do
       visit user_path(valid_user)
     end
 
-    it 'shows the username' do
-      expect(page.body[/<\/header>[\S\s]+/]).to include("Test")
-    end
-
     context "when they've joined a group" do
       before do
         valid_group

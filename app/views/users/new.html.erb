@@ -1,23 +1,35 @@
-<%= form_with class: "form-row ml-3 mt-4", url: 'signup', model: @user do |f| %>
+<%= form_with local: true, class: "form-row ml-3 mt-4", url: 'signup', model: @user do |f| %>
 
   <%= label_tag :username, 'Username', class: "col-form-label"%>
   <div class="col col-auto">
     <%= f.text_field :username, class: 'form-control', placeholder: 'Username' %>
+    <% if @errors && @errors[:username].any? %>
+      <small id="loginerror" class="form-text text-danger"><%= @errors[:username].first %></small>
+    <% end %>
   </div>
 
   <%= label_tag :email, 'Email', class: "col-form-label"%>
   <div class="col col-auto">
     <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+    <% if @errors && @errors[:email].any? %>
+      <small id="loginerror" class="form-text text-danger"><%= @errors[:email].first %></small>
+    <% end %>
   </div>
 
   <%= label_tag :password, 'Password', class: "col-form-label"%>
   <div class="col col-auto">
     <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+    <% if @errors && @errors[:password].any? %>
+      <small id="loginerror" class="form-text text-danger"><%= @errors[:password].first %></small>
+    <% end %>
   </div>
 
   <%= label_tag :password_confirmation, 'Confirm Password', class: "col-form-label"%>
   <div class="col col-auto">
     <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirm Password' %>
+    <% if @errors && @errors[:password_confirmation].any? %>
+      <small id="loginerror" class="form-text text-danger"><%= @errors[:password_confirmation].first %></small>
+    <% end %>
   </div>
 
   <div class="col col-auto">

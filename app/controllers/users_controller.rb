@@ -11,7 +11,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path
     else
-      redirect_to signup_path
+      @errors = @user.errors.messages
+      return render 'new'
     end
   end
 

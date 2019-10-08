@@ -27,7 +27,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find_by(id: params[:id])
-    @user_groups = @group.user_groups if @group
+    @user_groups = @group.user_groups.order(:created_at) if @group
     if @current_user && @group && @user_group = current_user_join
       @featured_piece = @group.featured_piece
     else

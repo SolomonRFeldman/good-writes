@@ -155,7 +155,7 @@ describe 'Group Features', :type => :feature do
       valid_piece
       visit group_path(valid_group)
       select(valid_piece.title, from: "user_group[piece_id]")
-      click_button("Select Piece")
+      click_button("Change Piece")
     end
 
     it "prepares their piece" do
@@ -163,7 +163,7 @@ describe 'Group Features', :type => :feature do
     end
 
     it "locks in their piece when it's their turn in the cycle" do
-      expect{ click_button('Select Piece') }.to raise_error(Capybara::ElementNotFound)
+      expect{ click_button('Change Piece') }.to raise_error(Capybara::ElementNotFound)
     end
   end
 

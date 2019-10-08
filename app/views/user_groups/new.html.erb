@@ -1,4 +1,11 @@
-<%= form_with model: [@group, @user_group] do |f| %>
-  <%= f.text_field :alias %>
-  <%= f.submit "Join" %>
+<%= form_with class: "form-row ml-3 mt-4", model: [@group, @user_group] do |f| %>
+
+  <%= label_tag :alias, 'Alias:', class: "col-form-label"%>
+  <div class="col col-auto">
+    <%= f.text_field :alias, class: 'form-control' %>
+  </div>
+
+  <div class="col col-auto">
+    <%= f.submit "Join", class: "btn btn-primary"  %>
+  </div>
 <% end %>

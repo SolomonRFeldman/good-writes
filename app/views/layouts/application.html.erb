@@ -21,6 +21,9 @@
                 <a class="nav-link" href=<%= user_path(@current_user)%>> Welcome, <%= @current_user.username %></a>
               </li>
           </ul>
+          <form class="form-inline ml-2 mr-sm-2" method="get" action='/groups/new'>
+            <button class="btn btn-sm btn-primary my-2 my-sm-0" type="submit">Make a Group</button>
+          </form>
           <%= form_with class: 'form-inline', url: '/login', method: 'delete' do %>
             <%= submit_tag 'Log Out', class: 'btn btn-sm btn-secondary my-2 my-sm-0' %>
           <% end %>

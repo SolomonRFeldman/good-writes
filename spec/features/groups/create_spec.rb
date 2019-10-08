@@ -3,6 +3,18 @@ require 'rails_helper'
 describe 'Group Features', :type => :feature do
   let(:valid_user) { create(:valid_user) }
   
+  context 'when a user is on any page and they click make a group in the layout' do
+    before do
+      login_user(valid_user)
+      visit '/'
+      click_button 'Make a Group'
+    end
+
+    it 'navigates to the group new page' do
+      expect(page.current_path).to eq(new_group_path)
+    end
+  end
+
   describe 'GET /groups/new' do
     before do
       login_user(valid_user)

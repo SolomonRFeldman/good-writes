@@ -6,7 +6,7 @@
     </div>
     <div class="form-row ml-2">
       <%= label_tag :Form, 'Form', class: "col-form-label mr-1"%>
-      <%= f.select :form, options_for_select([['Poetry'], ['Fiction'], ['Non-Fiction']]), class: "col col-auto" %>
+      <%= f.select :form, options_for_select([['Poetry'], ['Fiction'], ['Non-Fiction']],[@piece.form]), class: "col col-auto" %>
     </div>
   </div>
       

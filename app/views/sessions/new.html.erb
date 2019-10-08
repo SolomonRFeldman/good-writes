@@ -1,8 +1,11 @@
-<%= form_with class: "form-row ml-3 mt-4", url: '/login', model: @user do |f| %>
+<%= form_with local: true, class: "form-row ml-3 mt-4", url: '/login', model: User.new do |f| %>
 
   <%= label_tag :email, 'Email', class: "col-form-label"%>
   <div class="col col-auto">
     <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+    <% if @error %>
+      <small id="loginerror" class="form-text text-danger">Invalid Email or Password</small>
+    <% end %>
   </div>
 
   <%= label_tag :password, 'Password', class: "col-form-label"%>

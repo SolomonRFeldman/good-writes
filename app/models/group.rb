@@ -4,6 +4,8 @@ class Group < ApplicationRecord
   has_many :comments
   belongs_to :piece, optional: true
 
+  validates :name, presence: true
+
   def featured_piece
     if piece = featured_piece_search[self.point_in_cycle]
       piece if piece.id

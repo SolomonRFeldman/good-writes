@@ -47,7 +47,18 @@ describe 'Group Features', :type => :feature do
         end
       end
     end
-    
+
+    context 'when a user creates a group without a name' do
+      before do
+        select("Poetry", from: "group[form]")
+        click_button('Create Group')
+      end
+      
+      it "doesn't create the group" do
+        expect(UserGroup.all.last).to be_nil
+      end
+    end
+
     context 'when a user creates a group with an alias' do
       before do
         fill_in("group[name]", with: "Sunshine Friends")

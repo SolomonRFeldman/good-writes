@@ -2,6 +2,7 @@ class Group < ApplicationRecord
   has_many :user_groups
   has_many :users, through: :user_groups
   has_many :comments
+  has_many :pieces, through: :comments
   belongs_to :piece, optional: true
 
   validates :name, presence: true

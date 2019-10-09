@@ -10,7 +10,7 @@ Install and setup postgresql then clone the repository. Run ```$ bundle install`
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/SolomonRFeldman/my-videogame-list. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/SolomonRFeldman/good-writes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 

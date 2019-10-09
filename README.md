@@ -1,24 +1,17 @@
-# README
+Ruby Version: 2.6.3
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Good Writes
 
-Things you may want to cover:
+Good Writes is a writing workshop rails web app. Users can join or create groups and showcase their pieces to be workshopped or help workshop other's pieces by leaving comments. The app is also oauth enabled so users can login through Github.
 
-* Ruby version
+## Installation
 
-* System dependencies
+Install and setup postgresql then clone the repository. Run ```$ bundle install```. Then run ```$ rake db:create``` then ```$ rake db:migrate``` to setup the database. You can run tests using ```$ rspec```. Finally run ```$ rails s``` to run the server locally.
 
-* Configuration
+## Contributing
 
-* Database creation
+Bug reports and pull requests are welcome on GitHub at https://github.com/SolomonRFeldman/my-videogame-list. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-* Database initialization
+## License
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The app is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

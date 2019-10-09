@@ -8,7 +8,12 @@ class PiecesController < ApplicationController
   def create
     if @current_user
       @piece = Piece.create(piece_params.merge({user_id: @current_user.id}))
-      redirect_to user_path(@current_user)
+      if @piece.valid?
+        redirect_to user_path(@current_user)
+      else
+        @errors = @piece.errors.messages
+        render 'new'
+      end
     end
   end
 
@@ -20,7 +25,12 @@ class PiecesController < ApplicationController
   def update
     @piece = Piece.find_by(id: params[:id])
     @piece.update(piece_params) if authorized?(@piece)
-    redirect_to user_piece_path(@current_user, @piece)
+    if @piece.valid?
+      redirect_to user_piece_path(@current_user, @piece)
+    else
+      @errors = @piece.errors.messages
+      render 'edit'
+    end
   end
 
   def destroy

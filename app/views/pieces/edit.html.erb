@@ -5,7 +5,7 @@
       <div class="col col-auto">
         <%= f.text_field :title, class: 'form-control' %>
         <% if @errors && @errors[:title].any? %>
-          <small id="loginerror" class="form-text text-danger"><%= @errors[:title].first %></small>
+          <small class="form-text text-danger"><%= @errors[:title].first %></small>
         <% end %>
       </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="col col-auto w-50">
       <%= f.text_area :content, class: "form-control", rows: "20" %>
       <% if @errors && @errors[:content].any? %>
-        <small id="loginerror" class="form-text text-danger"><%= @errors[:content].first %></small>
+        <small class="form-text text-danger"><%= @errors[:content].first %></small>
       <% end %>
     </div>
   </div>

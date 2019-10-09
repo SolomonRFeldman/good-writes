@@ -3,7 +3,7 @@
   <div class="col col-auto">
     <%= f.text_field :name, class: 'form-control' %>
     <% if @errors && @errors[:name].any? %>
-      <small id="loginerror" class="form-text text-danger"><%= @errors[:name].first %></small>
+      <small class="form-text text-danger"><%= @errors[:name].first %></small>
     <% end %>
   </div>
   

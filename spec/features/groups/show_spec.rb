@@ -167,6 +167,20 @@ describe 'Group Features', :type => :feature do
     end
   end
 
+  context "when it's a users turn to show their piece and they haven't selected one yet" do
+    let(:user_group) { UserGroup.create(user_id: valid_user.id, group_id: valid_group.id) }
+    before do
+      login_user(valid_user)
+      valid_group
+      user_group
+      visit group_path(valid_group)
+    end
+
+    it "displays that the user hasn't selected their piece yet" do
+      expect(page).to have_content("Test hasn't selected their piece yet")
+    end
+  end
+
   context "when a user tries to select a piece that does not match the group's form" do
     let(:non_fiction_piece) { create(:valid_piece, title: 'True Stuff', form: 'Non-Fiction') }
     let(:user_group) { UserGroup.create(user_id: valid_user.id, group_id: valid_group.id) }

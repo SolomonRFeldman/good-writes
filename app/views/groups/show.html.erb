@@ -3,7 +3,7 @@
   <ul class="navbar-nav flex-column">
 
     <a class="navbar-brand text-light">Alias: <%= @user_group.alias %></a>
-    <% if @featured_piece && @user_group.piece_id == @featured_piece.id %>
+    <% if @featured_piece.id && @user_group.piece_id == @featured_piece.id %>
       <li class="nav-item active ml-4">
         <a class='nav-link'>Selected Piece: <%= @featured_piece.title %></a>
       </li>
@@ -35,7 +35,7 @@
 
 <h1 class="display-3 text-center"><%= @group.name %></h1>
 <div>
-<% if @featured_piece %>
+<% if @featured_piece.id %>
   <h2 class="text-center"><%= @featured_piece.alias%>'s Piece: </h2>
 
   <div style="width: 800px;" class="card mx-auto my-4">
@@ -86,4 +86,6 @@
       </div>
     <% end %>
   <% end %>
+<% else %>
+  <h2 class="text-center mt-5">(<%= @featured_piece.alias %> hasn't selected their piece yet.)</h2>
 <% end %>

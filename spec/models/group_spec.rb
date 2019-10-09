@@ -75,7 +75,7 @@ RSpec.describe Group, :type => :model do
       end
 
       it "returns nil" do
-        expect(valid_group.featured_piece).to be_nil
+        expect(valid_group.featured_piece.id).to be_nil
       end
     end
       

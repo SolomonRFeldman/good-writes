@@ -7,10 +7,7 @@ class SessionsController < ApplicationController
 
   def create
     if auth = request.env['omniauth.auth']
-      @user = User.find_or_create_by(auth_id: auth.uid) do |u|
-        u.auth_id = auth.uid
-        u.username = auth.info.name
-      end
+      @user = User.oauth_login(auth)
     else 
       @user = User.find_by(email: params[:user][:email])
       unless @user && @user.authenticate(params[:user][:password])

@@ -11,5 +11,12 @@ class User < ApplicationRecord
 
   validates :email, :password, presence: true, unless: :auth_id
   validates :password, confirmation: true
+
+  def self.oauth_login(auth)
+    user = User.find_or_create_by(auth_id: auth.uid) do |u|
+      u.auth_id = auth.uid
+      u.username = auth.info.name
+    end
+  end
   
 end

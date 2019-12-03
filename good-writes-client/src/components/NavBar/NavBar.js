@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Navbar from 'react-bootstrap/Navbar';
 
 export default class NavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-dark bg-dark">
-        <a className="navbar-brand" href='/'>Good Writes</a>
-      </nav>
-    )
-  }
+      <Navbar bg='dark' variant='dark'>
+        <Navbar.Brand href='/'>Good Writes</Navbar.Brand>
+      </Navbar>
+    );
+  };
 
 }

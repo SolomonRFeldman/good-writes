@@ -5,7 +5,7 @@ export default class LogInButtonContainer extends Component {
 
   render() {
     return (
-      <LogInButton />
+      <LogInButton className={this.props.className} />
     )
   }
 

@@ -5,7 +5,7 @@ export default class LogInButton extends Component {
 
   render() {
     return (
-      <Button varient='primary'>Log In</Button>
+      <Button varient='primary' className={this.props.className}>Log In</Button>
     )
   }
 

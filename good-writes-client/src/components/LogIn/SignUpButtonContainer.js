@@ -5,7 +5,7 @@ export default class SignUpButtonContainer extends Component {
 
   render() {
     return (
-      <SignUpButton />
+      <SignUpButton className={this.props.className} />
     )
   }
 

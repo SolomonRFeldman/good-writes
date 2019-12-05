@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
 
-export default class LogInForm extends Component {
+export default function LogInForm(props) {
 
-  render() {
     return (
-      <Modal show={this.props.show} onHide={this.props.handleClose} centered>
+      <Modal show={props.show} onHide={props.handleClose} centered>
 
         <Modal.Header closeButton>
           <Modal.Title>Log in with your email and password.</Modal.Title>
@@ -33,6 +32,5 @@ export default class LogInForm extends Component {
         </Form>
       </Modal>
     )
-  }
 
 }

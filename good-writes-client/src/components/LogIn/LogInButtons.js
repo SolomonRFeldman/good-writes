@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-import LogInButtonContainer from './LogInButtonContainer'
-import SignUpButtonContainer from './SignUpButtonContainer'
+import React from 'react';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import LogInButton from './LogInButton';
+import SignUpButton from './SignUpButton';
 
-export default class LogInButtons extends Component {
+export default function LogInButtons(props) {
 
-  render() {
     return (
       <ButtonToolbar className='ml-auto'>
-        <LogInButtonContainer className='mr-sm-2' />
-        <SignUpButtonContainer />
+        <LogInButton className='mr-sm-2' />
+        <SignUpButton />
       </ButtonToolbar>
     )
-  }
 
 }

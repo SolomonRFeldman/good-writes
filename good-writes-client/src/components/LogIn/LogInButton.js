@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import LogInForm from './LogInForm';
 
-export default class LogInButton extends Component {
+export default function LogInButtonContainer(props) {
+  const [showForm, setShowForm] = useState(false)
 
-  render() {
-    return (
-      <Button varient='primary' className={this.props.className} onClick={this.props.onClick}>Log In</Button>
-    )
-  }
+  const handleFormShow = () => setShowForm(true)
+  const handleFormClose = () => setShowForm(false)
+
+  return (
+    <>
+      <Button varient='primary' className={props.className} onClick={handleFormShow}>Log In</Button>
+      <LogInForm show={showForm} handleClose={handleFormClose} />
+    </>
+  )
 
 }

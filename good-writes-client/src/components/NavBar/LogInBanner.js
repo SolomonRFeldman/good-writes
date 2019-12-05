@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import LogInButtons from '../LogIn/LogInButtons'
+import React from 'react';
+import LogInButtons from '../LogIn/LogInButtons';
 
-export default class LogInBanner extends Component {
+export default function LogInBanner(props) {
 
-  render() {
-    return (
-      <LogInButtons />
-    )
-  }
+  return (
+    <LogInButtons />
+  )
 
 }

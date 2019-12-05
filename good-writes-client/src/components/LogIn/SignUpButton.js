@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 
-export default class SignUpButton extends Component {
+export default function SignUpButtonContainer(props) {
 
-  render() {
-    return (
-      <Button variant='secondary' className={this.props.className}>Sign Up</Button>
-    )
-  }
+  return (
+    <Button variant='secondary' className={props.className}>Sign Up</Button>
+  )
 
 }

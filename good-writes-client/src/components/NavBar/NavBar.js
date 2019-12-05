@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import LogInBanner from './LogInBanner'
+import LogInBanner from './LogInBanner';
 
-export default class NavBar extends Component {
+export default function NavBar(props) {
 
-  render() {
-    return (
-      <Navbar bg='dark' variant='dark'>
-        <Navbar.Brand href='/'>Good Writes</Navbar.Brand>
-        <LogInBanner />
-      </Navbar>
-    );
-  }
+  return (
+    <Navbar bg='dark' variant='dark'>
+      <Navbar.Brand href='/'>Good Writes</Navbar.Brand>
+      <LogInBanner />
+    </Navbar>
+  );
 
 }

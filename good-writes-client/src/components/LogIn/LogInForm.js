@@ -1,36 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
 
-export default function LogInForm(props) {
+function LogInForm(props) {
 
-    return (
-      <Modal show={props.show} onHide={props.handleClose} centered>
+  const [formData, setFormData] = useState({ email: '', password: '' })
+  const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
 
-        <Modal.Header closeButton>
-          <Modal.Title>Log in with your email and password.</Modal.Title>
-        </Modal.Header>
+  const handleSubmit = event => {
+    event.preventDefault()
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ user: formData })
+    }
 
-        <Form>
+    
+    return fetch('/login', configObj).then(response => response.json()).then(json => {
+      props.addToken(json.token)
+      localStorage.token = json.token
+    })
+  }
 
-          <Modal.Body>
-              <Form.Group controlId='logInEmail'>
-                <Form.Label>Email</Form.Label>
-                <Form.Control type='email' placeholder='Email' />
-              </Form.Group>
-              <Form.Group controlId='logInPassword'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type='password' placeholder='Password' />
-              </Form.Group>
-          </Modal.Body>
+  return (
+    <Modal show={props.show} onHide={props.handleClose} centered>
 
-          <Modal.Footer>
-            <Button varient='primary'>Log In</Button>
-          </Modal.Footer>
+      <Modal.Header closeButton>
+        <Modal.Title>Log in with your email and password.</Modal.Title>
+      </Modal.Header>
 
-        </Form>
-      </Modal>
-    )
+      <Form onSubmit={handleSubmit}>
+
+        <Modal.Body>
+            <Form.Group >
+              <Form.Label>Email</Form.Label>
+              <Form.Control id='email' onChange={handleChange} type='email' placeholder='Email' />
+            </Form.Group>
+            <Form.Group >
+              <Form.Label>Password</Form.Label>
+              <Form.Control id='password' onChange={handleChange} type='password' placeholder='Password' />
+            </Form.Group>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button type='submit' varient='primary'>Log In</Button>
+        </Modal.Footer>
+
+      </Form>
+    </Modal>
+  )
 
 }
+
+const mapStateToProps = ({ token }) => ({ token })
+
+const mapDispatchToProps = dispatch => ({
+  addToken: token => { dispatch({ type: "ADD_TOKEN", token }) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogInForm)

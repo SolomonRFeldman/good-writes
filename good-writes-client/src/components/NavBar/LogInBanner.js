@@ -4,7 +4,7 @@ import LogInButtons from '../LogIn/LogInButtons';
 export default function LogInBanner(props) {
 
   return (
-    <LogInButtons />
+    <LogInButtons className={props.className} />
   )
 
 }

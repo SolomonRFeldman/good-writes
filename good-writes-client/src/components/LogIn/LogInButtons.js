@@ -6,7 +6,7 @@ import SignUpButton from './SignUpButton';
 export default function LogInButtons(props) {
 
     return (
-      <ButtonToolbar className='ml-auto'>
+      <ButtonToolbar className={props.className}>
         <LogInButton className='mr-sm-2' />
         <SignUpButton />
       </ButtonToolbar>

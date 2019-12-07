@@ -6,9 +6,10 @@ import { connect } from 'react-redux'
 
 function NavBar(props) {
 
-  const redirect = () => { if(props.redirect) { 
+  const redirect = () => { if(props.redirect) {
+    const path = props.redirect
     props.resetRedirectTrigger()
-    return <Redirect to={redirect} /> 
+    return <Redirect to={path} /> 
   }}
 
   console.log(props.redirect)

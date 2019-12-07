@@ -3,7 +3,7 @@ export default function manageCurrentUser(state = { id: null, username: '', toke
     case 'ADD_CURRENT_USER':
       return { ...state, ...action.payload };
     case 'REMOVE_CURRENT_USER':
-      return { ...state, ...{ currentUser: { id: null, username: '' }, token: '' } };
+      return { ...state, ...{ id: null, username: '', token: '' } };
     default:
       return state;
   };

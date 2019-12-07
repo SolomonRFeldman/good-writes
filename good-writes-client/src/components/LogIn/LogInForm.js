@@ -22,7 +22,7 @@ function LogInForm(props) {
 
     
     return fetch('/login', configObj).then(response => response.json()).then(json => {
-      props.addToken(json.token)
+      props.addCurrentUser(json)
       localStorage.token = json.token
     })
   }
@@ -57,10 +57,6 @@ function LogInForm(props) {
 
 }
 
-const mapStateToProps = ({ token }) => ({ token })
+const mapDispatchToProps = dispatch => ({ addCurrentUser: payload => { dispatch({ type: "ADD_CURRENT_USER", payload }) } })
 
-const mapDispatchToProps = dispatch => ({
-  addToken: token => { dispatch({ type: "ADD_TOKEN", token }) }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(LogInForm)
+export default connect(null, mapDispatchToProps)(LogInForm)

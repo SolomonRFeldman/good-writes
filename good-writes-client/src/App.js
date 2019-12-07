@@ -28,7 +28,7 @@ function App(props) {
         localStorage.token = json.token
       })
     }
-  })
+  }, [])
 
   return (
     <Router>

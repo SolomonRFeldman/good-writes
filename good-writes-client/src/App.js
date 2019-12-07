@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar/NavBar';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Groups from './components/Groups/Groups'
+
 import { connect } from 'react-redux'
 
 
@@ -27,11 +31,14 @@ function App(props) {
   })
 
   return (
-    <div className="App">
-      <header>
-        <NavBar />
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <header>
+          <NavBar />
+        </header>
+        <Route exact path='/' component={Groups} />
+      </div>
+    </Router>
   );
 }
 

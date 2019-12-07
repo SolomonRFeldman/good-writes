@@ -8,13 +8,13 @@ function LogInBanner(props) {
   useEffect(() => console.log(props))
 
   return (
-    props.token ?
+    props.currentUser.token ?
       <UserBanner className={props.className} currentUser={props.currentUser} /> :
       <SessionButtons className={props.className} />
   )
 
 }
 
-const mapStateToProps = ({ token, currentUser }) => ({ token, currentUser })
+const mapStateToProps = ({ currentUser }) => ({ currentUser })
 
 export default connect(mapStateToProps, null)(LogInBanner)

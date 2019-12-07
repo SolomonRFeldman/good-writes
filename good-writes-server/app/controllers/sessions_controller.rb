@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       end
       token = JwtService.encode({user_id: @user.id})
     end
-    render json: { currentUser: @user.attributes.slice('id', 'username'), token: token }
+    render json: @user.attributes.slice('id', 'username').merge(token: token)
   end
 
   # def delete

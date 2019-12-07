@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 function LogOutButton(props) {
 

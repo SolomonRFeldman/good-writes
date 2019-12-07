@@ -1,15 +1,29 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import LogInBanner from './LogInBanner';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux'
 
-export default function NavBar(props) {
+function NavBar(props) {
+
+  const redirect = () => { if(props.redirect) { 
+    props.resetRedirectTrigger()
+    return <Redirect to='/' /> 
+  }}
+
+  console.log(props.redirect)
 
   return (
     <Navbar bg='dark' variant='dark'>
       <Navbar.Brand as={Link} to='/'>Good Writes</Navbar.Brand>
       <LogInBanner className='ml-auto' />
+      {redirect()}
     </Navbar>
   );
 
 }
+
+const mapStateToProps = ({ redirect }) => ({ redirect })
+const mapDispatchToProps = dispatch => ({ resetRedirectTrigger: payload => { dispatch({ type: 'RESET_REDIRECT_TRIGGER', payload }) } })
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

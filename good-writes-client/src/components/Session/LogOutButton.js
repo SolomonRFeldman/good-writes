@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 function LogOutButton(props) {
 
   const handleClick = () => {
+    props.triggerRedirect()
     props.removeCurrentUser()
     localStorage.clear()
   }
@@ -15,6 +17,9 @@ function LogOutButton(props) {
 
 }
 
-const mapDispatchToProps = dispatch => ({ removeCurrentUser: payload => { dispatch({ type: "REMOVE_CURRENT_USER", payload }) } })
+const mapDispatchToProps = dispatch => ({ 
+  removeCurrentUser: payload => { dispatch({ type: "REMOVE_CURRENT_USER", payload }) },
+  triggerRedirect: payload => { dispatch({ type: 'TRIGGER_REDIRECT', payload }) }
+})
 
 export default connect(null, mapDispatchToProps)(LogOutButton)

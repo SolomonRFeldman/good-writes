@@ -6,9 +6,9 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import manageToken from './reducers/manageToken';
+import manageCurrentUser from './reducers/manageCurrentUser';
 
-const store = createStore(manageToken)
+const store = createStore(manageCurrentUser)
 
 ReactDOM.render(
   <Provider store={store}>

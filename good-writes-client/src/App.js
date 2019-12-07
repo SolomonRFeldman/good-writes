@@ -4,9 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar/NavBar';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Groups from './components/Groups/Groups'
+import Groups from './components/Groups/Groups';
+import User from './components/Users/User';
 
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 
 
@@ -37,6 +38,7 @@ function App(props) {
           <NavBar />
         </header>
         <Route exact path='/' component={Groups} />
+        <Route exact path='/users/:id' component={User} />
       </div>
     </Router>
   );

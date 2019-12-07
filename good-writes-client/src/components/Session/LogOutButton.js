@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 function LogOutButton(props) {
 
   const handleClick = () => {
-    props.triggerRedirect()
+    props.triggerRedirect('/')
     props.removeCurrentUser()
     localStorage.clear()
   }
@@ -19,7 +19,7 @@ function LogOutButton(props) {
 
 const mapDispatchToProps = dispatch => ({ 
   removeCurrentUser: payload => { dispatch({ type: "REMOVE_CURRENT_USER", payload }) },
-  triggerRedirect: payload => { dispatch({ type: 'TRIGGER_REDIRECT', payload }) }
+  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
 })
 
 export default connect(null, mapDispatchToProps)(LogOutButton)

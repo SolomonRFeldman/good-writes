@@ -1,9 +1,9 @@
-export default function manageRedirect(state = false, action) {
+export default function manageRedirect(state = '', action) {
   switch(action.type) {
     case 'TRIGGER_REDIRECT':
-      return true;
+      return action.path;
     case 'RESET_REDIRECT_TRIGGER':
-      return false;
+      return '';
     default:
       return state;
   };

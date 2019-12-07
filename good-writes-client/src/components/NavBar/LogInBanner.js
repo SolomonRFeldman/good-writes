@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import LogInButtons from '../LogIn/LogInButtons';
+import SessionButtons from '../Session/SessionButtons';
 import { connect } from 'react-redux';
 import UserBanner from '../Users/UserBanner';
 
@@ -10,7 +10,7 @@ function LogInBanner(props) {
   return (
     props.token ?
       <UserBanner className={props.className} currentUser={props.currentUser} /> :
-      <LogInButtons className={props.className} />
+      <SessionButtons className={props.className} />
   )
 
 }

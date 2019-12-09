@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Pieces from '../Pieces/Pieces'
+import NewPieceButton from '../Pieces/NewPieceButton';
 
 export default function User(props) {
 
@@ -22,6 +23,7 @@ export default function User(props) {
   return(
     <React.Fragment>
       <h1 className="display-3 text-center">Your Pieces</h1>
+      <NewPieceButton className='mx-auto d-block' />
       <Pieces pieces={user.pieces} varient={'profile'} />
     </React.Fragment>
   )

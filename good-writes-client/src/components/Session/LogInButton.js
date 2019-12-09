@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import LogInForm from './LogInForm';
 
-export default function LogInButtonContainer(props) {
+export default function LogInButton(props) {
   const [showForm, setShowForm] = useState(false)
 
   const handleFormShow = () => setShowForm(true)

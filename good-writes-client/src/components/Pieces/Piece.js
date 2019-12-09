@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function Piece(props) {
 
-
   const header = <h1 className='display-4 d-inline-block'>{props.piece.title}</h1>
-
   const headerElement = () => {
     if(props.varient === 'profile') { return (
       <Link to={`/users/${props.piece.user_id}/pieces/${props.piece.id}`}>{header}</Link>
@@ -15,6 +13,8 @@ export default function Piece(props) {
       return header
     }
   }
+
+  const formBody = () => { if(props.piece.form) { return `(${props.piece.form})` } }
 
   const bodyStyle = () => {
     if(props.varient === 'profile') return {overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}
@@ -24,7 +24,7 @@ export default function Piece(props) {
     <Card style={{width: '800px'}} className='mx-auto my-4'>
       <Card.Header>
         {headerElement()}
-        <h3 className='d-inline-block ml-4'>({props.piece.form})</h3>
+        <h3 className='d-inline-block ml-4'>{formBody()}</h3>
       </Card.Header>
       <Card.Body>
         <p style={bodyStyle()} className='mb-0'>{props.piece.content}</p>
@@ -33,3 +33,5 @@ export default function Piece(props) {
   )
 
 }
+
+Piece.defaultProps = { piece: {} }

@@ -1,16 +1,34 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-export default function NewPieceForm(props) {
+function NewPieceForm(props) {
 
   const [formData, setFormData] = useState({ title: '', form: 'Poetry', content: '' })
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
 
-  const handleSubmit = () => {}
+  const handleSubmit = event => {
+    event.preventDefault()
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Token": localStorage.token
+      },
+      body: JSON.stringify({ piece: formData })
+    }
+
+    
+    return fetch('/pieces', configObj).then(response => response.json()).then(piece => {
+      props.triggerRedirect(`/users/${piece.user_id}/pieces/${piece.id}`)
+    })
+  }
 
   return (
     <Modal size='lg' show={props.show} onHide={props.handleClose} centered>
@@ -42,7 +60,7 @@ export default function NewPieceForm(props) {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button type='submit' varient='primary'>Log In</Button>
+          <Button type='submit' varient='primary'>Add Piece</Button>
         </Modal.Footer>
 
       </Form>
@@ -50,3 +68,9 @@ export default function NewPieceForm(props) {
   )
 
 }
+
+const mapDispatchToProps = dispatch => ({ 
+  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
+})
+
+export default connect(null, mapDispatchToProps)(NewPieceForm)

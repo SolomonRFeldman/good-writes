@@ -24,7 +24,7 @@ export default function User(props) {
     <React.Fragment>
       <h1 className="display-3 text-center">Your Pieces</h1>
       <NewPieceButton className='mx-auto d-block' />
-      <Pieces pieces={user.pieces} varient={'profile'} />
+      <Pieces pieces={user.pieces} variant={'profile'} />
     </React.Fragment>
   )
 

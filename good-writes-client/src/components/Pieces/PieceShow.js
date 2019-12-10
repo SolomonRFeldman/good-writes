@@ -17,7 +17,7 @@ export default function PieceShow(props) {
   }, [])
 
   return(
-    <Piece varient='show' piece={piece} />
+    <Piece variant='show' piece={piece} />
   )
 
 }

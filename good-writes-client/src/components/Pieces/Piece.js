@@ -7,17 +7,15 @@ export default function Piece(props) {
 
   const header = <h1 className='display-4 d-inline-block'>{props.piece.title}</h1>
   const headerElement = () => {
-    if(props.varient === 'profile') { return (
-      <Link to={`/users/${props.piece.user_id}/pieces/${props.piece.id}`}>{header}</Link>
-    )} else {
-      return header
-    }
+    return props.variant === 'profile' ?
+      <Link to={`/users/${props.piece.user_id}/pieces/${props.piece.id}`}>{header}</Link> :
+      header
   }
 
   const formBody = () => { if(props.piece.form) { return `(${props.piece.form})` } }
 
   const bodyStyle = () => {
-    if(props.varient === 'profile') return {overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}
+    if(props.variant === 'profile') return {overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}
   }
   
   return(

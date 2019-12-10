@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import React from 'react'
+import ModalButton from '../Modal/ModalButton';
 import SignUpForm from './SignUpForm';
 
-export default function SignUpButtonContainer(props) {
-  const [showForm, setShowForm] = useState(false)
-
-  const handleFormShow = () => setShowForm(true)
-  const handleFormClose = () => setShowForm(false)
+export default function SignUpButton(props) {
 
   return (
-    <React.Fragment>
-      <Button variant='secondary' className={props.className} onClick={handleFormShow}>Sign Up</Button>
-      <SignUpForm show={showForm} handleClose={handleFormClose} />
-    </React.Fragment>
+    <ModalButton Modal={SignUpForm} variant={props.variant} className={props.className}>Sign Up</ModalButton>
   )
 
 }
+
+SignUpButton.defaultProps = { variant: 'secondary' }

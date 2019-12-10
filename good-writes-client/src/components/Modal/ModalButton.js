@@ -12,7 +12,7 @@ export default function ModalButton(props) {
   return (
     <React.Fragment>
       <Button variant={props.variant} className={props.className} onClick={handleFormShow}>{props.children}</Button>
-      <props.Modal show={showForm} handleClose={handleFormClose} />
+      <props.Modal show={showForm} handleClose={handleFormClose} {...props.modalProps} />
     </React.Fragment>
   )
 

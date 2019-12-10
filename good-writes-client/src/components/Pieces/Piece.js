@@ -1,18 +1,28 @@
-import React from 'react'
-import Card from 'react-bootstrap/Card'
+import React, { useState, useEffect } from 'react';
+import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import PieceButtons from './PieceButtons';
+import { connect } from 'react-redux';
 
 
-export default function Piece(props) {
+function Piece(props) {
+  const [piece, setPiece] = useState(props.piece)
+  useEffect(() => setPiece(props.piece), [props.piece])
 
-  const header = <h1 className='display-4 d-inline-block'>{props.piece.title}</h1>
+  const header = <h1 className='display-4 d-inline-block'>{piece.title}</h1>
   const headerElement = () => {
     return props.variant === 'profile' ?
-      <Link to={`/users/${props.piece.user_id}/pieces/${props.piece.id}`}>{header}</Link> :
+      <Link to={`/users/${piece.user_id}/pieces/${piece.id}`}>{header}</Link> :
       header
   }
 
-  const formBody = () => { if(props.piece.form) { return `(${props.piece.form})` } }
+  const formBody = () => { if(piece.form) { return `(${piece.form})` } }
+  const headerButtons = () => {
+    if((props.variant === 'profile' || props.variant === 'show') && (props.currentUser.id === piece.user_id)) {
+      return <PieceButtons className='float-right' {...{piece, setPiece}} /> 
+    }
+  }
+
 
   const bodyStyle = () => {
     if(props.variant === 'profile') return {overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}
@@ -23,9 +33,10 @@ export default function Piece(props) {
       <Card.Header>
         {headerElement()}
         <h3 className='d-inline-block ml-4'>{formBody()}</h3>
+        {headerButtons()}
       </Card.Header>
       <Card.Body>
-        <p style={bodyStyle()} className='mb-0'>{props.piece.content}</p>
+        <p style={bodyStyle()} className='mb-0'>{piece.content}</p>
       </Card.Body>
     </Card>
   )
@@ -33,3 +44,6 @@ export default function Piece(props) {
 }
 
 Piece.defaultProps = { piece: {} }
+
+const mapStateToProps = ({ currentUser }) => ({ currentUser })
+export default connect(mapStateToProps, null)(Piece)

@@ -8,7 +8,7 @@ export default function PieceButton(props) {
   return(
     <ButtonToolbar className={props.className}>
       <EditPieceButton piece={props.piece} setPiece={props.setPiece} />
-      <DeletePieceButton className='ml-2' piece={props.piece} />
+      <DeletePieceButton className='ml-2' piece={props.piece} collection={props.collection} />
     </ButtonToolbar>
   )
 

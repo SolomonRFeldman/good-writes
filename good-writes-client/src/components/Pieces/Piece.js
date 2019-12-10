@@ -19,7 +19,7 @@ function Piece(props) {
   const formBody = () => { if(piece.form) { return `(${piece.form})` } }
   const headerButtons = () => {
     if((props.variant === 'profile' || props.variant === 'show') && (props.currentUser.id === piece.user_id)) {
-      return <PieceButtons className='float-right' {...{piece, setPiece}} /> 
+      return <PieceButtons className='float-right' {...{piece, setPiece}} collection={props.collection} /> 
     }
   }
 

@@ -9,6 +9,13 @@ class PiecesController < ApplicationController
     end
   end
 
+  def update
+    piece = Piece.find_by(id: params[:id]) 
+    if (JwtService.decode(request.headers[:Token])[:user_id] == piece.user_id) && piece.update(piece_params)
+      render json: piece.to_json
+    end
+  end
+
   def show
     piece = Piece.find_by(id: params[:id]) 
     if JwtService.decode(request.headers[:Token])[:user_id] == piece.user_id

@@ -9,7 +9,7 @@ function NavBar(props) {
   const redirect = () => { if(props.redirect) {
     const path = props.redirect
     props.resetRedirectTrigger()
-    return <Redirect to={path} /> 
+    return <Redirect push to={path} /> 
   }}
 
   console.log(props.redirect)

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :users, only: [:show]
-  resources :pieces, only: [:show]
+  resources :pieces, only: [:show, :create]
   resources :groups, only: [:index]
 
   post '/signup' => 'users#create'

@@ -9,6 +9,13 @@ class PiecesController < ApplicationController
     end
   end
 
+  def show
+    piece = Piece.find_by(id: params[:id]) 
+    if authorized?(piece)
+      render json: piece.to_json
+    end
+  end
+
   def update
     piece = Piece.find_by(id: params[:id]) 
     if authorized?(piece) && piece.update(piece_params)
@@ -16,9 +23,9 @@ class PiecesController < ApplicationController
     end
   end
 
-  def show
-    piece = Piece.find_by(id: params[:id]) 
-    if authorized?(piece)
+  def destroy
+    piece = Piece.find_by(id: params[:id])
+    if authorized?(piece) && piece.destroy
       render json: piece.to_json
     end
   end

@@ -8,7 +8,7 @@ export default function LogInButtons(props) {
 
   return (
     <ButtonToolbar className={props.className}>
-      {isInGroup() ? <ShowGroupButton /> : <JoinGroupButton />}
+      {isInGroup() ? <ShowGroupButton group={props.group} /> : <JoinGroupButton group={props.group} />}
     </ButtonToolbar>
   )
 

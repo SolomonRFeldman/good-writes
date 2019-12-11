@@ -2,14 +2,28 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
 
-export default function JoinGroupForm(props) {
+function JoinGroupForm(props) {
 
   const [formData, setFormData] = useState({ alias: '' })
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
 
   const handleSubmit = event => {
     event.preventDefault()
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ user_group: {...formData }, group_id: props.group.id })
+    }
+    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
+
+    return fetch(`/user_groups`, configObj).then(response => response.json()).then(userGroup => {
+      props.triggerRedirect(`/groups/${userGroup.group_id}`)
+    })
   }
 
   return(
@@ -32,3 +46,9 @@ export default function JoinGroupForm(props) {
   )
 
 }
+
+const mapDispatchToProps = dispatch => ({ 
+  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
+})
+
+export default connect(null, mapDispatchToProps)(JoinGroupForm)

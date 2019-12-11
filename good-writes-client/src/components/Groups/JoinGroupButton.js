@@ -1,10 +1,13 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import ModalButton from '../Modal/ModalButton';
+import JoinGroupForm from './JoinGroupForm';
 
 export default function JoinGroupButton(props) {
   
   return(
-    <Button className={props.className} variant='success'>Join</Button>
+    <ModalButton Modal={JoinGroupForm} modalProps={{group: props.group}} className={props.className} variant='success'>
+      Join
+    </ModalButton>
   )
 
 }

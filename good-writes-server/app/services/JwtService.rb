@@ -4,8 +4,12 @@ class JwtService
   end
 
   def self.decode(token)
-    body, = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
-    HashWithIndifferentAccess.new(body)
+    if(token)
+      body, = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
+      HashWithIndifferentAccess.new(body)
+    else
+      { user_id: nil}
+    end
   rescue JWT::ExpiredSignature
     nil
   end

@@ -7,6 +7,11 @@ class Group < ApplicationRecord
 
   validates :name, presence: true
 
+  def show_attributes
+    user_groups = self.user_groups.select(:id, :alias).order(:created_at)
+    self.attributes.merge({ featured_piece: self.featured_piece, user_groups: user_groups })
+  end
+
   def featured_piece
     if piece = featured_piece_search[self.point_in_cycle]
       piece

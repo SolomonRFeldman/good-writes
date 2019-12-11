@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   has_many :user_groups
   has_many :groups, through: :user_groups
-  has_many :pieces
+  has_many :pieces, -> { order('updated_at DESC') }
   has_many :comments
 
   validates :username, presence: true

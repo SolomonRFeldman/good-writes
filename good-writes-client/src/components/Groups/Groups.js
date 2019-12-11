@@ -1,14 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import Group from './Group'
+import Group from './Group';
+import { connect } from 'react-redux';
 
-export default function Groups(props) {
+function Groups(props) {
 
   const [groups, setGroups] = useState([])
+  const [userGroups, setUserGroups] = useState([])
 
-  useEffect(() => { fetch('/groups').then(response => response.json()).then(json => setGroups(json.groups)) }, [])
+  useEffect(() => { 
+    const configObj = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+    }
+    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
+
+    fetch('/groups', configObj).then(response => response.json()).then(json => {
+      setUserGroups(json.user_groups)
+      setGroups(json.groups)
+    })
+  }, [props.currentUser])
 
   return(
-    <>{groups.map(group => <Group group={group} />)}</>
+    <>{groups.map(group => <Group group={group} userGroups={userGroups} />)}</>
   )
 
 }
+
+const mapStateToProps = ({ currentUser }) => ({ currentUser })
+
+export default connect(mapStateToProps, null)(Groups)

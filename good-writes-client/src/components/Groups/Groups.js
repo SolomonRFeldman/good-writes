@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Group from './Group';
-import { connect } from 'react-redux';
 
-function Groups(props) {
+export default function Groups(props) {
 
   const [groups, setGroups] = useState([])
   const [userGroups, setUserGroups] = useState([])
@@ -28,7 +27,3 @@ function Groups(props) {
   )
 
 }
-
-const mapStateToProps = ({ currentUser }) => ({ currentUser })
-
-export default connect(mapStateToProps, null)(Groups)

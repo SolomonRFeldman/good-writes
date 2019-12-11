@@ -13,7 +13,7 @@ function Groups(props) {
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
-      },
+      }
     }
     if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
 

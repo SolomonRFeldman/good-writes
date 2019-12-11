@@ -5,7 +5,8 @@ import NavBar from './components/NavBar/NavBar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Groups from './components/Groups/Groups';
 import User from './components/Users/User';
-import PieceShow from './components/Pieces/PieceShow'
+import PieceShow from './components/Pieces/PieceShow';
+import GroupShow from './components/Groups/GroupShow';
 
 import { connect } from 'react-redux';
 
@@ -40,6 +41,7 @@ function App(props) {
         <Route exact path='/' component={Groups} />
         <Route exact path='/users/:id' component={User} />
         <Route exact path='/users/:user_id/pieces/:id' component={PieceShow} />
+        <Route exact path='/groups/:id' component={GroupShow} />
       </div>
     </Router>
   );

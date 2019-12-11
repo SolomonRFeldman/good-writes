@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar/NavBar';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Groups from './components/Groups/Groups';
+import Home from './components/Home';
 import User from './components/Users/User';
 import PieceShow from './components/Pieces/PieceShow';
 import GroupShow from './components/Groups/GroupShow';
@@ -38,7 +38,7 @@ function App(props) {
         <header>
           <NavBar />
         </header>
-        <Route exact path='/' component={Groups} />
+        <Route exact path='/' component={Home} />
         <Route exact path='/users/:id' component={User} />
         <Route exact path='/users/:user_id/pieces/:id' component={PieceShow} />
         <Route exact path='/groups/:id' component={GroupShow} />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar/NavBar';
 
@@ -36,12 +36,14 @@ function App(props) {
     <Router>
       <div className="App">
         <header>
-          <NavBar />
+          <NavBar className='fixed-top w-100' />
         </header>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/users/:id' component={User} />
-        <Route exact path='/users/:user_id/pieces/:id' component={PieceShow} />
-        <Route exact path='/groups/:id' component={GroupShow} />
+        <div style={{paddingTop: '56px'}}>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/users/:id' component={User} />
+          <Route exact path='/users/:user_id/pieces/:id' component={PieceShow} />
+          <Route exact path='/groups/:id' component={GroupShow} />
+        </div>
       </div>
     </Router>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import LogInBanner from './LogInBanner';
 import { Link, Redirect } from 'react-router-dom';
@@ -15,7 +15,7 @@ function NavBar(props) {
   console.log(props.redirect)
 
   return (
-    <Navbar bg='dark' variant='dark'>
+    <Navbar className={props.className} bg='dark' variant='dark'>
       <Navbar.Brand as={Link} to='/'>Good Writes</Navbar.Brand>
       <LogInBanner className='ml-auto' />
       {redirect()}

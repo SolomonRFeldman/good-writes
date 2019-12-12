@@ -21,6 +21,15 @@ class Group < ApplicationRecord
     end
   end
 
+  class << self
+
+    def new_with_join(attributes)
+      user_group = UserGroup.new(user_id: attributes[:user_id], alias: attributes[:alias])
+      Group.new(name: attributes[:name], form: attributes[:form], user_groups: [user_group])
+    end
+
+  end
+
   private
 
   def featured_piece_search

@@ -15,4 +15,13 @@ class GroupsController < ApplicationController
     end
   end
 
+  def create
+    if @current_user_id
+      group = Group.new_with_join(params[:group].merge({user_id: @current_user_id}))
+      if group.save
+        render json: group.to_json
+      end
+    end
+  end
+
 end

@@ -22,12 +22,12 @@ export default function GroupShow(props) {
   }, [])
   
   return(
-    <>
+    <React.Fragment>
       <GroupShowSidebar userGroup={userGroup} />
       <div style={{paddingLeft: '300px'}}>
         <h1 className="display-3 text-center">{group.name}</h1>
       </div>
-    </>
+    </React.Fragment>
   )
 
 }

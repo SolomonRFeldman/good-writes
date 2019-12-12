@@ -16,14 +16,14 @@ export default function GroupShow(props) {
     if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
 
     fetch(`/groups/${props.match.params.id}`, configObj).then(response => response.json()).then(json => {
-      console.log(json)
+      setUserGroup(json.user_group)
       setGroup(json.group) }
     )
   }, [])
   
   return(
     <>
-      <GroupShowSidebar />
+      <GroupShowSidebar userGroup={userGroup} />
       <div style={{paddingLeft: '300px'}}>
         <h1 className="display-3 text-center">{group.name}</h1>
       </div>

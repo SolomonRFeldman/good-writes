@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import GroupShowSidebar from './GroupShowSidebar';
 
 export default function GroupShow(props) {
   const [group, setGroup] = useState({})
@@ -21,9 +22,12 @@ export default function GroupShow(props) {
   }, [])
   
   return(
-    <React.Fragment>
-      <h1 className="display-3 text-center">{group.name}</h1>
-    </React.Fragment>
+    <>
+      <GroupShowSidebar />
+      <div style={{paddingLeft: '300px'}}>
+        <h1 className="display-3 text-center">{group.name}</h1>
+      </div>
+    </>
   )
 
 }

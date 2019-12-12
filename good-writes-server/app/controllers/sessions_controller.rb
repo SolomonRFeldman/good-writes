@@ -14,9 +14,4 @@ class SessionsController < ApplicationController
     render json: @user.attributes.slice('id', 'username').merge(token: token)
   end
 
-  # def delete
-  #   session.destroy
-  #   redirect_to root_path
-  # end
-
 end

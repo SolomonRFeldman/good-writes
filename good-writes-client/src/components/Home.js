@@ -6,6 +6,7 @@ import NewGroupButton from './Groups/NewGroupButton';
 function Home(props) {
   return(
     <React.Fragment>
+      <h1 className="display-3 text-center">Groups</h1>
       {props.currentUser.token ? <NewGroupButton className='mt-4 mx-auto d-block' /> : null}
       <Groups currentUser={props.currentUser} />
     </React.Fragment>

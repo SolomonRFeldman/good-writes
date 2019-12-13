@@ -7,6 +7,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    comment = Comment.find_by(id: params[:id])
+    if authorized?(comment) && comment.destroy
+      render json: comment.to_json
+    end
+  end
+
   private
 
   def create_comment_params

@@ -44,7 +44,6 @@ class Group < ApplicationRecord
       user_groups.id AS user_group_id,
       user_groups.alias,
       pieces.id,
-      pieces.user_id,
       pieces.title,
       pieces.form,
       pieces.content

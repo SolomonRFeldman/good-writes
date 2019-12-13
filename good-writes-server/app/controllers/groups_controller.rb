@@ -24,4 +24,12 @@ class GroupsController < ApplicationController
     end
   end
 
+  def update
+    group = Group.find_by(id: params[:id])
+    if group && UserGroup.find_by(user_id: @current_user_id, group_id: group.id, moderator_status: true)
+      group.update(point_in_cycle: params[:group][:point_in_cycle])
+      render json: { group: group.show_attributes }
+    end
+  end
+
 end

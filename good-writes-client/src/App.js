@@ -9,6 +9,7 @@ import PieceShow from './components/Pieces/PieceShow';
 import GroupShow from './components/Groups/GroupShow';
 
 import { connect } from 'react-redux';
+import { fetchUser } from './actions/userActions';
 
 
 
@@ -16,19 +17,7 @@ function App(props) {
 
   useEffect(() => {
     if(localStorage.token) {
-      const configObj = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({ token: localStorage.token })
-      }
-      
-      fetch('/login', configObj).then(response => response.json()).then(json => {
-        props.addCurrentUser(json)
-        localStorage.token = json.token
-      })
+      props.fetchUser()
     }
   }, [])
 
@@ -49,6 +38,6 @@ function App(props) {
   );
 }
 
-const mapDispatchToProps = dispatch => ({ addCurrentUser: payload => { dispatch({ type: "ADD_CURRENT_USER", payload }) } })
+const mapDispatchToProps = dispatch => ({ fetchUser: () => dispatch(fetchUser()) })
 
 export default connect(null, mapDispatchToProps)(App)

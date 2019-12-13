@@ -3,7 +3,7 @@ import GroupShowSidebar from './GroupShowSidebar';
 
 export default function GroupShow(props) {
   const [group, setGroup] = useState({})
-  const [userGroup, setUserGroup] = useState({})
+  const [userGroup, setUserGroup] = useState({valid_pieces: []})
 
   useEffect( () => {
     const configObj = {
@@ -17,15 +17,16 @@ export default function GroupShow(props) {
 
     fetch(`/groups/${props.match.params.id}`, configObj).then(response => response.json()).then(json => {
       setUserGroup(json.user_group)
-      setGroup(json.group) }
-    )
+      setGroup(json.group)
+      console.log(json)
+    })
   }, [])
   
   return(
     <React.Fragment>
-      <GroupShowSidebar userGroup={userGroup} />
+      <GroupShowSidebar userGroup={userGroup} group={group} setGroup={setGroup} />
       <div style={{paddingLeft: '300px'}}>
-        <h1 className="display-3 text-center">{group.name}</h1>
+        <h1 className="display-3 text-center">{group.name} {group.featured_piece ? group.featured_piece.title : null }</h1>
       </div>
     </React.Fragment>
   )

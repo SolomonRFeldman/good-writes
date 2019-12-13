@@ -5,6 +5,13 @@ class UserGroupsController < ApplicationController
     render json: user_group.to_json
   end
 
+  def update
+    user_group = UserGroup.find_by(id: params[:id])
+    if authorized?(user_group) && user_group.update(piece_id: params[:user_group][:piece_id])
+      render json: user_group.to_json(include: [:piece])
+    end
+  end
+
   def destroy
     user_group = UserGroup.find_by(id: params[:id])
     if authorized?(user_group) && user_group.destroy

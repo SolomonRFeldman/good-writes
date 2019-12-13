@@ -30,11 +30,13 @@ export default function SelectPiece(props) {
     }
   }
 
+  const isFeatured = () => props.group.featured_piece.id && (props.group.featured_piece.user_group_id === props.userGroup.id)
+
   return(
     <Form onSubmit={handleSubmit}>
       <Form.Label className='text-white'>Selected Piece: </Form.Label>
-      <Form.Control onChange={handleChange} as='select' value={pieceId}>
-        <option value='null' selected disabled hidden>Select A Piece...</option>
+      <Form.Control onChange={handleChange} as='select' value={pieceId} disabled={isFeatured()}>
+        <option value='null' selected disabled hidden></option>
         {props.userGroup.valid_pieces.map(piece => <option key={piece.id} value={piece.id}>{piece.title}</option>)}
       </Form.Control>
       <Button type='submit' varient='primary'>Change Piece</Button>

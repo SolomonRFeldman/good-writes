@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GroupShowSidebar from './GroupShowSidebar';
 
 export default function GroupShow(props) {
-  const [group, setGroup] = useState({})
+  const [group, setGroup] = useState({featured_piece: {}})
   const [userGroup, setUserGroup] = useState({valid_pieces: []})
 
   useEffect( () => {

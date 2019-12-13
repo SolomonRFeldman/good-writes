@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GroupShowSidebar from './GroupShowSidebar';
+import FeaturedPiece from './FeaturedPiece';
 
 export default function GroupShow(props) {
   const [group, setGroup] = useState({featured_piece: {}, user_groups: []})
@@ -26,7 +27,11 @@ export default function GroupShow(props) {
     <React.Fragment>
       <GroupShowSidebar userGroup={userGroup} group={group} setGroup={setGroup} />
       <div style={{paddingLeft: '300px'}}>
-        <h1 className="display-3 text-center">{group.name} {group.featured_piece ? group.featured_piece.title : null }</h1>
+        <h1 className="display-3 text-center">{group.name}</h1>
+        {group.featured_piece.id || !group.featured_piece.alias ? 
+          <FeaturedPiece featured_piece={group.featured_piece} /> :
+          <h2 class="text-center mt-5">({group.featured_piece.alias} hasn't selected their piece yet.)</h2>
+        }
       </div>
     </React.Fragment>
   )

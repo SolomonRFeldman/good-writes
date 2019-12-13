@@ -1,13 +1,13 @@
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import Button from 'react-bootstrap/Button';
 import DeleteCommentButton from './DeleteCommentButton';
+import EditCommentButton from './EditCommentButton';
 
 export default function CommentButtons(props) {
 
   return(
     <ButtonToolbar className={props.className}>
-      <Button>Edit</Button>
+      <EditCommentButton comment={props.comment} setComment={props.setComment} />
       <DeleteCommentButton className='ml-2' comment={props.comment} collection={props.collection} />
     </ButtonToolbar>
   )

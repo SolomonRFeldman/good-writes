@@ -41,6 +41,7 @@ class Group < ApplicationRecord
 
   def featured_piece_select
     <<~SQL
+      user_groups.id AS user_group_id,
       user_groups.alias,
       pieces.id,
       pieces.user_id,

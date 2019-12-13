@@ -3,7 +3,7 @@ import GroupShowSidebar from './GroupShowSidebar';
 import FeaturedPiece from './FeaturedPiece';
 
 export default function GroupShow(props) {
-  const [group, setGroup] = useState({featured_piece: {}, user_groups: []})
+  const [group, setGroup] = useState({featured_piece: {comments: []}, user_groups: []})
   const [userGroup, setUserGroup] = useState({valid_pieces: []})
 
   useEffect( () => {

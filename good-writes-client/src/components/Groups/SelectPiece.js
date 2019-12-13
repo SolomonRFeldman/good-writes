@@ -35,7 +35,7 @@ export default function SelectPiece(props) {
   return(
     <Form onSubmit={handleSubmit}>
       <Form.Label className='text-white'>Selected Piece: </Form.Label>
-      <Form.Control onChange={handleChange} as='select' value={pieceId} disabled={isFeatured()}>
+      <Form.Control className='mb-2' onChange={handleChange} as='select' value={pieceId} disabled={isFeatured()}>
         <option value='null' selected disabled hidden></option>
         {props.userGroup.valid_pieces.map(piece => <option key={piece.id} value={piece.id}>{piece.title}</option>)}
       </Form.Control>

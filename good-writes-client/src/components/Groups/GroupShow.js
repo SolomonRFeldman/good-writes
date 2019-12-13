@@ -25,7 +25,7 @@ export default function GroupShow(props) {
 
   const displayPiece = () => {
     if(group.featured_piece.id) {
-      return <FeaturedPiece featured_piece={group.featured_piece} />
+      return <FeaturedPiece userGroup={userGroup} featured_piece={group.featured_piece} />
     } else if(group.featured_piece.alias) {
       return <h2 className="text-center mt-5">({group.featured_piece.alias} hasn't selected their piece yet.)</h2>
     }

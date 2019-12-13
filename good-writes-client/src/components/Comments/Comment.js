@@ -5,7 +5,9 @@ import CommentButtons from './CommentButtons';
 
 function Comment(props) {
   const commentButtons = () => {
-    if(props.currentUser.id === props.comment.user_id) { return <CommentButtons className='float-right' />}
+    if(props.currentUser.id === props.comment.user_id) { 
+      return <CommentButtons comment={props.comment} collection={props.collection} className='float-right' />
+    }
   }
 
   return(

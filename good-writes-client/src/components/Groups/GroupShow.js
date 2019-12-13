@@ -34,7 +34,7 @@ export default function GroupShow(props) {
   return(
     <React.Fragment>
       <GroupShowSidebar userGroup={userGroup} group={group} setGroup={setGroup} />
-      <div style={{paddingLeft: '300px'}}>
+      <div style={{paddingLeft: '250px'}}>
         <h1 className="display-3 text-center">{group.name}</h1>
         {displayPiece()}
       </div>

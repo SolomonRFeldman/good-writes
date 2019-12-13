@@ -22,16 +22,21 @@ export default function GroupShow(props) {
       console.log(json)
     })
   }, [])
+
+  const displayPiece = () => {
+    if(group.featured_piece.id) {
+      return <FeaturedPiece featured_piece={group.featured_piece} />
+    } else if(group.featured_piece.alias) {
+      return <h2 className="text-center mt-5">({group.featured_piece.alias} hasn't selected their piece yet.)</h2>
+    }
+  }
   
   return(
     <React.Fragment>
       <GroupShowSidebar userGroup={userGroup} group={group} setGroup={setGroup} />
       <div style={{paddingLeft: '300px'}}>
         <h1 className="display-3 text-center">{group.name}</h1>
-        {group.featured_piece.id || !group.featured_piece.alias ? 
-          <FeaturedPiece featured_piece={group.featured_piece} /> :
-          <h2 className="text-center mt-5">({group.featured_piece.alias} hasn't selected their piece yet.)</h2>
-        }
+        {displayPiece()}
       </div>
     </React.Fragment>
   )

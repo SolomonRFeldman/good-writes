@@ -24,7 +24,7 @@ class Group < ApplicationRecord
   class << self
 
     def new_with_join(attributes)
-      user_group = UserGroup.new(user_id: attributes[:user_id], alias: attributes[:alias])
+      user_group = UserGroup.new(user_id: attributes[:user_id], alias: attributes[:alias], moderator_status: true)
       Group.new(name: attributes[:name], form: attributes[:form], user_groups: [user_group])
     end
 

@@ -14,7 +14,7 @@ class Group < ApplicationRecord
 
   def featured_piece
     if piece = featured_piece_search[self.point_in_cycle]
-      piece
+      piece.attributes.merge({comments: piece.comments.where(group_id: self.id)})
     else
       update(point_in_cycle: 0)
       featured_piece_search[self.point_in_cycle]

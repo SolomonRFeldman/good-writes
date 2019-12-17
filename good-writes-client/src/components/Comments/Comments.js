@@ -2,7 +2,6 @@ import React from 'react';
 import Comment from './Comment';
 
 export default function Comments(props) {
-  console.log(props)
 
   return(
     props.comments.map(comment => {
@@ -11,3 +10,5 @@ export default function Comments(props) {
   )
 
 }
+
+Comments.defaultProps = {comments: []}

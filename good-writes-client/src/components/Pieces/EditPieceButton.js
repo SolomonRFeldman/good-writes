@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ModalButton from '../Modal/ModalButton';
 import EditPieceForm from './EditPieceForm';
 

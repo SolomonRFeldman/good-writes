@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import LogInBanner from './LogInBanner';
 import { Link, Redirect } from 'react-router-dom';

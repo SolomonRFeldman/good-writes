@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 function NewGroupForm(props) {
 
-  const [formData, setFormData] = useState()
+  const [formData, setFormData] = useState({form: 'Poetry'})
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
 
   const handleSubmit = event => {

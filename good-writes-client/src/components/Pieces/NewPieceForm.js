@@ -10,6 +10,7 @@ import PieceForm from './PieceForm';
 function NewPieceForm(props) {
 
   const [formData, setFormData] = useState()
+  const [errors, setErrors] = useState()
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -25,7 +26,7 @@ function NewPieceForm(props) {
 
     
     return fetch('/pieces', configObj).then(response => response.json()).then(piece => {
-      props.triggerRedirect(`/users/${piece.user_id}/pieces/${piece.id}`)
+      piece.errors ? setErrors(piece.errors) : props.triggerRedirect(`/users/${piece.user_id}/pieces/${piece.id}`)
     })
   }
 
@@ -38,7 +39,7 @@ function NewPieceForm(props) {
       <Form onSubmit={handleSubmit}>
 
         <Modal.Body>
-          <PieceForm formData={formData} setFormData={setFormData}/>
+          <PieceForm formData={formData} setFormData={setFormData} errors={errors} />
         </Modal.Body>
 
         <Modal.Footer>

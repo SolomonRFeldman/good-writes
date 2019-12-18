@@ -9,6 +9,7 @@ import PieceForm from './PieceForm';
 
 function EditPieceForm(props) {
   const [formData, setFormData] = useState(props.piece)
+  const [errors, setErrors] = useState()
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -23,12 +24,16 @@ function EditPieceForm(props) {
     }
 
     return fetch(`/pieces/${props.piece.id}`, configObj).then(response => response.json()).then(piece => {
-      const piecePath = `/users/${piece.user_id}/pieces/${piece.id}`
-      if(window.location.pathname === piecePath) {
-        props.setPiece(piece)
-        props.handleClose()
+      if(piece.errors) {
+        setErrors(piece.errors)
       } else {
-        props.triggerRedirect(`/users/${piece.user_id}/pieces/${piece.id}`)
+        const piecePath = `/users/${piece.user_id}/pieces/${piece.id}`
+        if(window.location.pathname === piecePath) {
+          props.setPiece(piece)
+          props.handleClose()
+        } else {
+          props.triggerRedirect(`/users/${piece.user_id}/pieces/${piece.id}`)
+        }
       }
     })
   }
@@ -42,7 +47,7 @@ function EditPieceForm(props) {
       <Form onSubmit={handleSubmit}>
 
         <Modal.Body>
-          <PieceForm formData={formData} setFormData={setFormData}/>
+          <PieceForm formData={formData} setFormData={setFormData} errors={errors}/>
         </Modal.Body>
 
         <Modal.Footer>

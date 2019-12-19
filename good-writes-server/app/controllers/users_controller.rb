@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
 
   def create
-    @user = User.new(user_params)
-    render json: @user.attributes.slice('id', 'username').merge(token: JwtService.encode({user_id: @user.id})) if @user.save
+    user = User.new(user_params)
+    user.save ? render(json: user.login_hash) : render(json: { errors: user.errors })
   end
 
   def show

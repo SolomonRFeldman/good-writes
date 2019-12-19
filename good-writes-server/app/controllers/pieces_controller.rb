@@ -1,14 +1,14 @@
 class PiecesController < ApplicationController
 
   def create
-    if user_id = JwtService.decode(request.headers[:Token])[:user_id]
-      piece = Piece.new(piece_params.merge({user_id: user_id}))
+    if @current_user_id
+      piece = Piece.new(piece_params.merge({user_id: @current_user_id}))
       piece.save ? render(json: piece.to_json) : render(json: { errors: piece.errors })
     end
   end
 
   def show
-    piece = Piece.find_by(id: params[:id]) 
+    piece = Piece.find_by(id: params[:id])
     if authorized?(piece)
       render json: piece.to_json
     end

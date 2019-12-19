@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 function JoinGroupForm(props) {
 
@@ -22,7 +22,7 @@ function JoinGroupForm(props) {
     if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
 
     return fetch(`/user_groups`, configObj).then(response => response.json()).then(userGroup => {
-      props.triggerRedirect(`/groups/${userGroup.group_id}`)
+      props.history.push(`/groups/${userGroup.group_id}`)
     })
   }
 
@@ -47,8 +47,4 @@ function JoinGroupForm(props) {
 
 }
 
-const mapDispatchToProps = dispatch => ({ 
-  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
-})
-
-export default connect(null, mapDispatchToProps)(JoinGroupForm)
+export default withRouter(JoinGroupForm)

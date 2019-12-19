@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -33,7 +33,7 @@ function EditPieceForm(props) {
           setErrors({})
           props.handleClose()
         } else {
-          props.triggerRedirect(`/users/${piece.user_id}/pieces/${piece.id}`)
+          props.history.push(`/users/${piece.user_id}/pieces/${piece.id}`)
         }
       }
     })
@@ -61,8 +61,4 @@ function EditPieceForm(props) {
 
 }
 
-const mapDispatchToProps = dispatch => ({ 
-  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
-})
-
-export default connect(null, mapDispatchToProps)(EditPieceForm)
+export default withRouter(EditPieceForm)

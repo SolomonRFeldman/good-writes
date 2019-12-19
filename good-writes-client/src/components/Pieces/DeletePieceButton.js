@@ -1,7 +1,7 @@
 import React from 'react';
 import ModalButton from '../Modal/ModalButton';
 import ButtonConfirmation from '../Modal/ButtonConfirmation';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 function DeletePieceButton(props) {
 
@@ -20,7 +20,7 @@ function DeletePieceButton(props) {
       if(props.collection) {
         props.collection.setPieces(props.collection.pieces.filter(collectionPiece => collectionPiece.id !== piece.id))
       } else {
-        props.triggerRedirect(`/users/${piece.user_id}`)
+        props.history.push(`/users/${piece.user_id}`)
       }
     })
   }
@@ -37,8 +37,4 @@ function DeletePieceButton(props) {
 
 DeletePieceButton.defaultProps = { variant: 'danger' }
 
-const mapDispatchToProps = dispatch => ({ 
-  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
-})
-
-export default connect(null, mapDispatchToProps)(DeletePieceButton)
+export default withRouter(DeletePieceButton)

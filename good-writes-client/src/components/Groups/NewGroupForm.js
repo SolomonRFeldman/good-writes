@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -30,7 +30,7 @@ function NewGroupForm(props) {
     
     return fetch('/groups', configObj).then(response => response.json()).then(group => {
       console.log(group)
-      group.errors ? setErrors(group.errors) : props.triggerRedirect(`/groups/${group.id}`)
+      group.errors ? setErrors(group.errors) : props.history.push(`/groups/${group.id}`)
     })
   }
 
@@ -76,8 +76,4 @@ function NewGroupForm(props) {
 
 }
 
-const mapDispatchToProps = dispatch => ({ 
-  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
-})
-
-export default connect(null, mapDispatchToProps)(NewGroupForm)
+export default withRouter(NewGroupForm)

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -26,7 +26,7 @@ function NewPieceForm(props) {
 
     
     return fetch('/pieces', configObj).then(response => response.json()).then(piece => {
-      piece.errors ? setErrors(piece.errors) : props.triggerRedirect(`/users/${piece.user_id}/pieces/${piece.id}`)
+      piece.errors ? setErrors(piece.errors) : props.history.push(`/users/${piece.user_id}/pieces/${piece.id}`)
     })
   }
 
@@ -52,8 +52,4 @@ function NewPieceForm(props) {
 
 }
 
-const mapDispatchToProps = dispatch => ({ 
-  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
-})
-
-export default connect(null, mapDispatchToProps)(NewPieceForm)
+export default withRouter(NewPieceForm)

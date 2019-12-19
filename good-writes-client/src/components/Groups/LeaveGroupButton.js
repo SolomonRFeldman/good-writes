@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ModalButton from '../Modal/ModalButton';
 import ButtonConfirmation from '../Modal/ButtonConfirmation';
+import { withRouter } from 'react-router-dom';
 
 function LeaveGroupButton(props) {
   const action = () => {
@@ -15,7 +15,7 @@ function LeaveGroupButton(props) {
     if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
     
     fetch(`/user_groups/${props.userGroup.id}`, configObj).then(response => response.json()).then(json => {
-      props.triggerRedirect('/')
+      props.history.push('/')
     })
   }
   const modalProps = {action: action, children: 'Are you sure you want to leave this group?'}
@@ -28,8 +28,4 @@ function LeaveGroupButton(props) {
 
 }
 
-const mapDispatchToProps = dispatch => ({ 
-  triggerRedirect: path => { dispatch({ type: 'TRIGGER_REDIRECT', path }) }
-})
-
-export default connect(null, mapDispatchToProps)(LeaveGroupButton)
+export default withRouter(LeaveGroupButton)

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def show
     user = User.find(params[:id]) if @current_user_id == params[:id].to_i
-    user ? render(json: UserSerializer.new(user).to_serialized_json) : render(json: { status: 404 }, status: 404)
+    user ? render(json: UserSerializer.new(user).to_serialized_json) : status_code(404)
   end
 
   private

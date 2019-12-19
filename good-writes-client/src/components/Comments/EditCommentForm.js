@@ -8,7 +8,10 @@ export default function EditCommentForm(props) {
   const [content, setContent] = useState(props.comment.content)
   const handleChange = event => setContent(event.target.value)
   const [errors, setErrors] = useState({})
-  useEffect(() => setErrors({}), [props.show])
+  useEffect(() => { if(props.show) {
+    setErrors({})
+    setContent(props.comment.content)
+  }}, [props.show])
 
   const handleSubmit = event => {
     event.preventDefault()

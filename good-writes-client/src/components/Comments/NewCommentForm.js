@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 export default function NewCommentForm(props) {
   const [content, setContent] = useState()
   const handleChange = event => setContent(event.target.value)
+  const [errors, setErrors] = useState({})
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -18,16 +19,28 @@ export default function NewCommentForm(props) {
     }
     if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
 
-    fetch(`/comments`, configObj).then(response => response.json()).then(json => {
-      setContent('')
-      props.setComments([...props.comments, json])
+    fetch(`/comments`, configObj).then(response => response.json()).then(comment => {
+      if(comment.errors) {
+        setErrors(comment.errors)
+      } else {
+        setContent('')
+        props.setComments([...props.comments, comment])
+      }
     })
   }
 
   return(
-    <Form onSubmit={handleSubmit}>
+    <Form className='mx-auto' style={{width: '800px'}} onSubmit={handleSubmit}>
       <Form.Group>
-        <Form.Control onChange={handleChange}  className='mx-auto' style={{width: '800px'}} id='content' as='textarea' rows='3' value={content} />
+        <Form.Control 
+          onChange={handleChange}
+          id='content' 
+          as='textarea' 
+          rows='3' 
+          value={content} 
+          isInvalid={errors.content} 
+        />
+        <Form.Control.Feedback type="invalid">{errors.content}</Form.Control.Feedback>
       </Form.Group>
       <div className='text-center'>
         <Button type='submit' className='mx-auto'>Add Comment</Button>

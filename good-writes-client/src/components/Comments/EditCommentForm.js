@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 export default function EditCommentForm(props) {
   const [content, setContent] = useState(props.comment.content)
   const handleChange = event => setContent(event.target.value)
+  const [errors, setErrors] = useState({})
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -21,8 +22,12 @@ export default function EditCommentForm(props) {
     if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
 
     return fetch(`/comments/${props.comment.id}`, configObj).then(response => response.json()).then(comment => {
-      props.setComment(comment)
-      props.handleClose()
+      if(comment.errors) {
+        setErrors(comment.errors)
+      } else {
+        props.setComment(comment)
+        props.handleClose()
+      }
     })
   }
 
@@ -35,7 +40,8 @@ export default function EditCommentForm(props) {
       <Form onSubmit={handleSubmit}>
 
         <Modal.Body>
-        <Form.Control onChange={handleChange} id='content' as='textarea' rows='3' value={content} />
+          <Form.Control onChange={handleChange} id='content' as='textarea' rows='3' value={content} isInvalid={errors.content} />
+          <Form.Control.Feedback type="invalid">{errors.content}</Form.Control.Feedback>
         </Modal.Body>
 
         <Modal.Footer>

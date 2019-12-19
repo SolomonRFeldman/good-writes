@@ -6,11 +6,11 @@ class GroupsController < ApplicationController
   end
 
   def show
-    group = Group.find_by(id: params[:id])
+    return render(json: { status: 404 }, status: 404) unless group = Group.find_by(id: params[:id])
     user_group = UserGroup.find_by(user_id: @current_user_id, group_id: group.id)
     user_group ? 
       render(json: { group: hide_comment_ids(group.show_attributes), user_group: user_group.show_attributes }) :
-      render(json: { status: 404 }, status: 404)
+      render(json: { status: 403 }, status: 403)
   end
 
   def create

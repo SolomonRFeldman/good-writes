@@ -11,4 +11,8 @@ class ApplicationController < ActionController::API
     @current_user_id = JwtService.decode(request.headers[:Token])[:user_id]
   end
 
+  def status_code(code)
+    render json: { status: code }, status: code
+  end
+
 end

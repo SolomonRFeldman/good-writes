@@ -9,6 +9,7 @@ function NewGroupForm(props) {
 
   const [formData, setFormData] = useState({form: 'Poetry'})
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
+  const [errors, setErrors] = useState({})
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -24,7 +25,7 @@ function NewGroupForm(props) {
     
     return fetch('/groups', configObj).then(response => response.json()).then(group => {
       console.log(group)
-      props.triggerRedirect(`/groups/${group.id}`)
+      group.errors ? setErrors(group.errors) : props.triggerRedirect(`/groups/${group.id}`)
     })
   }
 
@@ -40,19 +41,22 @@ function NewGroupForm(props) {
         <Modal.Body>
             <Form.Group >
               <Form.Label>Name</Form.Label>
-              <Form.Control id='name' onChange={handleChange} type='text' placeholder='Name' />
+              <Form.Control id='name' onChange={handleChange} type='text' placeholder='Name' isInvalid={errors.name} />
+              <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
             </Form.Group>
             <Form.Group >
               <Form.Label>Form</Form.Label>
-              <Form.Control id='form' onChange={handleChange} as='select' >
+              <Form.Control id='form' onChange={handleChange} as='select' isInvalid={errors.form}>
                 <option>Poetry</option>
                 <option>Fiction</option>
                 <option>Non-Fiction</option>
               </Form.Control>
+              <Form.Control.Feedback type="invalid">{errors.form}</Form.Control.Feedback>
             </Form.Group>
             <Form.Group >
               <Form.Label>Alias</Form.Label>
-              <Form.Control id='alias' onChange={handleChange} type='text' placeholder='Alias' />
+              <Form.Control id='alias' onChange={handleChange} type='text' placeholder='Alias' isInvalid={errors.alias}/>
+              <Form.Control.Feedback type="invalid">{errors.alias}</Form.Control.Feedback>
             </Form.Group>
         </Modal.Body>
 

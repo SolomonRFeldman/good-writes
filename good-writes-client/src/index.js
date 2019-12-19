@@ -5,14 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk'
 import manageCurrentUser from './reducers/manageCurrentUser';
-import manageRedirect from './reducers/manageRedirect';
 
 const store = createStore(
-  combineReducers({ currentUser: manageCurrentUser, redirect: manageRedirect }), 
-  compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  combineReducers({ currentUser: manageCurrentUser }), 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() && applyMiddleware(thunk)
 )
 
 ReactDOM.render(

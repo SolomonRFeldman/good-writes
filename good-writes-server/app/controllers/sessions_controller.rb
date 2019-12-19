@@ -6,8 +6,7 @@ class SessionsController < ApplicationController
     else
       @user = User.find_by(email: params[:user][:email])
       unless @user && @user.authenticate(params[:user][:password])
-        @error = true
-        return render json: 'no'.to_json
+        return render json: { error: true }
       end
       token = JwtService.encode({user_id: @user.id})
     end

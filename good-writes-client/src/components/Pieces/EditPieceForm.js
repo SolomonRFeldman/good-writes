@@ -30,6 +30,7 @@ function EditPieceForm(props) {
         const piecePath = `/users/${piece.user_id}/pieces/${piece.id}`
         if(window.location.pathname === piecePath) {
           props.setPiece(piece)
+          setErrors({})
           props.handleClose()
         } else {
           props.triggerRedirect(`/users/${piece.user_id}/pieces/${piece.id}`)

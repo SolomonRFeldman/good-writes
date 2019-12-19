@@ -14,9 +14,12 @@ class Group < ApplicationRecord
   end
 
   def featured_piece
-    if !(piece = featured_piece_search[self.point_in_cycle])
+    piece = featured_piece_search[self.point_in_cycle]
+    if !(piece)
       update(point_in_cycle: 0)
       piece = featured_piece_search[self.point_in_cycle]
+    elsif piece.id != piece.piece_id
+      UserGroup.find(piece.user_group_id).update(piece_id: nil)
     end
     piece.attributes.merge({comments: piece.comments.where(group_id: self.id)}) if piece
   end
@@ -43,6 +46,7 @@ class Group < ApplicationRecord
     <<~SQL
       user_groups.id AS user_group_id,
       user_groups.alias,
+      user_groups.piece_id,
       pieces.id,
       pieces.title,
       pieces.form,

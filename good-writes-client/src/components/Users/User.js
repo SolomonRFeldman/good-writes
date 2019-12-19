@@ -3,8 +3,9 @@ import Pieces from '../Pieces/Pieces'
 import NewPieceButton from '../Pieces/NewPieceButton';
 import PiecesFormFilterButtons from '../Pieces/PiecesFormFilterButtons';
 import UserShowSidebar from './UserShowSidebar';
+import { withRouter } from 'react-router-dom';
 
-export default function User(props) {
+function User(props) {
 
   const [user, setUser] = useState({ id: props.match.params.id, username: '', email: '', pieces: [], groups: [] })
   useEffect(() => console.log(user), [user])
@@ -20,7 +21,9 @@ export default function User(props) {
         "Token": localStorage.token
       },
     }
-    fetch(`/users/${user.id}`, configObj).then(response => response.json()).then(json => setUser(json))
+    fetch(`/users/${user.id}`, configObj).then(response => response.json()).then(user => {
+      user.status ? props.history.push('/') : setUser(user)
+    })
   }, [])
 
   return(
@@ -36,3 +39,5 @@ export default function User(props) {
   )
 
 }
+
+export default withRouter(User)

@@ -8,6 +8,7 @@ function SignUpForm(props) {
 
   const [formData, setFormData] = useState({ username: '', email: '', password: '', password_confirmation: '' })
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
+  const [errors, setErrors] = useState({})
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -21,9 +22,13 @@ function SignUpForm(props) {
     }
 
     
-    return fetch('/signup', configObj).then(response => response.json()).then(json => {
-      props.addCurrentUser(json)
-      localStorage.token = json.token
+    return fetch('/signup', configObj).then(response => response.json()).then(user => {
+      if(user.errors) {
+        setErrors(user.errors)
+      } else {
+        props.addCurrentUser(user)
+        localStorage.token = user.token
+      }
     })
   }
 
@@ -39,19 +44,44 @@ function SignUpForm(props) {
         <Modal.Body>
             <Form.Group >
               <Form.Label>Username</Form.Label>
-              <Form.Control id='username' onChange={handleChange} type='text' placeholder='Username' />
+              <Form.Control 
+                id='username' 
+                onChange={handleChange} 
+                type='text' 
+                placeholder='Username' 
+                isInvalid={errors.username}
+              />
+              <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group >
               <Form.Label>Email</Form.Label>
-              <Form.Control id='email' onChange={handleChange} type='email' placeholder='Email' />
+              <Form.Control id='email' onChange={handleChange} type='email' placeholder='Email' isInvalid={errors.email}/>
+              <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group >
               <Form.Label>Password</Form.Label>
-              <Form.Control id='password' onChange={handleChange} type='password' placeholder='Password' />
+              <Form.Control 
+                id='password' 
+                onChange={handleChange} 
+                type='password' 
+                placeholder='Password' 
+                isInvalid={errors.password}
+              />
+              <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group >
               <Form.Label>Confirm Password</Form.Label>
-              <Form.Control id='password_confirmation' onChange={handleChange} type='password' placeholder='Confirm Password' />
+              <Form.Control 
+                id='password_confirmation' 
+                onChange={handleChange} 
+                type='password' 
+                placeholder='Confirm Password'
+                isInvalid={errors.password_confirmation}
+              />
+              <Form.Control.Feedback type="invalid">{errors.password_confirmation}</Form.Control.Feedback>
             </Form.Group>
         </Modal.Body>
 

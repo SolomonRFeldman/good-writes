@@ -23,7 +23,7 @@ export default function Groups(props) {
   }, [props.currentUser])
 
   return(
-    <>{groups.map(group => <Group group={group} userGroups={userGroups} />)}</>
+    <>{groups.map(group => <Group key={group.id} group={group} userGroups={userGroups} />)}</>
   )
 
 }

@@ -24,6 +24,7 @@ export default function NewCommentForm(props) {
         setErrors(comment.errors)
       } else {
         setContent('')
+        setErrors({})
         props.setComments([...props.comments, comment])
       }
     })

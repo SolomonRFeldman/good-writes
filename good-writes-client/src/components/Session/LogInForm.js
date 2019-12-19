@@ -8,6 +8,12 @@ function LogInForm(props) {
 
   const [formData, setFormData] = useState({ email: '', password: '' })
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
+  const [error, setError] = useState(false)
+
+  const handleShow = () => {
+    setError(false)
+    setFormData({})
+  }
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -21,14 +27,18 @@ function LogInForm(props) {
     }
 
     
-    return fetch('/login', configObj).then(response => response.json()).then(json => {
-      props.addCurrentUser(json)
-      localStorage.token = json.token
+    return fetch('/login', configObj).then(response => response.json()).then(user => {
+      if(user.error) {
+        setError(user.error)
+      } else {
+        props.addCurrentUser(user)
+        localStorage.token = user.token
+      }
     })
   }
 
   return (
-    <Modal show={props.show} onHide={props.handleClose} centered>
+    <Modal show={props.show} onHide={props.handleClose} onShow={handleShow} centered>
 
       <Modal.Header closeButton>
         <Modal.Title>Log in with your email and password.</Modal.Title>
@@ -39,11 +49,12 @@ function LogInForm(props) {
         <Modal.Body>
             <Form.Group >
               <Form.Label>Email</Form.Label>
-              <Form.Control id='email' onChange={handleChange} type='email' placeholder='Email' />
+              <Form.Control id='email' onChange={handleChange} type='email' placeholder='Email' isInvalid={error} />
+              <Form.Control.Feedback type="invalid">Invalid Email or Password</Form.Control.Feedback>
             </Form.Group>
             <Form.Group >
               <Form.Label>Password</Form.Label>
-              <Form.Control id='password' onChange={handleChange} type='password' placeholder='Password' />
+              <Form.Control id='password' onChange={handleChange} type='password' placeholder='Password' isInvalid={error} />
             </Form.Group>
         </Modal.Body>
 

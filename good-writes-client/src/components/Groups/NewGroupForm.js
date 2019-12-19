@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Modal from 'react-bootstrap/Modal';
@@ -10,6 +10,10 @@ function NewGroupForm(props) {
   const [formData, setFormData] = useState({form: 'Poetry'})
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
   const [errors, setErrors] = useState({})
+  useEffect(() => { if(props.show) {
+    setErrors({})
+    setFormData({form: 'Poetry'})
+  }}, [props.show])
 
   const handleSubmit = event => {
     event.preventDefault()

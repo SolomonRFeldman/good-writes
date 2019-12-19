@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import GroupShowSidebar from './GroupShowSidebar';
 import FeaturedPiece from './FeaturedPiece';
+import { withRouter } from 'react-router-dom';
 
-export default function GroupShow(props) {
+function GroupShow(props) {
   const [group, setGroup] = useState({featured_piece: {comments: []}, user_groups: []})
   const [userGroup, setUserGroup] = useState({valid_pieces: []})
 
@@ -17,9 +18,13 @@ export default function GroupShow(props) {
     if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
 
     fetch(`/groups/${props.match.params.id}`, configObj).then(response => response.json()).then(json => {
-      setUserGroup(json.user_group)
-      setGroup(json.group)
-      console.log(json)
+      if(json.status) {
+        props.history.push('/')
+      } else {
+        setUserGroup(json.user_group)
+        setGroup(json.group)
+        console.log(json)
+      }
     })
   }, [])
 
@@ -30,7 +35,7 @@ export default function GroupShow(props) {
       return <h2 className="text-center mt-5">({group.featured_piece.alias} hasn't selected their piece yet.)</h2>
     }
   }
-  
+
   return(
     <React.Fragment>
       <GroupShowSidebar userGroup={userGroup} group={group} setGroup={setGroup} />
@@ -42,3 +47,5 @@ export default function GroupShow(props) {
   )
 
 }
+
+export default withRouter(GroupShow)

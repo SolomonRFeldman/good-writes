@@ -8,9 +8,8 @@ class SessionsController < ApplicationController
       unless @user && @user.authenticate(params[:user][:password])
         return render json: { error: true }
       end
-      token = JwtService.encode({user_id: @user.id})
     end
-    render json: @user.attributes.slice('id', 'username').merge(token: token)
+    render json: @user.login_hash(token)
   end
 
 end

@@ -8,10 +8,8 @@ class PiecesController < ApplicationController
   end
 
   def show
-    piece = Piece.find_by(id: params[:id])
-    if authorized?(piece)
-      render json: piece.to_json
-    end
+    return status_code(404) unless piece = Piece.find_by(id: params[:id])
+    authorized?(piece) ? render(json: piece.to_json) : status_code(403)
   end
 
   def update

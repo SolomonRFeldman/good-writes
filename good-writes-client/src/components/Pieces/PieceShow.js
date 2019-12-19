@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Piece from './Piece'
+import { withRouter } from 'react-router-dom';
 
-export default function PieceShow(props) {
+function PieceShow(props) {
 
   const [piece, setPiece] = useState()
   useEffect( () => {
@@ -9,11 +10,14 @@ export default function PieceShow(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Token": localStorage.token
-      },
+        "Accept": "application/json"
+      }
     }
-    fetch(`/pieces/${props.match.params.id}`, configObj).then(response => response.json()).then(json => setPiece(json))
+    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
+
+    fetch(`/pieces/${props.match.params.id}`, configObj).then(response => response.json()).then(piece => {
+      piece.status ? props.history.push('/') : setPiece(piece)
+    })
   }, [])
 
   return(
@@ -21,3 +25,5 @@ export default function PieceShow(props) {
   )
 
 }
+
+export default withRouter(PieceShow)

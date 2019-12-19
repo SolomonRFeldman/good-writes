@@ -23,7 +23,6 @@ function GroupShow(props) {
       } else {
         setUserGroup(json.user_group)
         setGroup(json.group)
-        console.log(json)
       }
     })
   }, [])

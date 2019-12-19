@@ -12,8 +12,6 @@ function NavBar(props) {
     return <Redirect push to={path} /> 
   }}
 
-  console.log(props.redirect)
-
   return (
     <Navbar className={props.className} bg='dark' variant='dark'>
       <Navbar.Brand as={Link} to='/'>Good Writes</Navbar.Brand>

@@ -7,8 +7,6 @@ export default function ModalButton(props) {
   const handleFormShow = () => setShowForm(true)
   const handleFormClose = () => setShowForm(false)
 
-  console.log(props)
-
   return (
     <React.Fragment>
       <Button variant={props.variant} className={props.className} onClick={handleFormShow}>{props.children}</Button>

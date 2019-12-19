@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button'
 
 export default function NextPieceButton(props) {
   const handleClick = () => {
-    console.log(props.group)
     const configObj = {
       method: "PUT",
       headers: {

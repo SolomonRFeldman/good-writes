@@ -29,7 +29,6 @@ function NewGroupForm(props) {
     if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
     
     return fetch('/groups', configObj).then(response => response.json()).then(group => {
-      console.log(group)
       group.errors ? setErrors(group.errors) : props.history.push(`/groups/${group.id}`)
     })
   }

@@ -8,7 +8,6 @@ import { withRouter } from 'react-router-dom';
 function User(props) {
 
   const [user, setUser] = useState({ id: props.match.params.id, username: '', email: '', pieces: [], groups: [] })
-  useEffect(() => console.log(user), [user])
 
   const [piecesFilter, setPiecesFilter] = useState()
 

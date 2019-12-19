@@ -5,8 +5,6 @@ import UserBanner from '../Users/UserBanner';
 
 function LogInBanner(props) {
 
-  useEffect(() => console.log(props))
-
   return (
     props.currentUser.token ?
       <UserBanner className={props.className} currentUser={props.currentUser} /> :

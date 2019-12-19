@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import SessionButtons from '../Session/SessionButtons';
 import { connect } from 'react-redux';
 import UserBanner from '../Users/UserBanner';

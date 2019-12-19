@@ -8,10 +8,11 @@ export default function EditCommentForm(props) {
   const [content, setContent] = useState(props.comment.content)
   const handleChange = event => setContent(event.target.value)
   const [errors, setErrors] = useState({})
-  useEffect(() => { if(props.show) {
+  
+  const handleShow = () => {
     setErrors({})
     setContent(props.comment.content)
-  }}, [props.show])
+  }
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -36,7 +37,7 @@ export default function EditCommentForm(props) {
   }
 
   return (
-    <Modal size='lg' show={props.show} onHide={props.handleClose} centered>
+    <Modal size='lg' show={props.show} onHide={props.handleClose} onShow={handleShow} centered>
       <Modal.Header closeButton>
         <Modal.Title>Edit Your Comment</Modal.Title>
       </Modal.Header>

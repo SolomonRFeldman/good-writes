@@ -6,6 +6,7 @@ class Group < ApplicationRecord
   belongs_to :piece, optional: true
 
   validates :name, presence: true
+  validates :form, inclusion: { in: %w(Poetry Fiction Non-Fiction) }
 
   def show_attributes
     user_groups = self.user_groups.select(:id, :alias).order(:created_at)

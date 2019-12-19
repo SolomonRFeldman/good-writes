@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +8,7 @@ export default function EditCommentForm(props) {
   const [content, setContent] = useState(props.comment.content)
   const handleChange = event => setContent(event.target.value)
   const [errors, setErrors] = useState({})
+  useEffect(() => setErrors({}), [props.show])
 
   const handleSubmit = event => {
     event.preventDefault()

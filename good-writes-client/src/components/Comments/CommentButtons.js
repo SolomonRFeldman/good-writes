@@ -7,7 +7,7 @@ export default function CommentButtons(props) {
 
   return(
     <ButtonToolbar className={props.className}>
-      <EditCommentButton comment={props.comment} setComment={props.setComment} />
+      <EditCommentButton comment={props.comment} collection={props.collection} />
       <DeleteCommentButton className='ml-2' comment={props.comment} collection={props.collection} />
     </ButtonToolbar>
   )

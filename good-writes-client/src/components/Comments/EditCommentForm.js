@@ -23,7 +23,7 @@ export default function EditCommentForm(props) {
       if(comment.errors) {
         setErrors(comment.errors)
       } else {
-        props.setComment(comment)
+        props.collection.setComments(props.collection.comments.map(colComment => colComment.id === comment.id ? comment : colComment))
         props.handleClose()
       }
     })

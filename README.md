@@ -1,4 +1,6 @@
 Ruby Version: 2.6.4
+Rails Version: 6.0.1
+React Version: 16.12.0
 
 # Good Writes
 

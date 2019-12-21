@@ -14,6 +14,10 @@ export const getRequest = (url) => {
   return fetch(url, configObj("GET")).then(response => response.json())
 }
 
+export const deleteRequest = (url) => {
+  return fetch(url, configObj("DELETE")).then(response => response.json())
+}
+
 const configObjWithBody = (method, body) => {
   return { ...configObj(method), body: JSON.stringify(body) }
 }

@@ -4,6 +4,7 @@ import NewPieceButton from '../Pieces/NewPieceButton';
 import PiecesFormFilterButtons from '../Pieces/PiecesFormFilterButtons';
 import UserShowSidebar from './UserShowSidebar';
 import { withRouter } from 'react-router-dom';
+import { getRequest } from '../../fetchRequests';
 
 function User(props) {
 
@@ -12,15 +13,7 @@ function User(props) {
   const [piecesFilter, setPiecesFilter] = useState()
 
   useEffect(() => {
-    const configObj = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Token": localStorage.token
-      },
-    }
-    fetch(`/users/${user.id}`, configObj).then(response => response.json()).then(user => {
+    getRequest(`/users/${user.id}`).then(user => {
       user.status ? props.history.push('/') : setUser(user)
     })
   }, [])

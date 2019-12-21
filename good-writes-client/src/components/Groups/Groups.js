@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Group from './Group';
+import { getRequest } from '../../fetchRequests';
 
 export default function Groups(props) {
 
   const [groups, setGroups] = useState([])
   const [userGroups, setUserGroups] = useState([])
 
-  useEffect(() => { 
-    const configObj = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      }
-    }
-    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
-
-    fetch('/groups', configObj).then(response => response.json()).then(json => {
+  useEffect(() => {
+    getRequest('/groups').then(json => {
       setUserGroups(json.user_groups)
       setGroups(json.groups)
     })

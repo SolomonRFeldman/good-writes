@@ -2,22 +2,14 @@ import React, { useState, useEffect } from 'react';
 import GroupShowSidebar from './GroupShowSidebar';
 import FeaturedPiece from './FeaturedPiece';
 import { withRouter } from 'react-router-dom';
+import { getRequest } from '../../fetchRequests';
 
 function GroupShow(props) {
   const [group, setGroup] = useState({featured_piece: {comments: []}, user_groups: []})
   const [userGroup, setUserGroup] = useState({valid_pieces: []})
 
   useEffect( () => {
-    const configObj = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      }
-    }
-    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
-
-    fetch(`/groups/${props.match.params.id}`, configObj).then(response => response.json()).then(json => {
+    getRequest(`/groups/${props.match.params.id}`).then(json => {
       if(json.status) {
         props.history.push('/')
       } else {

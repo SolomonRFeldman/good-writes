@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Piece from './Piece'
 import { withRouter } from 'react-router-dom';
+import { getRequest } from '../../fetchRequests';
 
 function PieceShow(props) {
 
   const [piece, setPiece] = useState()
   useEffect( () => {
-    const configObj = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      }
-    }
-    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
-
-    fetch(`/pieces/${props.match.params.id}`, configObj).then(response => response.json()).then(piece => {
+    getRequest(`/pieces/${props.match.params.id}`).then(piece => {
       piece.status ? props.history.push('/') : setPiece(piece)
     })
   }, [])

@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import PieceForm from './PieceForm';
+import { postRequest } from '../../fetchRequests';
 
 function NewPieceForm(props) {
 
@@ -14,18 +15,7 @@ function NewPieceForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Token": localStorage.token
-      },
-      body: JSON.stringify({ piece: formData })
-    }
-
-    
-    return fetch('/pieces', configObj).then(response => response.json()).then(piece => {
+    return postRequest('/pieces', {piece: formData}).then(piece => {
       piece.errors ? setErrors(piece.errors) : props.history.push(`/users/${piece.user_id}/pieces/${piece.id}`)
     })
   }

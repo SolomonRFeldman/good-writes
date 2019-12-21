@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
+import { postRequest } from '../../fetchRequests';
 
 function LogInForm(props) {
 
@@ -17,17 +18,9 @@ function LogInForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({ user: formData })
-    }
-
     
-    return fetch('/login', configObj).then(response => response.json()).then(user => {
+    const body = { user: formData }
+    return postRequest('/login', body).then(user => {
       if(user.error) {
         setError(user.error)
       } else {

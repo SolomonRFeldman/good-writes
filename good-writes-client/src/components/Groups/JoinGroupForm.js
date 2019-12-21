@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
+import { postRequest } from '../../fetchRequests';
 
 function JoinGroupForm(props) {
 
@@ -11,17 +12,9 @@ function JoinGroupForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({ user_group: {...formData }, group_id: props.group.id })
-    }
-    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
 
-    return fetch(`/user_groups`, configObj).then(response => response.json()).then(userGroup => {
+    const body = { user_group: {...formData }, group_id: props.group.id }
+    return postRequest(`/user_groups`, body).then(userGroup => {
       props.history.push(`/groups/${userGroup.group_id}`)
     })
   }

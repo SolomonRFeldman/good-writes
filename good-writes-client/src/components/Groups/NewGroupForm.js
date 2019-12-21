@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { postRequest } from '../../fetchRequests';
 
 function NewGroupForm(props) {
 
@@ -18,17 +19,8 @@ function NewGroupForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({ group: formData })
-    }
-    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
-    
-    return fetch('/groups', configObj).then(response => response.json()).then(group => {
+    const body = { group: formData }
+    return postRequest('/groups', body).then(group => {
       group.errors ? setErrors(group.errors) : props.history.push(`/groups/${group.id}`)
     })
   }

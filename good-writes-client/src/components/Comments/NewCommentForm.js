@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { postRequest } from '../../fetchRequests'
 
 export default function NewCommentForm(props) {
   const [content, setContent] = useState()
@@ -9,17 +10,8 @@ export default function NewCommentForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const configObj = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({ user_group: props.userGroup, comment: {content, piece_id: props.piece.id}})
-    }
-    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
-
-    fetch(`/comments`, configObj).then(response => response.json()).then(comment => {
+    const body = { user_group: props.userGroup, comment: { content, piece_id: props.piece.id } }
+    postRequest(`/comments`, body).then(comment => {
       if(comment.errors) {
         setErrors(comment.errors)
       } else {

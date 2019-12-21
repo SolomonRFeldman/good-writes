@@ -19,7 +19,7 @@ class User < ApplicationRecord
     end
   end
 
-  def login_hash(token)
+  def login_hash(token = nil)
     token ||= JwtService.encode({user_id: self.id})
     self.attributes.slice('id', 'username').merge(token: token)
   end

@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import PieceForm from './PieceForm';
+import { patchRequest } from '../../fetchRequests';
 
 function EditPieceForm(props) {
   const [formData, setFormData] = useState(props.piece)
@@ -13,17 +14,9 @@ function EditPieceForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const configObj = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Token": localStorage.token
-      },
-      body: JSON.stringify({ piece: formData })
-    }
 
-    return fetch(`/pieces/${props.piece.id}`, configObj).then(response => response.json()).then(piece => {
+    const body = { piece: formData }
+    return patchRequest(`/pieces/${props.piece.id}`, body).then(piece => {
       if(piece.errors) {
         setErrors(piece.errors)
       } else {

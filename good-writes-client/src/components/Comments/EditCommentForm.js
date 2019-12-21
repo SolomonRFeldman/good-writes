@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { patchRequest } from '../../fetchRequests';
 
 export default function EditCommentForm(props) {
   const [content, setContent] = useState(props.comment.content)
@@ -16,17 +17,9 @@ export default function EditCommentForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const configObj = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({ content: content })
-    }
-    if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
-
-    return fetch(`/comments/${props.comment.id}`, configObj).then(response => response.json()).then(comment => {
+    
+    const body = { content: content }
+    return patchRequest(`/comments/${props.comment.id}`, body).then(comment => {
       if(comment.errors) {
         setErrors(comment.errors)
       } else {

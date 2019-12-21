@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { patchRequest } from '../../fetchRequests';
 
 export default function SelectPiece(props) {
   const [pieceId, setPieceId] = useState()
@@ -10,24 +11,13 @@ export default function SelectPiece(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    if(pieceId) {
-      const configObj = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({ user_group: {piece_id: pieceId} })
+    const body = { user_group: {piece_id: pieceId} }
+    patchRequest(`/user_groups/${props.userGroup.id}`, body).then(json => {
+      if(props.userGroup.id === props.group.featured_piece.user_group_id) { 
+        const featured_piece = {...json.piece, user_group_id: props.userGroup.id, alias: props.userGroup.alias}
+        props.setGroup({...props.group, featured_piece: featured_piece})
       }
-      if(localStorage.token) configObj.headers = { ...configObj.headers, "Token": localStorage.token }
-    
-      fetch(`/user_groups/${props.userGroup.id}`, configObj).then(response => response.json()).then(json => {
-        if(props.userGroup.id === props.group.featured_piece.user_group_id) { 
-          const featured_piece = {...json.piece, user_group_id: props.userGroup.id, alias: props.userGroup.alias}
-          props.setGroup({...props.group, featured_piece: featured_piece})
-        }
-      })
-    }
+    })
   }
 
   const isFeatured = () => props.group.featured_piece.id && (props.group.featured_piece.user_group_id === props.userGroup.id)

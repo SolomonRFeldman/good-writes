@@ -6,8 +6,7 @@ const configObj = (method) => {
       "Accept": "application/json"
     }
   }
-  if(localStorage.token) obj.headers = { ...obj.headers, "Token": localStorage.token }
-  return obj
+  return localStorage.token ? {...obj, headers: { ...obj.headers, "Token": localStorage.token }} : obj
 }
 
 export const getRequest = (url) => {

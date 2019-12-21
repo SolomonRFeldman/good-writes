@@ -2,21 +2,12 @@ import React from 'react';
 import ModalButton from '../Modal/ModalButton';
 import ButtonConfirmation from '../Modal/ButtonConfirmation';
 import { withRouter } from 'react-router-dom';
+import { deleteRequest } from '../../fetchRequests';
 
 function DeletePieceButton(props) {
 
   const action = () => {
-    const configObj = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Token": localStorage.token
-      },
-      body: JSON.stringify({ piece: props.piece })
-    }
-
-    return fetch(`/pieces/${props.piece.id}`, configObj).then(response => response.json()).then(piece => {
+    return deleteRequest(`/pieces/${props.piece.id}`).then(piece => {
       if(props.collection) {
         props.collection.setPieces(props.collection.pieces.filter(collectionPiece => collectionPiece.id !== piece.id))
       } else {

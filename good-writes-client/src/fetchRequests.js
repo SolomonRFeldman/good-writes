@@ -13,3 +13,11 @@ const configObj = (method) => {
 export const getRequest = (url) => {
   return fetch(url, configObj("GET")).then(response => response.json())
 }
+
+const configObjWithBody = (method, body) => {
+  return { ...configObj(method), body: JSON.stringify(body) }
+}
+
+export const postRequest = (url, body) => {
+  return fetch(url, configObjWithBody("POST", body)).then(response => response.json())
+}

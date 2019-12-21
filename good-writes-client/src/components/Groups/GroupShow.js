@@ -17,7 +17,7 @@ function GroupShow(props) {
         setGroup(json.group)
       }
     })
-  }, [])
+  }, [props.match.params.id])
 
   const displayPiece = () => {
     if(group.featured_piece.id) {

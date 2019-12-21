@@ -10,7 +10,7 @@ function PieceShow(props) {
     getRequest(`/pieces/${props.match.params.id}`).then(piece => {
       piece.status ? props.history.push('/') : setPiece(piece)
     })
-  }, [])
+  }, [props.match.params.id])
 
   return(
     <Piece variant='show' piece={piece} />

@@ -13,10 +13,10 @@ function User(props) {
   const [piecesFilter, setPiecesFilter] = useState()
 
   useEffect(() => {
-    getRequest(`/users/${user.id}`).then(user => {
+    getRequest(`/users/${props.match.params.id}`).then(user => {
       user.status ? props.history.push('/') : setUser(user)
     })
-  }, [])
+  }, [props.match.params.id])
 
   return(
     <React.Fragment>

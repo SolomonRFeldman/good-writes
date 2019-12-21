@@ -43,7 +43,7 @@ RSpec.describe Group, :type => :model do
     end
   end
 
-  context "when a group calls on featured piece using it's point in cylce to point to a user_group by creation order" do
+  context "when a group calls on featured piece using it's point in cycle to point to a user_group by creation order" do
     let(:valid_piece_1) { create(:valid_piece, user_id: user_1.id) }
     let(:valid_piece_2) { create(:valid_piece, user_id: user_2.id) }
     let(:user_group_1) { UserGroup.create(user_id: user_1.id, group_id: valid_group.id, piece_id: valid_piece_1.id) }
@@ -55,7 +55,7 @@ RSpec.describe Group, :type => :model do
     end
 
     it "grabs the proper user_group prepared piece" do
-      expect(valid_group.featured_piece).to eq(valid_piece_2)
+      expect(valid_group.featured_piece["id"]).to eq(valid_piece_2.id)
     end
 
     context "when the point in cycle is out of bounds" do
@@ -64,7 +64,7 @@ RSpec.describe Group, :type => :model do
       end
 
       it "resets the cycle and pulls the first piece" do
-        expect(valid_group.featured_piece).to eq(valid_piece_1)
+        expect(valid_group.featured_piece["id"]).to eq(valid_piece_1.id)
         expect(valid_group.point_in_cycle).to eq(0)
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe Group, :type => :model do
       end
 
       it "returns nil" do
-        expect(valid_group.featured_piece.id).to be_nil
+        expect(valid_group.featured_piece["id"]).to be_nil
       end
     end
       

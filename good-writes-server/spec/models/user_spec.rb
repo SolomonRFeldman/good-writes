@@ -92,7 +92,8 @@ RSpec.describe User, :type => :model do
       valid_user.pieces << piece_2
     end
     it "has many pieces" do
-      expect(valid_user.pieces).to eq([piece_1, piece_2])
+      expect(valid_user.pieces).to include(piece_1)
+      expect(valid_user.pieces).to include(piece_2)
     end
   end
   

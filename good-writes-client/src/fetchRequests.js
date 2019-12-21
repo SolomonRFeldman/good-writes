@@ -21,3 +21,7 @@ const configObjWithBody = (method, body) => {
 export const postRequest = (url, body) => {
   return fetch(url, configObjWithBody("POST", body)).then(response => response.json())
 }
+
+export const patchRequest = (url, body) => {
+  return fetch(url, configObjWithBody("PATCH", body)).then(response => response.json())
+}

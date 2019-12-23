@@ -13,6 +13,4 @@ function LogInBanner(props) {
 
 }
 
-const mapStateToProps = ({ currentUser }) => ({ currentUser })
-
-export default connect(mapStateToProps, null)(LogInBanner)
+export default connect(({ currentUser }) => ({ currentUser }), null)(LogInBanner)

@@ -24,5 +24,4 @@ function Comment(props) {
 
 }
 
-const mapStateToProps = ({ currentUser }) => ({ currentUser })
-export default connect(mapStateToProps, null)(Comment)
+export default connect(({ currentUser }) => ({ currentUser }), null)(Comment)

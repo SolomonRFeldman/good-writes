@@ -13,6 +13,4 @@ function Home(props) {
   )
 }
 
-const mapStateToProps = ({ currentUser }) => ({ currentUser })
-
-export default connect(mapStateToProps, null)(Home)
+export default connect(({ currentUser }) => ({ currentUser }), null)(Home)

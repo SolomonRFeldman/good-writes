@@ -8,16 +8,16 @@ import User from './components/Users/User';
 import PieceShow from './components/Pieces/PieceShow';
 import GroupShow from './components/Groups/GroupShow';
 
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchUser } from './actions/userActions';
 
 
 
-function App(props) {
-
+export default function App(props) {
+  const dispatch = useDispatch()
   useEffect(() => {
     if(localStorage.token) {
-      props.fetchUser()
+      dispatch(fetchUser())
     }
   }, [])
 
@@ -37,7 +37,3 @@ function App(props) {
     </Router>
   );
 }
-
-const mapDispatchToProps = dispatch => ({ fetchUser: () => dispatch(fetchUser()) })
-
-export default connect(null, mapDispatchToProps)(App)

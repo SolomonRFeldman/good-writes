@@ -1,16 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Groups from './Groups/Groups';
 import NewGroupButton from './Groups/NewGroupButton';
 
-function Home(props) {
+export default function Home(props) {
+  const currentUser = useSelector(state => state.currentUser)
   return(
     <React.Fragment>
       <h1 className="display-3 text-center">Groups</h1>
-      {props.currentUser.token ? <NewGroupButton className='mt-4 mx-auto d-block' /> : null}
-      <Groups currentUser={props.currentUser} />
+      {currentUser.token ? <NewGroupButton className='mt-4 mx-auto d-block' /> : null}
+      <Groups currentUser={currentUser} />
     </React.Fragment>
   )
 }
-
-export default connect(({ currentUser }) => ({ currentUser }), null)(Home)

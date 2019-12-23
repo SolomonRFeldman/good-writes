@@ -1,16 +1,14 @@
 import React from 'react';
 import SessionButtons from '../Session/SessionButtons';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import UserBanner from '../Users/UserBanner';
 
-function LogInBanner(props) {
+export default function LogInBanner(props) {
+  const currentUser = useSelector(state => state.currentUser)
 
   return (
-    props.currentUser.token ?
-      <UserBanner className={props.className} currentUser={props.currentUser} /> :
+    currentUser.token ?
+      <UserBanner className={props.className} currentUser={currentUser} /> :
       <SessionButtons className={props.className} />
   )
-
 }
-
-export default connect(({ currentUser }) => ({ currentUser }), null)(LogInBanner)

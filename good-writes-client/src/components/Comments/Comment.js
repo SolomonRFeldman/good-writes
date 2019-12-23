@@ -1,11 +1,12 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CommentButtons from './CommentButtons';
 
-function Comment(props) {
+export default function Comment(props) {
+  const currentUser = useSelector(state => state.currentUser)
   const commentButtons = () => {
-    if(props.currentUser.id === props.comment.user_id) { 
+    if(currentUser.id === props.comment.user_id) { 
       return <CommentButtons comment={props.comment} collection={props.collection} className='float-right' />
     }
   }
@@ -23,5 +24,3 @@ function Comment(props) {
   )
 
 }
-
-export default connect(({ currentUser }) => ({ currentUser }), null)(Comment)

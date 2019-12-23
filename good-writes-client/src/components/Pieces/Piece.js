@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import PieceButtons from './PieceButtons';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
-function Piece(props) {
+export default function Piece(props) {
+
+  const currentUser = useSelector(state => state.currentUser)
+
   const [piece, setPiece] = useState(props.piece)
   useEffect(() => setPiece(props.piece), [props.piece])
 
@@ -18,7 +21,7 @@ function Piece(props) {
 
   const formBody = () => { if(piece.form) { return `(${piece.form})` } }
   const headerButtons = () => {
-    if((props.variant === 'profile' || props.variant === 'show') && (props.currentUser.id === piece.user_id)) {
+    if((props.variant === 'profile' || props.variant === 'show') && (currentUser.id === piece.user_id)) {
       return <PieceButtons className='float-right' {...{piece, setPiece}} collection={props.collection} /> 
     }
   }
@@ -44,5 +47,3 @@ function Piece(props) {
 }
 
 Piece.defaultProps = { piece: {} }
-
-export default connect(({ currentUser }) => ({ currentUser }), null)(Piece)

@@ -10,7 +10,7 @@ export const fetchUser = () => {
     }
     
     fetch('/login', configObj).then(response => response.json()).then(json => {
-      dispatch({type: 'ADD_CURRENT_USER' ,payload: json})
+      dispatch({type: 'ADD_CURRENT_USER', payload: json})
       localStorage.token = json.token
     })
   }

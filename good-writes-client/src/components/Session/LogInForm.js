@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { postRequest } from '../../fetchRequests';
 
-function LogInForm(props) {
+export default function LogInForm(props) {
+  const dispatch = useDispatch()
+  const addCurrentUser = payload => dispatch({ type: "ADD_CURRENT_USER", payload })
 
   const [formData, setFormData] = useState({ email: '', password: '' })
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
@@ -24,7 +26,7 @@ function LogInForm(props) {
       if(user.error) {
         setError(user.error)
       } else {
-        props.addCurrentUser(user)
+        addCurrentUser(user)
         localStorage.token = user.token
       }
     })
@@ -60,7 +62,3 @@ function LogInForm(props) {
   )
 
 }
-
-const mapDispatchToProps = dispatch => ({ addCurrentUser: payload => { dispatch({ type: "ADD_CURRENT_USER", payload }) } })
-
-export default connect(null, mapDispatchToProps)(LogInForm)

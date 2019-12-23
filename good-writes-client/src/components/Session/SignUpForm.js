@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { postRequest } from '../../fetchRequests';
 
-function SignUpForm(props) {
+export default function SignUpForm(props) {
+  const dispatch = useDispatch()
+  const addCurrentUser = payload => dispatch({ type: "ADD_CURRENT_USER", payload })
 
   const [formData, setFormData] = useState({ username: '', email: '', password: '', password_confirmation: '' })
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
@@ -19,7 +21,7 @@ function SignUpForm(props) {
       if(user.errors) {
         setErrors(user.errors)
       } else {
-        props.addCurrentUser(user)
+        addCurrentUser(user)
         localStorage.token = user.token
       }
     })
@@ -87,7 +89,3 @@ function SignUpForm(props) {
   )
 
 }
-
-const mapDispatchToProps = dispatch => ({ addCurrentUser: payload => { dispatch({ type: "ADD_CURRENT_USER", payload }) } })
-
-export default connect(null, mapDispatchToProps)(SignUpForm)

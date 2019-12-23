@@ -1,12 +1,14 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-function LogOutButton(props) {
+export default function LogOutButton(props) {
+  const dispatch = useDispatch()
+  const removeCurrentUser = () => { dispatch({ type: "REMOVE_CURRENT_USER" }) }
 
   const handleClick = () => {
-    props.removeCurrentUser()
+    removeCurrentUser()
     localStorage.clear()
   }
   
@@ -15,9 +17,3 @@ function LogOutButton(props) {
   )
 
 }
-
-const mapDispatchToProps = dispatch => ({ 
-  removeCurrentUser: payload => { dispatch({ type: "REMOVE_CURRENT_USER", payload }) }
-})
-
-export default connect(null, mapDispatchToProps)(LogOutButton)

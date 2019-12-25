@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import GroupShowSidebar from './GroupShowSidebar';
 import FeaturedPiece from './FeaturedPiece';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getRequest } from '../../fetchRequests';
 
-function GroupShow(props) {
+export default function GroupShow(props) {
+  const history = useHistory()
   const [group, setGroup] = useState({featured_piece: {comments: []}, user_groups: []})
   const [userGroup, setUserGroup] = useState({valid_pieces: []})
 
   useEffect( () => {
     getRequest(`/groups/${props.match.params.id}`).then(json => {
       if(json.status) {
-        props.history.push('/')
+        history.replace('/')
       } else {
         setUserGroup(json.user_group)
         setGroup(json.group)
@@ -38,5 +39,3 @@ function GroupShow(props) {
   )
 
 }
-
-export default withRouter(GroupShow)

@@ -3,18 +3,18 @@ import Pieces from '../Pieces/Pieces'
 import NewPieceButton from '../Pieces/NewPieceButton';
 import PiecesFormFilterButtons from '../Pieces/PiecesFormFilterButtons';
 import UserShowSidebar from './UserShowSidebar';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getRequest } from '../../fetchRequests';
 
-function User(props) {
-
+export default function User(props) {
+  const history = useHistory()
   const [user, setUser] = useState({ id: props.match.params.id, username: '', email: '', pieces: [], groups: [] })
 
   const [piecesFilter, setPiecesFilter] = useState()
 
   useEffect(() => {
     getRequest(`/users/${props.match.params.id}`).then(user => {
-      user.status ? props.history.push('/') : setUser(user)
+      user.status ? history.replace('/') : setUser(user)
     })
   }, [props.match.params.id])
 
@@ -31,5 +31,3 @@ function User(props) {
   )
 
 }
-
-export default withRouter(User)

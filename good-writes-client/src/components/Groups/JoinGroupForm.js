@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { postRequest } from '../../fetchRequests';
 
-function JoinGroupForm(props) {
+export default function JoinGroupForm(props) {
+  const history = useHistory()
 
   const [formData, setFormData] = useState({ alias: '' })
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
@@ -15,7 +16,7 @@ function JoinGroupForm(props) {
 
     const body = { user_group: {...formData }, group_id: props.group.id }
     return postRequest(`/user_groups`, body).then(userGroup => {
-      props.history.push(`/groups/${userGroup.group_id}`)
+      history.push(`/groups/${userGroup.group_id}`)
     })
   }
 
@@ -39,5 +40,3 @@ function JoinGroupForm(props) {
   )
 
 }
-
-export default withRouter(JoinGroupForm)

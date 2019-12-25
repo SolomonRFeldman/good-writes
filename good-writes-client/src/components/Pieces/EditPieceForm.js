@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -8,7 +8,9 @@ import Button from 'react-bootstrap/Button';
 import PieceForm from './PieceForm';
 import { patchRequest } from '../../fetchRequests';
 
-function EditPieceForm(props) {
+export default function EditPieceForm(props) {
+  const history = useHistory()
+
   const [formData, setFormData] = useState(props.piece)
   const [errors, setErrors] = useState()
 
@@ -26,7 +28,7 @@ function EditPieceForm(props) {
           setErrors({})
           props.handleClose()
         } else {
-          props.history.push(`/users/${piece.user_id}/pieces/${piece.id}`)
+          history.push(`/users/${piece.user_id}/pieces/${piece.id}`)
         }
       }
     })
@@ -53,5 +55,3 @@ function EditPieceForm(props) {
   )
 
 }
-
-export default withRouter(EditPieceForm)

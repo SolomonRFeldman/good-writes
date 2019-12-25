@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -8,7 +8,8 @@ import Button from 'react-bootstrap/Button';
 import PieceForm from './PieceForm';
 import { postRequest } from '../../fetchRequests';
 
-function NewPieceForm(props) {
+export default function NewPieceForm(props) {
+  const history = useHistory()
 
   const [formData, setFormData] = useState()
   const [errors, setErrors] = useState()
@@ -16,7 +17,7 @@ function NewPieceForm(props) {
   const handleSubmit = event => {
     event.preventDefault()
     return postRequest('/pieces', {piece: formData}).then(piece => {
-      piece.errors ? setErrors(piece.errors) : props.history.push(`/users/${piece.user_id}/pieces/${piece.id}`)
+      piece.errors ? setErrors(piece.errors) : history.push(`/users/${piece.user_id}/pieces/${piece.id}`)
     })
   }
 
@@ -41,5 +42,3 @@ function NewPieceForm(props) {
   )
 
 }
-
-export default withRouter(NewPieceForm)

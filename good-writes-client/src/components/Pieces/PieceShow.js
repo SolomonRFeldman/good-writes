@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Piece from './Piece'
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getRequest } from '../../fetchRequests';
 
-function PieceShow(props) {
+export default function PieceShow(props) {
+  const history = useHistory()
 
   const [piece, setPiece] = useState()
   useEffect( () => {
     getRequest(`/pieces/${props.match.params.id}`).then(piece => {
-      piece.status ? props.history.push('/') : setPiece(piece)
+      piece.status ? history.replace('/') : setPiece(piece)
     })
   }, [props.match.params.id])
 
@@ -17,5 +18,3 @@ function PieceShow(props) {
   )
 
 }
-
-export default withRouter(PieceShow)

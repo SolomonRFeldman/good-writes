@@ -1,17 +1,18 @@
 import React from 'react';
 import ModalButton from '../Modal/ModalButton';
 import ButtonConfirmation from '../Modal/ButtonConfirmation';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { deleteRequest } from '../../fetchRequests';
 
-function DeletePieceButton(props) {
+export default function DeletePieceButton(props) {
+  const history = useHistory()
 
   const action = () => {
     return deleteRequest(`/pieces/${props.piece.id}`).then(piece => {
       if(props.collection) {
         props.collection.setPieces(props.collection.pieces.filter(collectionPiece => collectionPiece.id !== piece.id))
       } else {
-        props.history.push(`/users/${piece.user_id}`)
+        history.replace(`/users/${piece.user_id}`)
       }
     })
   }
@@ -27,5 +28,3 @@ function DeletePieceButton(props) {
 }
 
 DeletePieceButton.defaultProps = { variant: 'danger' }
-
-export default withRouter(DeletePieceButton)

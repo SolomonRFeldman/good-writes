@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { postRequest } from '../../fetchRequests';
 
-function NewGroupForm(props) {
+export default function NewGroupForm(props) {
+  const history = useHistory()
 
   const [formData, setFormData] = useState({form: 'Poetry'})
   const handleChange = event => setFormData({ ...formData, [event.target.id]: event.target.value })
@@ -21,7 +22,7 @@ function NewGroupForm(props) {
     event.preventDefault()
     const body = { group: formData }
     return postRequest('/groups', body).then(group => {
-      group.errors ? setErrors(group.errors) : props.history.push(`/groups/${group.id}`)
+      group.errors ? setErrors(group.errors) : history.push(`/groups/${group.id}`)
     })
   }
 
@@ -66,5 +67,3 @@ function NewGroupForm(props) {
   )
 
 }
-
-export default withRouter(NewGroupForm)

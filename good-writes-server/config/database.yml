@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
+  host: db
   database: good_writes_server_production
-  username: good_writes_server
-  password: <%= ENV['GOOD_WRITES_SERVER_DATABASE_PASSWORD'] %>
+  username: postgres
+  password: <%= ENV['DB_PASSWORD'] %>

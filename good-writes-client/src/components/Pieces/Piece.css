@@ -1,0 +1,27 @@
+.piece:not(.profile) {
+  white-space: pre-wrap;
+}
+
+.piece {
+  max-width: 800px;
+  width: 80%;
+}
+
+.piece.profile > .header {
+  height: 100px;
+}
+
+.piece.profile > .body .text, .piece.profile > .header .text {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.piece.profile > .header .text {
+  max-width: calc(100% - 280px);
+}
+
+.piece.profile > .header .form-label {
+  position: relative;
+  top: -22px;
+}

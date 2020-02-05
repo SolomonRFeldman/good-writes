@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Piece.css'
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import PieceButtons from './PieceButtons';
@@ -12,7 +13,7 @@ export default function Piece(props) {
   const [piece, setPiece] = useState(props.piece)
   useEffect(() => setPiece(props.piece), [props.piece])
 
-  const header = <h1 className='display-4 d-inline-block'>{piece.title}</h1>
+  const header = <h1 className='text display-4 d-inline-block'>{piece.title}</h1>
   const headerElement = () => {
     return props.variant === 'profile' ?
       <Link to={`/users/${piece.user_id}/pieces/${piece.id}`}>{header}</Link> :
@@ -26,20 +27,17 @@ export default function Piece(props) {
     }
   }
 
+  const bodyContent = () => props.variant === 'profile' ? props.piece.content.replace(/\n/g, ' / ') : props.piece.content
 
-  const bodyStyle = () => {
-    if(props.variant === 'profile') return {overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}
-  }
-  
   return(
-    <Card style={{width: '800px'}} className='mx-auto my-4'>
-      <Card.Header>
+    <Card className={`piece ${props.variant} mx-auto my-4`}>
+      <Card.Header className='header'>
         {headerElement()}
-        <h3 className='d-inline-block ml-4'>{formBody()}</h3>
+        <h3 className='form-label d-inline-block ml-4'>{formBody()}</h3>
         {headerButtons()}
       </Card.Header>
-      <Card.Body>
-        <p style={bodyStyle()} className='mb-0'>{piece.content}</p>
+      <Card.Body className='body'>
+        <p className='text mb-0'>{bodyContent()}</p>
       </Card.Body>
     </Card>
   )

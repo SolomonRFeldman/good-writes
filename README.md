@@ -1,5 +1,7 @@
 Ruby Version: 2.6.4 - Rails Version: 6.0.1 - React Version: 16.12.0
 
+Deployed App: https://goodwrites.solomonfeldman.dev/
+
 # Good Writes
 
 Good Writes is a writing workshop react-rails web app. Users can join or create groups and showcase their pieces to be workshopped or help workshop other's pieces by leaving comments.

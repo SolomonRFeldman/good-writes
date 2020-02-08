@@ -1,0 +1,39 @@
+.group > .header {
+  display: grid;
+  grid-template-rows: 18px auto 18px;
+  grid-template-columns: auto 61px;
+  padding: 0px;
+}
+
+.group .label {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+}
+
+.group .type {
+  background: rgb(61, 61, 61);
+  color: white;
+  border-radius: .25rem;
+  font-size: .8rem;
+  width: 50px;
+  float: right;
+  margin-top: -1px;
+  margin-left: 12px;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  text-align: center;
+}
+
+.group .buttons {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 2;
+}

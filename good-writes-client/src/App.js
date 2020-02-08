@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux';
 import { fetchUser } from './actions/userActions';
 
 
-
 export default function App(props) {
   const dispatch = useDispatch()
   useEffect(() => {

@@ -11,7 +11,7 @@ export default function GroupShowSidebar(props) {
       <Navbar.Brand>Alias: {props.userGroup.alias}</Navbar.Brand>
       <SelectPiece userGroup={props.userGroup} group={props.group} setGroup={props.setGroup} />
       <Members members={props.group.user_groups} />
-      {props.userGroup.moderator_status ? <NextPieceButton className='mb-3' group={props.group} setGroup={props.setGroup} /> : null}
+      {props.userGroup.moderator_status ? <NextPieceButton className='m-2' group={props.group} setGroup={props.setGroup} /> : null}
       <LeaveGroupButton userGroup={props.userGroup} />
     </Navbar>
   )

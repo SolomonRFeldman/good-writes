@@ -14,7 +14,7 @@ export default function LeaveGroupButton(props) {
   const modalProps = {action: action, children: 'Are you sure you want to leave this group?'}
 
   return(
-    <ModalButton Modal={ButtonConfirmation} modalProps={modalProps} variant='danger'>
+    <ModalButton className='m-2' Modal={ButtonConfirmation} modalProps={modalProps} variant='danger'>
       Leave Group
     </ModalButton>
   )
